@@ -18,8 +18,18 @@ OUT = VOXELISE(xRes,yRes,zRes,fv,'xyz');
 %Set x y and z index values
 [xIndeces,yIndeces,zIndeces] = ind2sub(size(OUT),find(OUT));
 %Convert verts back to their original scale
-
-
+%Get index ranges
+xIRange = range(xIndeces);
+yIRange = range(yIndeces);
+zIRange = range(zIndeces);
+%Devide the values by the ranges
+xIndeces = xIndeces / xIRange;
+yIndeces = yIndeces / yIRange;
+zIndeces = zIndeces / zIRange;
+%Multiply by the new scale
+xIndeces = xIndeces * xRange;
+yIndeces = yIndeces * yRange;
+zIndeces = zIndeces * zRange;
 
 
 output = [xIndeces yIndeces zIndeces];
