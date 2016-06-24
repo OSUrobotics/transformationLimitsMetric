@@ -17,6 +17,12 @@ zRes = ceil(zRange * resolution);
 OUT = VOXELISE(xRes,yRes,zRes,fv,'xyz');
 %Set x y and z index values
 [xIndeces,yIndeces,zIndeces] = ind2sub(size(OUT),find(OUT));
+%Convert verts back to their original scale
+
+
+
+
 output = [xIndeces yIndeces zIndeces];
 end
+
 
