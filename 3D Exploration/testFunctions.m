@@ -9,10 +9,13 @@ fprintf('Centroid of Mesh: (%0.5f, %0.5f, %0.5f)\n',getCentroidMesh(vertices));
 %% Plot before transformation plot
 ax1 = subplot(1,2,1);
 stlPlot(vertices,faces,'Original');
+camlight('headlight');
 %% Generate and plot the transformed object
 transformedVertices = translateMesh(vertices,[1,1,2],5); % apply the transformation
 ax2 = subplot(1,2,2);
 stlPlot(transformedVertices,faces,'Transformed');
+camlight('headlight');
+
 %% Link the graph movement
 Link = linkprop([ax1, ax2], {'CameraUpVector', 'CameraPosition', 'CameraTarget'});
 setappdata(gcf, 'StoreTheLink', Link);
@@ -26,11 +29,14 @@ patch(sphereish,'FaceColor',   [0.8 0.8 1.0], ...
          'FaceLighting',    'gouraud',     ...
          'AmbientStrength', 0.15)
 axis image;
+camlight('headlight');
+
 
 %% Test object transformation
 figure
 subplot(1,2,1);
 stlPlot(vertices,faces,'Original');
+camlight('headlight');
 ax2 = subplot(1,2,2);
 for index = 1:size(sphereish.vertices,1)
     disp(index);
@@ -38,3 +44,4 @@ for index = 1:size(sphereish.vertices,1)
     stlPlot(transformedVertices,faces,'',false);
     hold on
 end
+camlight('headlight');
