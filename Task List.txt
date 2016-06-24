@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  A sad attempt to organize what needs to be done:
  * Add data output to 2D simulation -- COMPLETE
 	-How and what information do we want to output / save?
@@ -17,4 +18,26 @@
 	-Store data in an array with one axis representing the vector, another axis representing the progress made, and the value representing collision % 
 
  * Celebrate?
+=======
+ A sad attempt to organize what needs to be done:
+ * Add data output to 2D simulation -- COMPLETE
+	-How and what information do we want to output / save?
+	-Try storing output as a table with 4 rows: x, y, t, and % completion as a value from 0 to 1
+ * Write / use stl file importing scripts -- COMPLETE
+	-stlTools imports both binary and ascii to verts, faces, normals, and name
+ * Write % collision of meshes script
+	-Find volume of meshes -- Done using stlVolume or stlVolumeNormals, depending on the mesh
+	-Find intersection of meshes
+		-This is the hard part.  We have to find a way to approximate the collision volume
+	-CALCULATE!!!
+ * Write 3D transformation script
+	-Figure out how to deal with position and rotation sampling in 3D
+	-Figure out how to properly transform an object -- COMPLETE
+ * Create 3D simulation
+	-Combine 3D transformations with collision detection to do what the 2D sim does in 3D
+ * Add data output to 3D simulation
+	-Store data in an array with one axis representing the vector, another axis representing the progress made, and the value representing collision % 
+
+ * Celebrate?
+>>>>>>> d04fdf8ca450fa9712f5898d4bb35a4b767fb73b
     -Should definately do this
