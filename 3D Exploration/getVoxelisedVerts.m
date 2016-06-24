@@ -1,9 +1,6 @@
-function [ output ] = getVoxelisedVerts( v,f )
+function [ output ] = getVoxelisedVerts( v,f,resolution )
 %Takes vertices and faces of a mesh and converts it to a list of voxel
 %points
-
-%Constants
-RESOLUTION = 0.5;
 
 %Add v and f to a struct
 fv.vertices = v;
@@ -13,9 +10,9 @@ xRange = range(fv.vertices(:,1));
 yRange = range(fv.vertices(:,2));
 zRange = range(fv.vertices(:,3));
 %Scale based on resolution
-xRes = ceil(xRange * RESOLUTION);
-yRes = ceil(yRange * RESOLUTION);
-zRes = ceil(zRange * RESOLUTION);
+xRes = ceil(xRange * resolution);
+yRes = ceil(yRange * resolution);
+zRes = ceil(zRange * resolution);
 %VOXELISE into a logical array
 OUT = VOXELISE(xRes,yRes,zRes,fv,'xyz');
 %Set x y and z index values
