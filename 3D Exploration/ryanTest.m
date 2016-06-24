@@ -1,7 +1,7 @@
 clf
 [v,f,no,na] = stlRead('sphere_ascii.stl');
 
-voxels = getVoxelisedVerts(v,f, 0.25);
+voxels = getVoxelisedVerts(v,f, 1);
 
 hold off;
 scatter3(voxels(:,1),voxels(:,2),voxels(:,3),'k.');
