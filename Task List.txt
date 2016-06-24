@@ -7,6 +7,7 @@
  * Write % collision of meshes script
 	-Find volume of meshes -- Done using stlVolume or stlVolumeNormals, depending on the mesh
 	-Find intersection of meshes
+		-This is the hard part.  We have to find a way to approximate the collision volume
 	-CALCULATE!!!
  * Write 3D transformation script
 	-Figure out how to deal with position and rotation sampling in 3D
