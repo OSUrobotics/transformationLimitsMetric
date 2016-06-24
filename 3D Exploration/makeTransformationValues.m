@@ -9,7 +9,7 @@ translateVectors = vectorSphere.vertices';
 alpha = 0:angleVariance:360;
 beta = 0:angleVariance:360;
 gamma = 0:angleVariance:360;
-angleRotations = combvec(alpha, beta, gamma)';
+angleRotations = combvec(alpha, beta, gamma);
 %% Combine them into the possible combinations
 outputMatrix = combvec(translateVectors,angleRotations)';
 end
