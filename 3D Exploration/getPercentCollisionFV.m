@@ -1,10 +1,10 @@
-function [ output ] = getPercentCollision( vMeshA, fMeshA, vMeshB, fMeshB, precision )
+function [ output ] = getPercentCollisionFV( voxelData, vMeshB, fMeshB )
 %GETPERCENTCOLLISION Returns the percent of meshA inside meshB
 %   Detailed explanation goes here
 
 %Get the voxel verteces of meshA
-voxelA = getVoxelisedVerts(vMeshA, fMeshA, precision);
-%Test meshA's voxels in meshB
+voxelA = voxelData;
+%Test the voxels in meshB
 testedPoints = [voxelA(:,1), voxelA(:,2), voxelA(:,3), intriangulation(vMeshB,fMeshB,voxelA)];
 %Remove all the points that tested outside meshB
 condition = testedPoints(:,4)==0;
