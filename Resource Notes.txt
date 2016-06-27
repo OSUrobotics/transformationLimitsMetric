@@ -9,6 +9,8 @@ Uniform sampling sphere
 * http://www.mathworks.com/matlabcentral/fileexchange/37004-suite-of-functions-to-perform-uniform-sampling-of-a-sphere
 Generating Volumes (Voxels)
 * http://www.mathworks.com/matlabcentral/fileexchange/24086-polygon2voxel
+Make stuff faster
+* http://www.ee.columbia.edu/~marios/matlab/Writing_Fast_MATLAB_Code.pdf
 
 Notes:
 We will only need to deal with rotation and translation of matrices.
