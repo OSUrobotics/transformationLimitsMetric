@@ -1,6 +1,8 @@
 function [ output ] = getVoxelisedVerts( v,f,resolution )
-%Takes vertices and faces of a mesh and converts it to a list of voxel
-%points
+%GENERATETRANSLATIONVECTORS Takes a mesh and converts it to a voxel volume
+%   Returns a Nx3 array of points that are inside the mesh defined by v and
+%   f.  The number of points is dertermined by resolution, with higher
+%   resolutions yielding higher N values.
 
 %Add v and f to a struct
 fv.vertices = v;

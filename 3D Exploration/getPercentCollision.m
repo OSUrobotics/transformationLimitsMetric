@@ -1,6 +1,9 @@
 function [ output ] = getPercentCollision( vMeshA, fMeshA, vMeshB, fMeshB, precision )
 %GETPERCENTCOLLISION Returns the percent of meshA inside meshB
-%   Detailed explanation goes here
+%   Accepts the vertex and face value of a mesh, and the
+%   vertex and face data of another mesh mesh.  Returns the percent of
+%   meshA's voxelised points that are inside of meshB.  Uses
+%   intriangulation.
 
 %Get the voxel verteces of meshA
 voxelA = getVoxelisedVerts(vMeshA, fMeshA, precision);
