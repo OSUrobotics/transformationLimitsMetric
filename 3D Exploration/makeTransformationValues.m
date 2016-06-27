@@ -2,16 +2,14 @@ function [ outputMatrix ] = makeTransformationValues( xyzSphereComplexity, angle
 %MAKETRANSFORMATIONVALUES Summary of this function goes here
 %   Detailed explanation goes here
 %% Make the translation vectors using a uniform sphere
-translateSphere = IcosahedronMesh;
-translateSphere = SubdivideSphericalMesh(translateSphere,xyzSphereComplexity);
+moveSphere = IcosahedronMesh;
+translateSphere = SubdivideSphericalMesh(moveSphere,xyzSphereComplexity);
 translateVectors = translateSphere.vertices';
 %% Make a set of normal vectors using a sphere
-normalsSphere = IcosahedronMesh;
-normalsSphere = SubdivideSphericalMesh(normalsSphere,angleSphereComplexity);
+normalsSphere = SubdivideSphericalMesh(moveSphere,angleSphereComplexity);
 normalVectors = normalsSphere.vertices';
 %% Make the angle values for the angle rotation
 angleRotations = -pi:(2*pi)/angleDistribution:pi;
 %% Combine them into the possible combinations
 outputMatrix = combvec(translateVectors,normalVectors,angleRotations)';
 end
-
