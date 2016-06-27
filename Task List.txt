@@ -5,7 +5,7 @@
 	-Try storing output as a table with 4 rows: x, y, t, and % completion as a value from 0 to 1
  * Write / use stl file importing scripts -- COMPLETE
 	-stlTools imports both binary and ascii to verts, faces, normals, and name
- * Write % collision of meshes script
+ * Write % collision of meshes script -- COMPLETE
 	-Find volume of meshes -- Done using stlVolume or stlVolumeNormals, depending on the mesh
 	-Find intersection of meshes
 	-CALCULATE!!!
