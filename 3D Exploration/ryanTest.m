@@ -25,7 +25,7 @@ scatter3(points(:,1), points(:,2), points(:,3), '.r');
 
 [vol, surf] = meshVolume(v,f);
 
-percent = getPercentCollisionFVwESaW(v2,f2, surf, vol, v, f);
+percent = getPercentCollisionFVwESaW(v,voxels,v2,f2,0.5,8,1);
 disp (percent)
 
 axis image
