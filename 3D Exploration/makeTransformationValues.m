@@ -1,6 +1,5 @@
 function [ outputMatrix ] = makeTransformationValues( xyzSphereComplexity, angleSphereComplexity, angleDistribution)
-%MAKETRANSFORMATIONVALUES Summary of this function goes here
-%   Detailed explanation goes here
+%%MAKETRANSFORMATIONVALUES Takes complexity values and generates a list of directional vectors and axes for rotation around, with rotation values 
 %% Make the translation vectors using a uniform sphere
 moveSphere = IcosahedronMesh;
 translateSphere = SubdivideSphericalMesh(moveSphere,xyzSphereComplexity);

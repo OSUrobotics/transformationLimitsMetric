@@ -17,7 +17,7 @@ sphereVertices = [x(:) y(:) z(:)];
 %% Loop through and render on the plot
 clf;
 for values = transformationValues'
-    eulerIntegration3dFromValues(values', sphereVertices, 10, 10);
+    visualizeTransformations(eulerIntegration3dFromValues(values, sphereVertices, 10, 10));
 end
 axis image
 xlabel('X Axis');
