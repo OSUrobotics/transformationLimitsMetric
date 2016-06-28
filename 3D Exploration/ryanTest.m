@@ -1,20 +1,21 @@
 clf
-[v,f,no,na] = stlRead('WineGlass.stl');
+[v,f] = read_ply('PitcherAssmM.ply');
 
-voxels = getVoxelisedVerts(v,f, 1 );
+voxels = getVoxelisedVerts(v,f, 0.5);
 
 hold off;
 scatter3(voxels(:,1),voxels(:,2),voxels(:,3),'k.');
 hold on;
 
-[v2,f2,no,na] = stlRead('PitcherAssm.stl');
+[v2,f2] = stlRead('CrackerBox.stl');
 
-v2 = translateMesh(v2,[1,1,0],50);
+v2 = translateMesh(v2,[0,0,1],100);
 
 stlPlot(v2,f2,na);
 figure;
 
-points = [voxels(:,1), voxels(:,2), voxels(:,3), intriangulation(v2,f2,voxels)];
+voxels2 = [voxels; v];
+points = [voxels2(:,1), voxels2(:,2), voxels2(:,3), intriangulation(v2,f2,voxels2)];
 
 condition = points(:,4)==0;
 
@@ -22,7 +23,9 @@ points(condition, :) = [];
 
 scatter3(points(:,1), points(:,2), points(:,3), '.r');
 
-percent = getPercentCollisionFV(voxels, v2, f2);
+[vol, surf] = meshVolume(v,f);
+
+percent = getPercentCollisionFVwESaW(v2,f2, surf, vol, v, f);
 disp (percent)
 
 axis image
