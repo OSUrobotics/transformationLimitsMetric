@@ -9,8 +9,14 @@ fprintf('Centroid of Mesh: (%0.5f, %0.5f, %0.5f)\n',getCentroidMesh(vertices));
 
 %% Make transformation values
 % transformationValues = makeTransformationValues(2,2,5);
+%% Make example object
+[x,y,z]=sphere(20);
+sphereVertices = [x(:) y(:) z(:)];
+
 %% Loop through and render on the plot
 clf;
-for values = transformationValues
-    eulerIntegration3dFromValues(values, vertices, 10, 20);
+for values = transformationValues'
+    values = values';
+    eulerIntegration3dFromValues(values, sphereVertices, 10, 10);
 end
+axis image
