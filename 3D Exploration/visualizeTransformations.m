@@ -4,7 +4,6 @@ function visualizeTransformations( pts )
 % %% Clear the figure
 % close all, clf, figure;
 %% Make a colormap
-disp(size(pts));
 cmap = summer(size(pts,3));
 %% Plot the points
 for index = 1:size(pts,3)
