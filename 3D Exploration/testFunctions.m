@@ -1,6 +1,5 @@
 %% Load the files and prepare for graphing
 stlPath = 'stlTools/femur_binary.stl'; % sample object
-close all;
 figure
 [vertices,faces,~,~] = stlRead(stlPath); % read stl in as faces and vertex
 %% General interesting information about file
@@ -20,3 +19,6 @@ for values = transformationValues'
     eulerIntegration3dFromValues(values, sphereVertices, 10, 10);
 end
 axis image
+xlabel('X Axis');
+ylabel('Y Axis');
+zlabel('Z Axis');

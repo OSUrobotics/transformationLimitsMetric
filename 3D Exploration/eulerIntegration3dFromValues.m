@@ -10,9 +10,8 @@ ptsOut = ones([size(pts,1) size(pts,2)+1 stepNums]); % Done strange so padding 1
 ptsOut(:,1:3,1) = pts;
 %% Coloring for testing data
 % clf, close all;
-cmap = summer(stepNums);
+cmap = jet(stepNums);
 plot3(ptsOut(:,1,1),ptsOut(:,2,1),ptsOut(:,3,1),'.-','Color',cmap(1,:));
-axis image
 hold on
 %% Apply the matrix iteratively to the pts
 for index = 2:stepNums
