@@ -9,10 +9,10 @@ fprintf('Centroid of Mesh: (%0.5f, %0.5f, %0.5f)\n',getCentroidMesh(vertices));
 
 %% Make transformation values
 % transformationValues = makeTransformationValues(2,2,5);
- transformationValues = valuesIn;
-transformationValues = transformationValues(1:501:end,:);
+transformationValues = valuesIn;
+transformationValues = transformationValues(1:30,:);
 %% Make example object
-[x,y,z]=sphere(20);
+[x,y,z] = sphere(20);
 sphereVertices = [x(:) y(:) z(:)];
 %% Loop through and render on the plot
 clf;

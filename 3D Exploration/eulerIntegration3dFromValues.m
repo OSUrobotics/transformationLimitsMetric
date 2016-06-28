@@ -20,5 +20,5 @@ for index = 2:stepNums
     ptsOut(:,:,index)=ptsOut(:,:,index-1)*stepMatrix';
 end
 %% Remove the unneeded 1 column used for transformations
-ptsOut = ptsOut(:,:,1:3);
+ptsOut = ptsOut(:,1:3,:);
 end
