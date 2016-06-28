@@ -21,9 +21,9 @@ function [ outputVectors ] = generateTranslationVectors( resolution )
 % end
 
 %% Actally Working
-
-[x,y,z] = sphere(floor(sqrt(resolution)));
-outputVectors = [x(:) y(:) z(:)];
-scatter3(outputVectors(:,1),outputVectors(:,2),outputVectors(:,3),'.r');
+disp('Do not use this function: generateTranslationVectors. Use makeTransformationValues and makeTransformationMatrix instead');
+% [x,y,z] = sphere(floor(sqrt(resolution)));
+% outputVectors = [x(:) y(:) z(:)];
+% scatter3(outputVectors(:,1),outputVectors(:,2),outputVectors(:,3),'.r');
 end
 
