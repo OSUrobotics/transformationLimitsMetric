@@ -6,4 +6,3 @@ for index = 1:size(transformationValues,1)
     transformationMatrices(:,:,index) = makehgtform('translate',transformationValues(index,1:3),'axisrotate',transformationValues(index,4:6),transformationValues(index,7));
 end
 end
-
