@@ -7,6 +7,9 @@ function [ ptsOut, positionTransformsVector, positionTransformsMatrix ] = eulerI
 % translateScalar: a number to scale the unit translation vector up by, useful when visualizing the function
 % OUTPUT:
 % ptsOut: a 3d matrix with size [number of pts, 3, stepNums], with each index in the stepNums dimension being a frame of translation
+% positionTransformsVector: a 2d matrix with size [7, stepNums], which has, in order of row, x, y, z translation values to get from the origin to that step, then a 4 long quaternion which details the rotation transformation from natural position. The order of application to reproduce the points at a given step is rotation then translation
+% positionTransformsMatrix: a 3d matrix with size [4, 4, stepNums], detailing the transformation matrix to get from origin to that step of the animation, to be multiplied after the vertical points list 
+
 %% Apply the scalar to the translation values
 values(1:3) = translateScalar*values(1:3);
 %% Get the step transformation matrix
