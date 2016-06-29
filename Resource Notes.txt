@@ -11,7 +11,8 @@ Generating Volumes (Voxels)
 * http://www.mathworks.com/matlabcentral/fileexchange/24086-polygon2voxel
 Make stuff faster
 * http://www.ee.columbia.edu/~marios/matlab/Writing_Fast_MATLAB_Code.pdf
-
+Transformation matrix to quaternion
+* https://www.mathworks.com/matlabcentral/fileexchange/1176-quaternion-toolbox/content/quaternions/dcm2q.m
 Notes:
 We will only need to deal with rotation and translation of matrices.
 Transformations are applied in right to left order- to transform point A by first rotating then translating it, it would be A*T*R
