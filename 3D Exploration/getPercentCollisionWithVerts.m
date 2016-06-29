@@ -1,4 +1,4 @@
-function [ output ] = getPercentCollisionFVwESaW( meshAVerts, meshAVoxels, vMeshB, fMeshB, resolution, pmDepth, pmScale )
+function [ output ] = getPercentCollisionWithVerts( meshAVerts, meshAVoxels, vMeshB, fMeshB, resolution, pmDepth, pmScale )
 %GETPERCENTCOLLISIONFVWES Returns the percent of meshA inside meshB
 %   
 
