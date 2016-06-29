@@ -2,7 +2,7 @@
 stlPath = 'stlTools/femur_binary.stl'; % sample object
 load('../transformationValues.mat');
 figure
-[vertices,faces,~,~] = stlRead(stlPath); % read stl in as faces and vertex
+[vertices,faces,~,~] = stlReadBinary(stlPath); % read stl in as faces and vertex
 %% General interesting information about file
 fprintf('Number of vertices: %i\n',size(vertices,1));
 fprintf('Centroid of Mesh: (%0.5f, %0.5f, %0.5f)\n',getCentroidMesh(vertices));
@@ -14,10 +14,11 @@ transformationValues = transformationValues(1:30,:);
 %% Make example object
 [x,y,z] = sphere(20);
 sphereVertices = [x(:) y(:) z(:)];
+stepNums = 10;
 %% Loop through and render on the plot
 clf;
-for values = transformationValues'
-    [ptsOut] = eulerIntegration3dFromValues(values, sphereVertices, 10, 10);
+for values = transformationValues.'
+    [ ptsOut, positionTransformsVector, positionTransformsMatrix ] = eulerIntegration3dFromValues(values, sphereVertices, stepNums, 10);
     visualizeTransformations(ptsOut);
 end
 axis image

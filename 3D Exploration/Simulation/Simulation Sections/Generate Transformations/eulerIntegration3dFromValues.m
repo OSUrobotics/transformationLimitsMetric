@@ -11,7 +11,7 @@ function [ ptsOut, positionTransformsVector, positionTransformsMatrix ] = eulerI
 values(1:3) = translateScalar*values(1:3);
 %% Get the step transformation matrix
 % Rotates around the axis then translates
-stepMatrix = makehgtform('translate',values(1:3)*1/stepNums,'axisrotate',values(4:6),values(7)*1/stepNums)';
+stepMatrix = makehgtform('translate',values(1:3)*1/stepNums,'axisrotate',values(4:6),values(7)*1/stepNums).';
 %% Establish the finish points matrix
 ptsOut = ones(size(pts,1),4,stepNums); % Done strange so padding 1 for 4x4 transformations
 ptsOut(:,1:3,1) = pts;
@@ -25,9 +25,8 @@ for stepIndex = 2:stepNums
     %% Figure out the transformation to get there
     positionTransformsMatrix(:,:,stepIndex) = (positionTransformsMatrix(:,:,stepIndex-1)*stepMatrix);
     positionTransformsVector(1:4,stepIndex) = positionTransformsMatrix(:,:,stepIndex)'*[0;0;0;1]; % Get the XYZ translation for the step    
+    positionTransformsVector(4:7,stepIndex) = dcm2quat(positionTransformsMatrix(1:3,1:3,stepIndex)'); 
 end
-%% Figure out the transformation quaternion to get there
-positionTransformsVector(4:7,:)=dcm2q(permute(positionTransformsMatrix(1:3,1:3,:),[2 1 3]));
 %% Remove the unneeded 1 column used for transformations
 ptsOut = ptsOut(:,1:3,:);
 end
