@@ -19,7 +19,7 @@ stepNums = 10;
 clf;
 for values = transformationValues.'
     [ ptsOut, positionTransformsVector, positionTransformsMatrix ] = eulerIntegration3dFromValues(values, sphereVertices, stepNums, 10);
-    visualizeTransformations(ptsOut);
+    visualizeTransformations(vertices,faces);
 end
 axis image
 xlabel('X Axis');
