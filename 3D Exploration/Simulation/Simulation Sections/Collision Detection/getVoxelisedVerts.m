@@ -73,11 +73,18 @@ voxels = [xIndeces yIndeces zIndeces];
 voxels = translateMesh(voxels, [-1,0,0], range(xIndeces)/2);
 voxels = translateMesh(voxels, [0,-1,0], range(yIndeces)/2);
 voxels = translateMesh(voxels, [0,0,-1], range(zIndeces)/2);
+
+% voxels = voxels * ((range(xIndeces)/2) * makehgtform('translate', [-1,0,0]).');
+% voxels = voxels * ((range(yIndeces)/2) * makehgtform('translate', [0,-1,0]).');
+% voxels = voxels * ((range(zIndeces)/2) * makehgtform('translate', [0,0,-1]).');
+
 %Translate to object
 center = getBBcenter(v);
 thisCenter = getBBcenter(voxels);
 difference = center - thisCenter;
 voxels = translateMesh(voxels, difference, norm(difference));
+
+% voxels = voxels * (norm(difference) * makehgtform('translate', difference / norm(difference)).');
 end
 
 
