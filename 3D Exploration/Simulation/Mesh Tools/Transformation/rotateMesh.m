@@ -1,11 +1,39 @@
 function [ verticesOut ] = rotateMesh( verticesIn, normalVector, theta, centroid )
-%%ROTATEMESH Rotates the mesh vertices about the normal vector theta degrees
-%   Takes a center point for the mesh, or if missing takes the center of
-%   the bounding box surounding the mesh, and rotates the object about that
-%   point on the line going through the normal vector (if trying to
-%   rotate a cube, and normal vector is straight up, turns side to side).
+%% ROTATEMESH Rotates a set of verteces around a vector theta degrees
+%==========================================================================
+% 
+% USAGE
+%       [ verticesOut ] = rotateMesh( verticesIn, normalVector, theta, centroid )
+%
+% INPUTS
+%
+%       verticesIn      - Mandatory - Nx3 array     -List of verteces where N is the number of verteces 
+%       
+%       normalVector    - Mandatory - 1x3 array     -Vector to rotate around
+%       
+%       theta           - Mandatory - Single value  -Number of degrees to rotate around the normalVector
+%
+%       centroid        - Optional  - 1x3 array     -Point that represents the center of rotation
+%
+% OUTPUTS
+%
+%       verticesOut     - Mandatory - Nx3 array     -List of verteces where N is the number of verteces in.
+%
+% EXAMPLE
+%
+%       To rotate an stl file 90 degrees on the z axis:
+%       >>  stlVerts = rotateMesh( stlVerts, [0,0,1], 90 )
+%
+%       To get a new set of verts that is rotated 78 degrees on the x axis around a specified point:
+%       >>  newVerts = rotateMesh( oldVerts, [1,0,0], 78, rotationPoint )
+%
+% NOTES
+%
+%   -If input vector is not a unit vector, it will be normalized internaly
+%==========================================================================
+
 %% Standardizing passed in contents if not in desired format
-if nargin == 3 % if there isn't a given center, make it the bounding box center
+if nargin == 3 % if there isn't a given center, make it the centroid
     centroid = getCentroidMesh(verticesIn);
 end
 normalVector = normalVector/norm(normalVector); % convert the normal vector into a unit vector
@@ -14,11 +42,7 @@ if centroid == 0 % if don't need to relocate center to origin before rotating
     verticesOut = quatrotate([sind(theta/2),normalVector(:)'],verticesIn); % apply the quaternion rotation
 else % if center and origin don't overlap
     verticesIn = bsxfun(@minus,verticesIn,centroid); % move center to origin and transpose matrix
-%     figure;
-%     scatter3(verticesIn(:,1),verticesIn(:,2),verticesIn(:,3)); % test the values in
     verticesOut = quatrotate([sind(theta/2),normalVector(:)'],verticesIn); % apply the quaternion rotation
     verticesOut = bsxfun(@plus,verticesOut,centroid); % move center back to original place
 end
-% figure;
-% scatter3(verticesOut(:,1),verticesOut(:,2),verticesOut(:,3)); % test the result out
 end
