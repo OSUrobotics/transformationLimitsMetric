@@ -3,8 +3,9 @@ function [ percentages ] = getCollisionValues( meshAVerts, meshAVoxels, meshBVer
 %   Detailed explanation goes here
 
 %Loop through all steps and return collision values
+percentages = zeros(1,size(meshAVerts,3));
 for i = 1:size(meshAVerts, 3)
-    percentages(1,i) = getPercentCollisionWithVerts(meshAVerts(:,:,i),meshAVoxels(:,:,i),meshBVerts,meshBFaces,resolution,pmDepth,pmScale)
+    percentages(i) = getPercentCollisionWithVerts(meshAVerts(:,:,i),meshAVoxels(:,:,i),meshBVerts,meshBFaces,resolution,pmDepth,pmScale);
 end
 end
 

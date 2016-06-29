@@ -1,4 +1,16 @@
-function [ output_args ] = runSimulation( path2object, path2hand, objectScaleFactor, handScaleFactor, directionPoints, orientationPoints, angleDistribution, interpolationNumber, voxelResolution, pmDepth, pmScale)
+path2object = '';
+path2hand = '';
+objectScaleFactor = 0.5;
+handScaleFactor = 1;
+transformationScaleFactor = 1.5;
+numDirectionPoints = 50;
+numOrientationPoints = 25;
+angleDistribution = 10;
+interpolationNumber = 10;
+voxelResolution = 0.5;
+pmDepth = 8;
+pmScale = 1;
+outputFile = 'Out.mat';
 %RUNSIMULATION loads an object PLY file, a pre-positioned hand STL, and some settings and returns the area overlap of the two objects at evenly distributed transformations 
 %% Load the object and scale to origin
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
@@ -14,20 +26,24 @@ handVpad = makehgtform('translate',-getCentroidMesh(handV)).'*handVpad;
 handVpad = makehgtform('scale',handScaleFactor/max(abs(handV(:)))).'*handVpad;
 handV = handVpad(1:3,:);
 %% Generate transformation directions and orientations
-transformationValues = makeTransformationValues(directionPoints,orientationPoints,angleDistribution); % Use the function to generate the matrix of combinations
+transformationValues = makeTransformationValues(numDirectionPoints,numOrientationPoints,angleDistribution); % Use the function to generate the matrix of combinations
 %% Loop through and render on the plot
 clf;
-for values = transformationValues
+
+outputArray = zeros(interpolationNumber,8,size(transformationValues, 2));
+for valueIndex = 1:size(transformationValues, 2)
+    values = transformationValues(:,valueIndex);
     [ptsOut,positionTransformsVector,positionTransformsMatrix] = eulerIntegration3dFromValues(values,objectV,interpolationNumber,1);
     visualizeTransformations(ptsOut);
     %Access ptsOut as (pointNumber, axis, step)
     [voxOut,~,~] = eulerIntegration3dFromValues(values,objectVox,interpolationNumber,1);
     percentages = getCollisionValues(ptsOut,voxOut,handV,handF,voxelResolution,pmDepth,pmScale);
-    
+    for i = 1:interpolationNumber
+        outputArray(i,:,valueIndex) = [positionTransformsVector(:,i) percentages(i)];
+    end    
 end
+%Write outputArray... somehow.
 axis image
 xlabel('X Axis');
 ylabel('Y Axis');
 zlabel('Z Axis');
-end
-
