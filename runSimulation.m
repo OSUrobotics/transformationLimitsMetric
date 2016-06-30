@@ -17,8 +17,7 @@ voxelResolution = 0.5;
 pmDepth = 4;
 pmScale = 1;
 outputFilePath = 'Output/S%iAreaIntersection.csv';
-tableHeaders = {'Timestamp','X Translation','Y Translation','Z Translation','Quaternion Value 1','Quaternion Value 2','Quaternion Value 3','Quaternion Value 4','Percent Volume Intersection'};
-%RUNSIMULATION loads an object PLY file, a pre-positioned hand STL, and some settings and returns the area overlap of the two objects at evenly distributed transformations 
+tableHeaders = {'Timestamp','X_Translation','Y_Translation','Z_Translation','Quaternion_Value_1','Quaternion_Value_2','Quaternion_Value_3','Quaternion_Value_4','Percent_Volume_Intersection'};
 disp('Started Script');
 %% Load the object and scale to origin
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
@@ -47,7 +46,7 @@ outputMatrix = zeros(interpolationNumber,9,size(transformationValues, 2));
 tic;
 lengthValues = size(transformationValues, 2);
 % bar = waitbar(0,'Starting Loop...','Name','Running Grasp Simulation...');
-parfor valueIndex = lengthValues % For every combination of values
+parfor valueIndex = 1:lengthValues % For every combination of values
     %% Transform to all locations
     values = transformationValues(:,valueIndex); % Get the set of values
     [ptsOut,positionTransformsVector,~] = eulerIntegration3dFromValues(values,objectV,interpolationNumber,transformationScaleFactor); % Transform the object to each step
@@ -58,7 +57,7 @@ parfor valueIndex = lengthValues % For every combination of values
         percentages(i) = getPercentCollisionWithVerts(ptsOut(:,:,i),voxOut(:,:,i),handV,handF,voxelResolution,pmDepth,pmScale);
     end
     %% Write to matrix
-    outputMatrix(:,:,valueIndex) = [(1:interpolationNumber).' positionTransformsVector.' percentages(1:interpolationNumber).'];
+    outputMatrix(:,:,valueIndex) = [((1:interpolationNumber)-1).' positionTransformsVector.' percentages(1:interpolationNumber).'];
     %% Update the loading bar
     fprintf('Done with value set %i/%i\n',valueIndex,lengthValues);
     % waitbar(valueIndex / size(transformationValues, 2),bar,sprintf('Simulating... (%i/%i)', valueIndex,size(transformationValues,2)));
@@ -66,14 +65,13 @@ end
 %% End the timer and progressbar
 disp('Done looping');
 toc;
-close(bar);
 %% Remap output to timestamp pages
 outputMatrix = permute(outputMatrix,[3 2 1]);
 %% Save to file
-for i = 1:size(outputMatrix,3)
-    outputTable = cell2table(outputMatrix(:,:,i), 'VariableNames', tableHeaders);
-    writetable(outputTable, sprintf(outputFilePath,i));
-    fprintf('File written for time %i\n',i);
+for i = 2:size(outputMatrix,3)
+    outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', tableHeaders);
+    writetable(outputTable, sprintf(outputFilePath,i-1));
+    fprintf('File written for time %i\n',i-1);
 end
 %% End of script, kill parallel pool
 p = gcp;
