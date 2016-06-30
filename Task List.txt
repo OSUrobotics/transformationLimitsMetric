@@ -11,8 +11,8 @@ A sad attempt to organize what needs to be done:
  * Write 3D transformation script -- COMPLETE
 	-Figure out how to deal with position and rotation sampling in 3D -- COMPLETE
 	-Figure out how to properly transform an object -- COMPLETE
- * Create 3D simulation
+ * Create 3D simulation -- COMPLETE
 	-Combine 3D transformations with collision detection to do what the 2D sim does in 3D
  * Add data output to 3D simulation
-	-Store data in an array with one axis representing the vector, another axis representing the progress made, and the value representing collision % 
+	-Store data in an array with the collums storing step, x,y,z pos, x,y,z,w rot, and % collision.  The 3rd index represent the various extremes we are approaching.
  * Celebrate?
