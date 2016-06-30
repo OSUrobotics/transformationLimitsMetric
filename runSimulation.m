@@ -1,4 +1,4 @@
-path2object = 'BallOut.ply';
+path2object = 'PitcherAssmMTest.ply';
 path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
 handScaleFactor = 15;
