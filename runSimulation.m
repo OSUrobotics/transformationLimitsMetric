@@ -3,10 +3,10 @@ path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
 handScaleFactor = 15;
 transformationScaleFactor = 20;
-numDirectionPoints = 10;
-numOrientationPoints = 5;
-angleDistribution = 5;
-interpolationNumber = 3;
+numDirectionPoints = 20;
+numOrientationPoints = 15;
+angleDistribution = 10;
+interpolationNumber = 10;
 voxelResolution = 0.5;
 pmDepth = 4;
 pmScale = 1;
@@ -33,20 +33,23 @@ transformationValues = makeTransformationValues(numDirectionPoints,numOrientatio
 %% Loop through and render on the plot
 %clf;
 outputArray = zeros(interpolationNumber,9,size(transformationValues, 2));
-for valueIndex = 1:size(transformationValues, 2)
-    tic;
-    values = transformationValues(:,valueIndex);
-    [ptsOut,positionTransformsVector,~] = eulerIntegration3dFromValues(values,objectV,interpolationNumber,transformationScaleFactor);
+tic;
+for valueIndex = 1:size(transformationValues, 2) % For every combination of values
+    values = transformationValues(:,valueIndex); % Get the set of values
+    [ptsOut,positionTransformsVector,~] = eulerIntegration3dFromValues(values,objectV,interpolationNumber,transformationScaleFactor); % Transform the object to each step
     %visualizeTransformations(ptsOut, objectF);
-    %Access ptsOut as (pointNumber, axis, step)
-    [voxOut,~,~] = eulerIntegration3dFromValues(values,objectVox,interpolationNumber,transformationScaleFactor);
-    percentages = getCollisionValues(ptsOut,voxOut,handV,handF,voxelResolution,pmDepth,pmScale);
-    for i = 1:interpolationNumber
+    [voxOut,~,~] = eulerIntegration3dFromValues(values,objectVox,interpolationNumber,transformationScaleFactor); % Transform voxels as well
+    percentages = zeros(1,size(ptsOut,3)); % Preallocate
+    for i = 1:size(ptsOut, 3) % For every step, get the percent collision and add it to percentages
+        percentages(i) = getPercentCollisionWithVerts(ptsOut(:,:,i),voxOut(:,:,i),handV,handF,voxelResolution,pmDepth,pmScale);
+    end
+    for i = 1:interpolationNumber % For every step, add the values to the output array
         outputArray(i,:,valueIndex) = [i positionTransformsVector(:,i).' percentages(i)];
     end
-    waitbar(valueIndex / size(transformationValues, 2),bar,'Simulating...');
-    toc;
+    %Update the loading bar
+    waitbar(valueIndex / size(transformationValues, 2),bar,sprintf('Simulating... (%i/%i)', valueIndex,size(transformationValues,2)));
 end
+toc;
 close(bar);
 %Write outputArray... somehow.
 axis image
