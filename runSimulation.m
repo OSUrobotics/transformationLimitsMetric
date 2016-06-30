@@ -13,7 +13,7 @@ numDirectionPoints = 10;
 numOrientationPoints = 10;
 angleDistribution = 5;
 interpolationNumber = 10;
-voxelResolution = 0.5;
+voxelResolution = 5;
 pmDepth = 4;
 pmScale = 1;
 outputFilePath = 'Output/S%iAreaIntersection.csv';
@@ -37,6 +37,7 @@ disp('Loaded and scaled objects');
 clf;
 stlPlot(objectV,objectF,true);
 stlPlot(handV,handF,true,'Object & Hand');
+scatter3(objectVox(:,1),objectVox(:,2),objectVox(:,3), '.r');
 camlight('headlight');
 material('dull');
 %% Generate transformation directions and orientations

@@ -4,9 +4,10 @@ path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
 handScaleFactor = 15;
 
-stepsToSearch = [5];
+stepsToSearch = 5;
 collisionThreshold = 0.1;
 
+clf;
 %% Load the object and scale to origin
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
 objectVpad = [objectV ones(size(objectV,1),1)]; % Pad the points list with ones to work with 4x4 transformation matrices
@@ -29,14 +30,22 @@ for step = stepsToSearch
     data(condition, :) = [];
     tran = [tran; data];
 end
-
-cmap = summer()
+hold on;
 for transform = 1:size(tran,1)
+    tic;
+    vox = getVoxelisedVerts(objectV,objectF,5);
     obj2draw = translateMesh(objectV,[tran(transform,2),tran(transform,3),tran(transform,4)]);
-    obj2draw = rotateMesh(obj2draw,[tran(transform,5),tran(transform,6),tran(transform,7)],tran(transform,8));
+    obj2draw = obj2draw * (quatrotate(tran(transform,5:8),eye(3)).');
+    vox = translateMesh(vox,[tran(transform,2),tran(transform,3),tran(transform,4)]);
+    vox = vox * (quatrotate(tran(transform,5:8),eye(3)).');
+    %obj2draw = rotateMesh(obj2draw,[tran(transform,5),tran(transform,6),tran(transform,7)],tran(transform,8));
     %patch(obj2draw(:,1),obj2draw(:,2),obj2draw(:,3),'red');
-    patch('Faces',objectF,'Vertices',obj2draw,'FaceColor','none','EdgeColor','green','LineWidth',1);
-    axis image
+    %patch('Faces',objectF,'Vertices',obj2draw,'FaceColor','none','EdgeColor','green','LineWidth',1);
+    stlPlot(obj2draw,objectF,true);
+    scatter3(vox(:,1),vox(:,2),vox(:,3), '.r');
+    toc;
 end
-
+stlPlot(handV,handF,true,'Object & Hand');
+camlight('headlight');
+material('dull');
 

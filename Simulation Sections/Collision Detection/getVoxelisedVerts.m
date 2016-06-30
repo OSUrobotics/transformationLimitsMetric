@@ -55,10 +55,10 @@ xIndeces = xIndeces-1;
 yIndeces = yIndeces-1;
 zIndeces = zIndeces-1;
 %Convert verts back to their original scale
-%Get index ranges
-xIRange = range(xIndeces);
-yIRange = range(yIndeces);
-zIRange = range(zIndeces);
+%Get index ranges and account for difference between center and edge of voxel
+xIRange = range(xIndeces) + (resolution / 2);
+yIRange = range(yIndeces) + (resolution / 2);
+zIRange = range(zIndeces) + (resolution / 2);
 %Devide the values by the ranges
 xIndeces = xIndeces / xIRange;
 yIndeces = yIndeces / yIRange;
