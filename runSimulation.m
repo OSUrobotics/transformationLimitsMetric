@@ -4,7 +4,7 @@
 %   transformations.
 %% Declare variables and start parallel pool
 parpool(4);
-path2object = 'PitcherAssmMTest.ply';
+path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
 handScaleFactor = 15;
