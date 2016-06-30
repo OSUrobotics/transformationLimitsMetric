@@ -1,3 +1,8 @@
+%RUNSIMULATION Creates data representing a grasp
+%   Loads an object PLY file, a pre-positioned hand STL, and some settings 
+%   and returns the area overlap of the two objects at evenly distributed 
+%   transformations.
+
 path2object = 'PitcherAssmMTest.ply';
 path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
@@ -11,7 +16,9 @@ voxelResolution = 0.5;
 pmDepth = 4;
 pmScale = 1;
 outputFile = 'Out.mat';
-%RUNSIMULATION loads an object PLY file, a pre-positioned hand STL, and some settings and returns the area overlap of the two objects at evenly distributed transformations 
+
+%==========================================================================
+
 bar = waitbar(0,'Starting Sumulation...','Name','Running Grasp Simulation...');
 %% Load the object and scale to origin
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
@@ -35,23 +42,26 @@ transformationValues = makeTransformationValues(numDirectionPoints,numOrientatio
 outputArray = zeros(interpolationNumber,9,size(transformationValues, 2));
 tic;
 for valueIndex = 1:size(transformationValues, 2) % For every combination of values
+    %% Use euler integration generate all steps along the path
     values = transformationValues(:,valueIndex); % Get the set of values
     [ptsOut,positionTransformsVector,~] = eulerIntegration3dFromValues(values,objectV,interpolationNumber,transformationScaleFactor); % Transform the object to each step
     %visualizeTransformations(ptsOut, objectF);
     [voxOut,~,~] = eulerIntegration3dFromValues(values,objectVox,interpolationNumber,transformationScaleFactor); % Transform voxels as well
-    percentages = zeros(1,size(ptsOut,3)); % Preallocate
-    for i = 1:size(ptsOut, 3) % For every step, get the percent collision and add it to percentages
+    %% Get the collision data from every step
+    percentages = zeros(1,size(ptsOut,3));
+    for i = 1:size(ptsOut, 3)
         percentages(i) = getPercentCollisionWithVerts(ptsOut(:,:,i),voxOut(:,:,i),handV,handF,voxelResolution,pmDepth,pmScale);
     end
-    for i = 1:interpolationNumber % For every step, add the values to the output array
+    %% Store the data in the output array
+    for i = 1:interpolationNumber
         outputArray(i,:,valueIndex) = [i positionTransformsVector(:,i).' percentages(i)];
     end
-    %Update the loading bar
+    %% Update the loading bar
     waitbar(valueIndex / size(transformationValues, 2),bar,sprintf('Simulating... (%i/%i)', valueIndex,size(transformationValues,2)));
 end
 toc;
 close(bar);
-%Write outputArray... somehow.
+%% Finalize data (Export or something)
 axis image
 xlabel('X Axis');
 ylabel('Y Axis');
