@@ -1,7 +1,10 @@
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
 
-stepsToSearch = 1:9;
+objectScaleFactor = 5;
+handScaleFactor = 15;
+
+stepsToSearch = [5];
 collisionThreshold = 0.1;
 
 %% Load the object and scale to origin
@@ -18,18 +21,22 @@ handVpad = handVpad*(makehgtform('scale',handScaleFactor/max(abs(handV(:)))).');
 handV = handVpad(:,1:3);
 disp('Loaded and scaled objects');
 %% 
-transformations = [];
+tran = [];
 for step = stepsToSearch
     fromTable = readtable(sprintf('Output/S%iAreaIntersection.csv',step));
     data = table2array(fromTable);
     condition = data(:,9)<collisionThreshold;
-    data(condition, :) = 0;
-    transformations(:,:,step) = data;
+    data(condition, :) = [];
+    tran = [tran; data];
 end
 
-for transform = 1:size(transformations,1)
-    transformationSteps = transformations(transform,:,:)
-    if(transformationSteps ~= 0)
-        
-    end
+cmap = summer()
+for transform = 1:size(tran,1)
+    obj2draw = translateMesh(objectV,[tran(transform,2),tran(transform,3),tran(transform,4)]);
+    obj2draw = rotateMesh(obj2draw,[tran(transform,5),tran(transform,6),tran(transform,7)],tran(transform,8));
+    %patch(obj2draw(:,1),obj2draw(:,2),obj2draw(:,3),'red');
+    patch('Faces',objectF,'Vertices',obj2draw,'FaceColor','none','EdgeColor','green','LineWidth',1);
+    axis image
 end
+
+
