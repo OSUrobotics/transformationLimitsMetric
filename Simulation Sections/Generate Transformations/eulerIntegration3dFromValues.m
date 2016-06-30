@@ -1,14 +1,37 @@
 function [ ptsOut, positionTransformsVector, positionTransformsMatrix ] = eulerIntegration3dFromValues( values, pts, stepNums, translateScalar)
-%%EULERINTEGRATION3DFROMVALUES interpolates between origin and a given set of transformation values
-% INPUTS:
-% values(x,y,z,xN,yN,zN,w): the transformation from origin intended, given in x,y,z translation and rotation about the xN,yN,zN axis w raidans
-% pts: the set of points to transform, with each row being one point
-% stepNums: the number of interpolation steps to take between start and finish
-% translateScalar: a number to scale the unit translation vector up by, useful when visualizing the function
+%% EULERINTEGRATION3DFROMVALUES interpolates between origin and a given set of transformation values
+%==========================================================================
+%
+% USAGE
+%       [ ptsOut, positionTransformsVector, positionTransformsMatrix ] = eulerIntegration3dFromValues( values, pts, stepNums, translateScalar)
+%
+% INPUTS
+%
+%       values          - Mandatory - Vector (x,y,z,xN,yN,zN,w) - The transformation from origin intended, given in x,y,z translation and rotation about the xN,yN,zN axis w raidans
+%
+%       pts             - Mandatory - Nx3 Array                 - The set of points to transform, with each row being one point
+%
+%       stepNums        - Mandatory - Integer Value             - The number of interpolation steps to take between start and finish
+% 
+%       translateScalar - Mandatory - Float Value               - A number to scale the unit translation vector up by, useful when visualizing the function
+% 
 % OUTPUT:
-% ptsOut: a 3d matrix with size [number of pts, 3, stepNums], with each index in the stepNums dimension being a frame of translation
-% positionTransformsVector: a 2d matrix with size [7, stepNums], which has, in order of row, x, y, z translation values to get from the origin to that step, then a 4 long quaternion which details the rotation transformation from natural position. The order of application to reproduce the points at a given step is rotation then translation
-% positionTransformsMatrix: a 3d matrix with size [4, 4, stepNums], detailing the transformation matrix to get from origin to that step of the animation, to be multiplied after the vertical points list 
+%
+%       ptsOut                      - Mandatory - Nx3xS Array   - a 3d matrix with size [number of pts, 3, stepNums], 
+%                                                                 with each index in the stepNums dimension being 
+%                                                                 a frame of translation
+%
+%       positionTransformsVector    - Mandatory - 7xS Array     - A 2d matrix with size [7, stepNums], which has, 
+%                                                                 in order of row, x, y, z translation values to 
+%                                                                 get from the origin to that step, then a 4 long 
+%                                                                 quaternion which details the rotation transformation 
+%                                                                 from natural position. The order of application to reproduce 
+%                                                                 the points at a given step is rotation then translation
+%
+%       positionTransformsMatrix    - Mandatory - 4x4xS Array   - A 3d matrix with size [4, 4, stepNums], detailing the 
+%                                                                 transformation matrix to get from origin to that 
+%                                                                 step of the animation, to be multiplied after the vertical points list
+%==========================================================================
 
 %% Apply the scalar to the translation values
 values(1:3) = translateScalar*values(1:3);

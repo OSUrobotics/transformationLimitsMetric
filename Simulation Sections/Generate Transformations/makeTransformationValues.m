@@ -1,5 +1,4 @@
 function [ outputMatrix ] = makeTransformationValues( directionPoints, orientationPoints, angleDistribution )
-%%MAKETRANSFORMATIONVALUES Takes complexity values and generates a list of directional vectors and axes for rotation around, with rotation values 
 %% MAKETRANSFORMATIONVALUES Returns a list of evenly distributed transformation values
 %==========================================================================
 %
