@@ -34,6 +34,7 @@ handVpad = handVpad*(makehgtform('scale',handScaleFactor/max(abs(handV(:)))).');
 handV = handVpad(:,1:3);
 disp('Loaded and scaled objects');
 %% Display the hand and object
+clf;
 stlPlot(objectV,objectF,true);
 stlPlot(handV,handF,true,'Object & Hand');
 camlight('headlight');
