@@ -1,3 +1,4 @@
 *.asv
 .dropbox
 .gitignore
+*.ini
