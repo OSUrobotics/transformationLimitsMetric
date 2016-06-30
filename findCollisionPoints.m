@@ -1,10 +1,10 @@
 path2object = 'BallOut.ply';
-path2hand = 'roboHand.stl';
+path2hand = 'CerealBox.stl';
 
 objectScaleFactor = 5;
 handScaleFactor = 15;
 
-stepsToSearch = 5;
+stepsToSearch = 3;
 collisionThreshold = 0.1;
 
 clf;

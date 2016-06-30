@@ -1,8 +1,8 @@
 % function [ output_args ] = visualizeData( input_args )
 clear, clf;
 path2object = 'BallOut.ply';
-path2hand = 'roboHand.stl';
-numSteps = 1:9;
+path2hand = 'CerealBox.stl';
+numSteps = 5;
 collisionThreshold = 0.0;
 objectScaleFactor = 5;
 handScaleFactor = 15;
