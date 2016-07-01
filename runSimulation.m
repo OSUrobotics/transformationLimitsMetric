@@ -63,7 +63,7 @@ parfor valueIndex = 1:lengthValues % For every combination of values
         percentages(i) = getPercentCollisionWithVerts(ptsOut(:,:,i),voxOut(:,:,i),handV,handF,voxelResolution,pmDepth,pmScale);
     end
     %% Write to matrix
-    outputMatrix(:,:,valueIndex) = [((1:interpolationNumber)-1).' positionTransformsVector.' percentages(1:interpolationNumber).'];
+    outputMatrix(:,:,valueIndex) = [(1:interpolationNumber)-1; positionTransformsVector; percentages(1:interpolationNumber)].';
     %% Update the loading bar
     fprintf('Done with value set %i/%i\n',valueIndex,lengthValues);
     % waitbar(valueIndex / size(transformationValues, 2),bar,sprintf('Simulating... (%i/%i)', valueIndex,size(transformationValues,2)));
