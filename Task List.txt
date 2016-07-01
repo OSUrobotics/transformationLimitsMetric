@@ -13,6 +13,12 @@ A sad attempt to organize what needs to be done:
 	-Figure out how to properly transform an object -- COMPLETE
  * Create 3D simulation -- COMPLETE
 	-Combine 3D transformations with collision detection to do what the 2D sim does in 3D
- * Add data output to 3D simulation
+ * Add data output to 3D simulation -- COMPLETE
 	-Store data in an array with the collums storing step, x,y,z pos, x,y,z,w rot, and % collision.  The 3rd index represent the various extremes we are approaching.
+ * Read data and display -- COMPLETE
+
+ * Run simulation on actual grasps
+	-Figure out how to scale the input objects accurately
+	-Add a way to align objects easily (Perhaps save them in a way that they import nicely)
+
  * Celebrate?

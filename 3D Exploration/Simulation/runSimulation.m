@@ -4,7 +4,11 @@ tic;
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
 %% Declare variables and start parallel pool
-parpool(7);
+p = gcp('nocreate');
+if isempty(p)
+    parpool(7);
+end
+
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
@@ -68,14 +72,13 @@ end
 disp('Done looping');
 %% Remap output to timestamp pages
 outputMatrix = permute(outputMatrix,[3 2 1]);
-%% Save to file
-for i = 2:size(outputMatrix,3)
-    outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', tableHeaders);
-    writetable(outputTable, sprintf(outputFilePath,i-1));
-    fprintf('File written for time %i\n',i-1);
-end
+% %% Save to file
+% for i = 2:size(outputMatrix,3)
+%     outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', tableHeaders);
+%     writetable(outputTable, sprintf(outputFilePath,i-1));
+%     fprintf('File written for time %i\n',i-1);
+% end
 %% End of script, kill parallel pool
-p = gcp;
 delete(p);
 disp('Done with script');
 toc;
