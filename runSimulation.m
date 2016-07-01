@@ -4,7 +4,11 @@ tic;
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
 %% Declare variables and start parallel pool
-parpool(7);
+try
+    parpool(7);
+catch er
+    disp('Looks like someone tried to start a parallel pool when there was one already running');
+end
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
