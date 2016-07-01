@@ -5,7 +5,7 @@
 %% Declare variables and start parallel pool
 parpool(4);
 path2object = 'BallOut.ply';
-path2hand = 'CerealBox.stl';
+path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
 handScaleFactor = 15;
 transformationScaleFactor = 20;
