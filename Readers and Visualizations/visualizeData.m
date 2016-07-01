@@ -3,7 +3,7 @@ clear, clf, close all;
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
 numSteps = 1:9;
-collisionThreshold = 0.01;
+collisionThreshold = 0.00;
 objectScaleFactor = 5;
 handScaleFactor = 15;
 dataFilePath = 'Output/S%iAreaIntersection.csv';
