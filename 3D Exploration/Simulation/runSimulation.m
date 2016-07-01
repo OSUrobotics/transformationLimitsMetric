@@ -9,9 +9,9 @@ if isempty(p)
     parpool(7);
 end
 
-path2object = 'BallOut.ply';
+path2object = 'PitcherAssmMTest.ply';
 path2hand = 'roboHand.stl';
-objectScaleFactor = 5;
+objectScaleFactor = 15;
 handScaleFactor = 15;
 transformationScaleFactor = 20;
 numDirectionPoints = 20;
@@ -38,13 +38,27 @@ handVpad = handVpad*(makehgtform('translate',-getCentroidMesh(handV)).');
 handVpad = handVpad*(makehgtform('scale',handScaleFactor/max(abs(handV(:)))).');
 handV = handVpad(:,1:3);
 disp('Loaded and scaled objects');
-%% Display the hand and object
-clf;
-stlPlot(objectV,objectF,true);
-stlPlot(handV,handF,true,'Object & Hand');
-scatter3(objectVox(:,1),objectVox(:,2),objectVox(:,3), '.r');
-camlight('headlight');
-material('dull');
+%% Display the hand and object, then take edits from user
+while 1
+    clf;
+    stlPlot(objectV,objectF,true);
+    stlPlot(handV,handF,true,'Object & Hand');
+    scatter3(objectVox(:,1),objectVox(:,2),objectVox(:,3), '.r');
+    camlight('headlight');
+    material('dull');
+    in = input('Do you want to edit the object pos? Y/N [N]: ','s');
+    if isempty(in)%Default to no if no input is given
+        in = 'N';
+    end
+    if in == 'Y'
+        %Take repositioning args
+    elseif in ~= 'N'
+        disp('Huh?');
+    else
+        disp('Continuing...');
+        break;
+    end    
+end
 %% Generate transformation directions and orientations
 transformationValues = makeTransformationValues(numDirectionPoints,numOrientationPoints,angleDistribution); % Use the function to generate the matrix of combinations
 %% Loop through and render on the plot
@@ -72,12 +86,12 @@ end
 disp('Done looping');
 %% Remap output to timestamp pages
 outputMatrix = permute(outputMatrix,[3 2 1]);
-% %% Save to file
-% for i = 2:size(outputMatrix,3)
-%     outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', tableHeaders);
-%     writetable(outputTable, sprintf(outputFilePath,i-1));
-%     fprintf('File written for time %i\n',i-1);
-% end
+%% Save to file
+for i = 2:size(outputMatrix,3)
+    outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', tableHeaders);
+    writetable(outputTable, sprintf(outputFilePath,i-1));
+    fprintf('File written for time %i\n',i-1);
+end
 %% End of script, kill parallel pool
 delete(p);
 disp('Done with script');
