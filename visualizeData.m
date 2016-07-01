@@ -1,9 +1,9 @@
 % function [ output_args ] = visualizeData( input_args )
-clear
+clear, clf;
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
-numSteps = 9;
-collisionThreshold = 0.1;
+numSteps = 1:9;
+collisionThreshold = 0.0;
 objectScaleFactor = 5;
 handScaleFactor = 15;
 dataFilePath = 'Output/S%iAreaIntersection.csv';
@@ -21,14 +21,14 @@ handVpad = handVpad*(makehgtform('scale',handScaleFactor/max(abs(handV(:)))).');
 handV = handVpad(:,1:3);
 disp('Loaded and scaled objects');
 %% Read data and assign to matrix
-for step = 1:numSteps
+for step = numSteps
     fromTable = readtable(sprintf(dataFilePath,step));
     data = table2array(fromTable);
-    data(data(:,9)<collisionThreshold, :) = 0;
+    data(data(:,9)>collisionThreshold, :) = 0;
     transformations(:,:,step) = data(:,2:9);
 end
 
-ptsOut = zeros(size(objectVpad,1),4,numSteps);
+ptsOut = zeros(size(objectVpad,1),4,length(numSteps));
 for transformIndex = 1:size(transformations,1)
     transformationStep = permute(transformations(transformIndex,:,:),[3 2 1]);
         for step = 1:size(transformationStep,1)
