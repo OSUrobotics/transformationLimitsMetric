@@ -9,7 +9,7 @@ if nargin == 1 % If ploting the points alone, not an STL file
     %% Plot the points
     for index = 1:size(pts,3)
         if ~unique(isnan(pts(:,:,index)))
-            plot3(pts(:,1,index),pts(:,2,index),pts(:,3,index),'.-','Color',cmap(index,:));
+            plot3(pts(:,1,index),pts(:,2,index),pts(:,3,index),'.','Color',cmap(index,:));
             hold on
         end
     end

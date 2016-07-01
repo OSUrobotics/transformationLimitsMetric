@@ -1,23 +1,30 @@
 %% Load the files and prepare for graphing
-stlPath = 'Ball.stl'; % sample object
-figure
-[vertices,faces,~,~] = stlReadBinary(stlPath); % read stl in as faces and vertex
+path2object ='PitcherAssmM.ply';
+objectScaleFactor = 10;
+%% Load the object and scale to origin
+[objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
+objectVpad = [objectV ones(size(objectV,1),1)]; % Pad the points list with ones to work with 4x4 transformation matrices
+objectVpad = objectVpad*(makehgtform('translate',-getCentroidMesh(objectV)).'); % Translate the object to origin
+objectVpad = objectVpad*(makehgtform('scale',objectScaleFactor/max(abs(objectV(:)))).'); % Scale the object to one,then to the scaleFactor inputted
+objectV = objectVpad(:,1:3); % Remove padding
+%objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
 %% General interesting information about file
 fprintf('Number of vertices: %i\n',size(vertices,1));
 fprintf('Centroid of Mesh: (%0.5f, %0.5f, %0.5f)\n',getCentroidMesh(vertices));
 
 %% Make transformation values
-transformationValues = makeTransformationValues(20,20,10);
-transformationValues = transformationValues(1:30,:);
+transformationValues = makeTransformationValuesOld(2,2,50);
+transformationValues = transformationValues(1:10,:);
 %% Make example object
 [x,y,z] = sphere(20);
 sphereVertices = [x(:) y(:) z(:)];
 stepNums = 10;
 %% Loop through and render on the plot
 clf;
-for values = transformationValues
-    [ vertices, positionTransformsVector, positionTransformsMatrix ] = eulerIntegration3dFromValues(values, vertices, stepNums, 10);
-    visualizeTransformations(vertices);
+for values = transformationValues.'
+    [ ptsOut, ~, ~ ] = eulerIntegration3dFromValues(values, objectV, stepNums, 35);
+    visualizeTransformations(ptsOut);
+    hold on
 end
 axis image
 xlabel('X Axis');
