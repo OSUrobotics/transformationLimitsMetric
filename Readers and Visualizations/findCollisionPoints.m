@@ -5,7 +5,7 @@ path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
 handScaleFactor = 15;
 
-stepsToSearch = 1:9;
+stepsToSearch = 1;
 collisionThreshold = 0.01;
 
 clf;
@@ -34,19 +34,17 @@ end
 hold on;
 for transform = 1:size(tran,1)
     %tic;
-    vox = getVoxelisedVerts(objectV,objectF,1);
-    %obj2draw = objectV * (quatrotate(tran(transform,5:8),eye(3)).');
-    %obj2draw = translateMesh(obj2draw,[tran(transform,2),tran(transform,3),tran(transform,4)]);
-    vox = vox * (quatrotate(tran(transform,5:8),eye(3)).');
-    vox = translateMesh(vox,[tran(transform,2),tran(transform,3),tran(transform,4)]);
-    %obj2draw = rotateMesh(obj2draw,[tran(transform,5),tran(transform,6),tran(transform,7)],tran(transform,8));
-    %patch(obj2draw(:,1),obj2draw(:,2),obj2draw(:,3),'red');
-    %patch('Faces',objectF,'Vertices',obj2draw,'FaceColor','none','EdgeColor','green','LineWidth',1);
-    %stlPlot(obj2draw,objectF,false);
-    scatter3(vox(:,1),vox(:,2),vox(:,3), '.r');
+    %vox = getVoxelisedVerts(objectV,objectF,1);
+    obj2draw = objectV * (quatrotate(tran(transform,5:8),eye(3)).');
+    obj2draw = translateMesh(obj2draw,[tran(transform,2),tran(transform,3),tran(transform,4)]);
+    %vox = vox * (quatrotate(tran(transform,5:8),eye(3)).');
+    %vox = translateMesh(vox,[tran(transform,2),tran(transform,3),tran(transform,4)]);
+    stlPlot(obj2draw,objectF,false);
+    %scatter3(vox(:,1),vox(:,2),vox(:,3), '.r');
     %toc;
 end
 stlPlot(handV,handF,false,'Object & Hand');
 camlight('headlight');
 material('dull');
 toc;
+view(-50,30)
