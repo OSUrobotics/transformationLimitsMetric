@@ -1,16 +1,16 @@
 %% Load the files and prepare for graphing
-path2object ='PitcherAssmM.ply';
+path2object ='PitcherAssm.stl';
 objectScaleFactor = 10;
 %% Load the object and scale to origin
-[objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
+[objectV,objectF] = stlRead(path2object); % Gives vertical vertices matrix,association matrix
 objectVpad = [objectV ones(size(objectV,1),1)]; % Pad the points list with ones to work with 4x4 transformation matrices
 objectVpad = objectVpad*(makehgtform('translate',-getCentroidMesh(objectV)).'); % Translate the object to origin
 objectVpad = objectVpad*(makehgtform('scale',objectScaleFactor/max(abs(objectV(:)))).'); % Scale the object to one,then to the scaleFactor inputted
 objectV = objectVpad(:,1:3); % Remove padding
 %objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
 %% General interesting information about file
-fprintf('Number of vertices: %i\n',size(vertices,1));
-fprintf('Centroid of Mesh: (%0.5f, %0.5f, %0.5f)\n',getCentroidMesh(vertices));
+fprintf('Number of vertices: %i\n',size(objectV,1));
+fprintf('Centroid of Mesh: (%0.5f, %0.5f, %0.5f)\n',getCentroidMesh(objectV));
 
 %% Make transformation values
 transformationValues = makeTransformationValuesOld(2,2,50);
@@ -30,3 +30,8 @@ axis image
 xlabel('X Axis');
 ylabel('Y Axis');
 zlabel('Z Axis');
+figure
+%% stlPlot demo
+stlPlot(objectV,objectF,true)
+camlight('headlight');
+material('dull');

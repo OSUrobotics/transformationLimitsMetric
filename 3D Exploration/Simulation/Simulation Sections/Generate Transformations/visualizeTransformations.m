@@ -5,7 +5,7 @@ function visualizeTransformations( pts, faces )
 
 if nargin == 1 % If ploting the points alone, not an STL file
     %% Make a colormap
-    cmap = summer(size(pts,3));
+    cmap = autumn(size(pts,3));
     %% Plot the points
     for index = 1:size(pts,3)
         if ~unique(isnan(pts(:,:,index)))
