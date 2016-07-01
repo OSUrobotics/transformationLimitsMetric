@@ -1,9 +1,10 @@
+tic;
 %RUNSIMULATION Creates data representing a grasp
 %   Loads an object PLY file, a pre-positioned hand STL, and some settings 
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
 %% Declare variables and start parallel pool
-parpool(4);
+parpool(7);
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
@@ -45,7 +46,6 @@ transformationValues = makeTransformationValues(numDirectionPoints,numOrientatio
 %% Loop through and render on the plot
 %clf;
 outputMatrix = zeros(interpolationNumber,9,size(transformationValues, 2));
-tic;
 lengthValues = size(transformationValues, 2);
 % bar = waitbar(0,'Starting Loop...','Name','Running Grasp Simulation...');
 parfor valueIndex = 1:lengthValues % For every combination of values
@@ -66,7 +66,6 @@ parfor valueIndex = 1:lengthValues % For every combination of values
 end
 %% End the timer and progressbar
 disp('Done looping');
-toc;
 %% Remap output to timestamp pages
 outputMatrix = permute(outputMatrix,[3 2 1]);
 %% Save to file
@@ -79,3 +78,4 @@ end
 p = gcp;
 delete(p);
 disp('Done with script');
+toc;
