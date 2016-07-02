@@ -34,18 +34,20 @@ function [ ptsOutEXPM, positionTransformsEXPM ] = eulerIntegration3dFromValuesEX
 %==========================================================================
 %% Apply the scalar to the translation values
 values(1:3) = translateScalar*values(1:3);
+%% Normalize the rotation axis vector
+angleValues = values(4:6)/norm(values(4:6));
 %% Establish the finish points matrix
 ptsOutEXPM = ones(4,size(pts,1),stepNums); % Done strange so padding 1 for 4x4 transformations
-ptsOutEXPM(1:3,:,1) = pts';
+ptsOutEXPM(1:3,:,1) = pts.'; % Apply transformations on the horizontal list
 %% Setting up to get the location and orientation
 positionTransformsEXPM = zeros(4,4,stepNums);
 %% Apply the matrix iteratively to the pts
 for stepIndex = 1:stepNums
-    currentFactor = (stepIndex-1)/stepNums;
-    disp();
-    positionTransformsEXPM(:,:,stepIndex) = expm([0 -values(6)*values(7)*currentFactor values(5)*values(7)*currentFactor values(1)*currentFactor;values(6)*values(7)*currentFactor 0 -values(4)*values(7)*currentFactor values(2)*currentFactor;-values(5)*values(7)*currentFactor values(4)*values(7)*currentFactor 0 values(3)*currentFactor; 0 0 0 0]);
+    currentFactor = (stepIndex-1)/(stepNums);
+    positionTransformsEXPM(:,:,stepIndex) = expm([0 -angleValues(3)*values(7)*currentFactor angleValues(2)*values(7)*currentFactor values(1)*currentFactor;angleValues(3)*values(7)*currentFactor 0 -angleValues(1)*values(7)*currentFactor values(2)*currentFactor;-angleValues(2)*values(7)*currentFactor angleValues(1)*values(7)*currentFactor 0 values(3)*currentFactor; 0 0 0 0]);
     ptsOutEXPM(:,:,stepIndex) = positionTransformsEXPM(:,:,stepIndex)*ptsOutEXPM(:,:,1);
 end
-%% Remove the unneeded 1 column used for transformations
+%% Remove the unneeded 1 column used for transformations and transpose to vertical
+positionTransformsEXPM = permute(positionTransformsEXPM,[2 1 3]);
 ptsOutEXPM = permute(ptsOutEXPM(1:3,:,:),[2 1 3]);
 end
