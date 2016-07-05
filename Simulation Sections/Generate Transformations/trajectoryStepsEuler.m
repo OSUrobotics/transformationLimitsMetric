@@ -30,7 +30,7 @@ transformations4x4xN(:,:,1) = eye(4);
 %% Apply the matrix iteratively to the pts
 for stepIndex = 2:stepNums
     %% Figure out the transformation to get there
-    transformations4x4xN(:,:,stepIndex) = transformations4x4xN(:,:,stepIndex-1)*stepMatrix;
+    transformations4x4xN(:,:,stepIndex) = stepMatrix*transformations4x4xN(:,:,stepIndex-1);
     % positionTransformsVector(1:4,stepIndex) = transformations4x4xN(:,:,stepIndex)'*[0;0;0;1]; % Get the XYZ translation for the step    
     % positionTransformsVector(4:7,stepIndex) = dcm2quat(transformations4x4xN(1:3,1:3,stepIndex)'); 
 end

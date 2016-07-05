@@ -2,7 +2,8 @@ function [ ptsTransformed ] = applySavedTransformations( transformsFilename, pts
 %% APPLYSAVEDTRANSFORMATIONS takes saved transformation steps and applies them to create a multi-dimensional indexed set of points
 %   Detailed explanation goes here
 %% Read in and reshape to proper size
-transformSteps = reshape(csvread(transformsFilename),4,4,[]);
+read([transformsFilename '.mat']);
+transformSteps = transformsFilename;
 %% Reformat pts if not in the right dimensions to be horizontal and pad
 if size(pts,2) == 3 && size(pts,1) ~= 3 % if in a vertical format
     pts = pts.';
@@ -22,4 +23,3 @@ if nargin == 3
     end
 end
 end
-
