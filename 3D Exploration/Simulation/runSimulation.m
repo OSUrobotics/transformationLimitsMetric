@@ -46,6 +46,7 @@ material('dull');
     
 %Generate Voxels
 objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
+disp('Generated Voxels');
 %% Generate transformation directions and orientations
 transformationValues = makeTransformationValues(numDirectionPoints,numOrientationPoints,angleDistribution); % Use the function to generate the matrix of combinations
 %% Loop through and render on the plot
@@ -54,18 +55,21 @@ outputMatrix = zeros(interpolationNumber,9,size(transformationValues, 2));
 lengthValues = size(transformationValues, 2);
 % bar = waitbar(0,'Starting Loop...','Name','Running Grasp Simulation...');
 parfor valueIndex = 1:lengthValues % For every combination of values
+    fprintf('Started value set %i/%i\n',valueIndex,lengthValues);
     %% Transform to all locations
     values = transformationValues(:,valueIndex); % Get the set of values
     [ptsOut,positionTransformsVector,~] = eulerIntegration3dFromValues(values,objectV,interpolationNumber,transformationScaleFactor); % Transform the object to each step
     [voxOut,~,~] = eulerIntegration3dFromValues(values,objectVox,interpolationNumber,transformationScaleFactor); % Transform voxels as well
+    fprintf('Transformed value set %i/%i\n',valueIndex,lengthValues);
     %% Volume of intersection
     percentages = zeros(1,interpolationNumber); % Preallocate
     for i = 1:size(ptsOut, 3) % For every step, get the percent collision and add it to percentages
         percentages(i) = getPercentCollisionWithVerts(ptsOut(:,:,i),voxOut(:,:,i),handV,handF,voxelResolution,pmDepth,pmScale);
     end
+    fprintf('Have volume with value set %i/%i\n',valueIndex,lengthValues);
     %% Write to matrix
     outputMatrix(:,:,valueIndex) = [((1:interpolationNumber)-1).' positionTransformsVector.' percentages(1:interpolationNumber).'];
-    %% Update the loading bar
+    %% Update the parallel progress
     fprintf('Done with value set %i/%i\n',valueIndex,lengthValues);
     % waitbar(valueIndex / size(transformationValues, 2),bar,sprintf('Simulating... (%i/%i)', valueIndex,size(transformationValues,2)));
 end
