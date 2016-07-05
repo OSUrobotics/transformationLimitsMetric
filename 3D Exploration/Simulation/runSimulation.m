@@ -37,87 +37,13 @@ handVpad = handVpad*(makehgtform('translate',-getCentroidMesh(handV)).');
 handVpad = handVpad*(makehgtform('scale',handScaleFactor/max(abs(handV(:)))).');
 handV = handVpad(:,1:3);
 disp('Loaded and scaled objects');
-%% Display the hand and object, then take edits from user
-while 1
-    clf;
-    stlPlot(objectV,objectF,true);
-    stlPlot(handV,handF,true,'Object & Hand');
-    camlight('headlight');
-    material('dull');
-    in = input('Do you want to edit the object pos? Y/N [N]: ','s');
-    if isempty(in)%Default to no if no input is given
-        in = 'N';
-    end
-    if in == 'Y'
-        %% Handle repositioning
-        rotateXIn = input('X Rotate [0]: ');
-        rotateYIn = input('Y Rotate [0]: ');
-        rotateZIn = input('Z Rotate [0]: ');
-        translateXIn = input('X Translate [0]: ');
-        translateYIn = input('Y Translate [0]: ');
-        translateZIn = input('Z Translate [0]: ');
-        scaleXIn = input('X Scale [1]: ');
-        scaleYIn = input('Y Scale [1]: ');
-        scaleZIn = input('Z Scale [1]: ');
-        %Apply default values
-        if isempty(rotateXIn)
-            rotateXIn = 0;
-        end
-        if isempty(rotateYIn)
-            rotateYIn = 0;
-        end
-        if isempty(rotateZIn)
-            rotateZIn = 0;
-        end
-        if isempty(translateXIn)
-            translateXIn = 0;
-        end
-        if isempty(translateYIn)
-            translateYIn = 0;
-        end
-        if isempty(translateZIn)
-            translateZIn = 0;
-        end
-        if isempty(scaleXIn)
-            scaleXIn = 1;
-        end
-        if isempty(scaleYIn)
-            scaleYIn = 1;
-        end
-        if isempty(scaleZIn)
-            scaleZIn = 1;
-        end
-        %Apply transformation to temporary meshes
-        tempObjectV = objectVpad*(makehgtform(...
-                      'translate',[translateXIn,translateYIn,translateZIn],...
-                      'scale',[scaleXIn,scaleYIn,scaleZIn],...
-                      'xrotate',deg2rad(rotateXIn),...
-                      'yrotate',deg2rad(rotateYIn),...
-                      'zrotate',deg2rad(rotateZIn)).');
-        %Draw new positions
-        tempObjectV = tempObjectV(:,1:3); % Remove padding
-        clf;
-        stlPlot(tempObjectV,objectF,true);
-        stlPlot(handV,handF,true,'Is this OK?');
-        camlight('headlight');
-        material('dull');
-        %Confirm
-        in2 = input('Is this OK? Y/N [Y]: ','s');
-        if isempty(in2)
-            in2 = 'Y';
-        end
-        if in2 == 'Y'
-            objectV = tempObjectV;
-            disp('Here we go!');
-            break;
-        end
-    elseif in ~= 'N'
-        disp('Huh?');
-    else
-        disp('Continuing...');
-        break;
-    end    
-end
+%Display the hand and object
+clf;
+stlPlot(objectV,objectF,true);
+stlPlot(handV,handF,true,'Object & Hand');
+camlight('headlight');
+material('dull');
+    
 %Generate Voxels
 objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
 %% Generate transformation directions and orientations
