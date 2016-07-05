@@ -9,14 +9,14 @@ if isempty(p)
     parpool(7);
 end
 
-path2object = 'PitcherAssmMTest.ply';
+path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
 objectScaleFactor = 15;
 handScaleFactor = 15;
 transformationScaleFactor = 20;
-numDirectionPoints = 20;
-numOrientationPoints = 15;
-angleDistribution = 10;
+numDirectionPoints = 10;
+numOrientationPoints = 10;
+angleDistribution = 5;
 interpolationNumber = 10;
 voxelResolution = 5;
 pmDepth = 4;

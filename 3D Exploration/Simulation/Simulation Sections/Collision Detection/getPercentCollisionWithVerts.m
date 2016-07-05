@@ -45,15 +45,19 @@ function [ collisionPercent ] = getPercentCollisionWithVerts( meshAVerts, meshAV
 %==========================================================================
 
 %% Test the voxels in meshB
+% testedPoints = [meshAVoxels(:,1), meshAVoxels(:,2), meshAVoxels(:,3), ...
+%                 intriangulation(meshBVerts,meshBFaces,meshAVoxels)];
 testedPoints = [meshAVoxels(:,1), meshAVoxels(:,2), meshAVoxels(:,3), ...
-                intriangulation(meshBVerts,meshBFaces,meshAVoxels)];
+                in_polyhedron(meshBFaces,meshBVerts,meshAVoxels)];
 %Remove all the points that tested outside meshB
 condition = testedPoints(:,4)==0;
 testedPoints(condition, :) = [];
 
 %% Test the vertecies in meshB
+% testedVerts = [meshAVerts(:,1),meshAVerts(:,2),meshAVerts(:,3), ...
+%                intriangulation(meshBVerts,meshBFaces,meshAVerts)];
 testedVerts = [meshAVerts(:,1),meshAVerts(:,2),meshAVerts(:,3), ...
-               intriangulation(meshBVerts,meshBFaces,meshAVerts)];
+               in_polyhedron(meshBFaces,meshBVerts,meshAVerts)];
 %Remove all the points that tested outside meshB
 condition = testedVerts(:,4)==0;
 testedVerts(condition, :) = [];
@@ -70,13 +74,10 @@ areaPerVoxel = unitsPerVoxel^3;
 %% Get areaPerVertex
 %Take an argument of octree depth and scale for polymender
 %Get max dimension of object
-ranges = [range(meshAVerts(:,1)), range(meshAVerts(:,2)), ...
-          range(meshAVerts(:,3))];
-maxDimension = max(ranges);
-%Get number of voxels
-meshVoxels = 2^pmDepth;
-%Convert into units per voxel
-mUnitsPerVoxel = (maxDimension * pmScale) / meshVoxels;
+maxDimension = max([range(meshAVerts(:,1)), range(meshAVerts(:,2)), ...
+                    range(meshAVerts(:,3))]);
+%Get units per voxel
+mUnitsPerVoxel = (maxDimension * pmScale) / (2^pmDepth);
 %Devide by two to compensate for edge-ness, then cube
 areaPerVertex = (mUnitsPerVoxel / 2)^3;
 
