@@ -38,37 +38,31 @@ fv.vertices = v;
 fv.faces = f;
 %% Prepare Dimensions for VOXELISE
 %Calculate the dimensions of the object
-xRange = range(fv.vertices(:,1));
-yRange = range(fv.vertices(:,2));
-zRange = range(fv.vertices(:,3));
+dimRanges = [range(fv.vertices(:,1)),range(fv.vertices(:,2)),range(fv.vertices(:,3))];
 %Scale based on resolution
-xRes = floor(xRange * resolution);
-yRes = floor(yRange * resolution);
-zRes = floor(zRange * resolution);
+voxInputs = floor(resolution/max(dimRanges)*dimRanges);
 %% Use VOXELISE to get a logical array of voxels
-OUT = VOXELISE(xRes,yRes,zRes,fv,'xyz');
+OUT = VOXELISE(voxInputs(1),voxInputs(2),voxInputs(3),fv,'xyz');
 %% Convert to points in 3D space and readjust to fit original geometry
-%Set x y and z index values
+%Set x y and z index values, and put in a vector
 [xIndeces,yIndeces,zIndeces] = ind2sub(size(OUT),find(OUT));
+indeces = [xIndeces,yIndeces,zIndeces];
 %Move to a zero index
-xIndeces = xIndeces-1;
-yIndeces = yIndeces-1;
-zIndeces = zIndeces-1;
+indeces = indeces -1;
 %Convert verts back to their original scale
-%Get index ranges and account for difference between center and edge of voxel
-xIRange = range(xIndeces) + (resolution / 2);
-yIRange = range(yIndeces) + (resolution / 2);
-zIRange = range(zIndeces) + (resolution / 2);
+
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%Get index ranges and TODO account for difference between center and edge of voxel
+indexRanges = range(indeces) + ((max(max(dimRanges))/resolution) / 2);
+% xIRange = range(xIndeces) + (resolution / 2);
+% yIRange = range(yIndeces) + (resolution / 2);
+% zIRange = range(zIndeces) + (resolution / 2);
 %Devide the values by the ranges
-xIndeces = xIndeces / xIRange;
-yIndeces = yIndeces / yIRange;
-zIndeces = zIndeces / zIRange;
+indexRanges = repmat(indexRanges,size(indeces(:,1), 1),1);
+indeces = indeces ./ indexRanges;
 %Multiply by the new scale
-xIndeces = xIndeces * xRange;
-yIndeces = yIndeces * yRange;
-zIndeces = zIndeces * zRange;
-%Assign to vector
-voxels = [xIndeces yIndeces zIndeces];
+dimRanges = repmat(dimRanges,size(indeces(:,1), 1),1);
+voxels = indeces .* dimRanges;
 %Center on orgin
 voxels = translateMesh(voxels, [-1,0,0], range(xIndeces)/2);
 voxels = translateMesh(voxels, [0,-1,0], range(yIndeces)/2);
