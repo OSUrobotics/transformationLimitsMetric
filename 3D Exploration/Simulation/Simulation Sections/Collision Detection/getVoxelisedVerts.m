@@ -53,7 +53,7 @@ indeces = indeces -1;
 
 %!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 %Get index ranges and TODO account for difference between center and edge of voxel
-indexRanges = range(indeces);
+indexRanges = range(indeces) + ((max(max(dimRanges))/resolution) / 2);
 % xIRange = range(xIndeces) + (resolution / 2);
 % yIRange = range(yIndeces) + (resolution / 2);
 % zIRange = range(zIndeces) + (resolution / 2);
