@@ -18,8 +18,8 @@ numValues = size(values,2);
 stepValues = zeros(7,numValues,numInterpolationSteps);
 parfor transformIndex = 1:numValues
     trajectorySteps(:,:,:,transformIndex) = trajectoryStepsEXPM(values(:,transformIndex),numInterpolationSteps,translateScalar);
-    fprintf('Done with value set #%i/%i\n',transformIndex,numValues);
     stepValues(:,transformIndex,:) = matrix2values(trajectorySteps(:,:,:,transformIndex));
+    fprintf('Generated transformation set #%i/%i\n',transformIndex,numValues);
 end
 %% Save to structure
 transformationStruct = struct;

@@ -21,9 +21,9 @@ interpolationNumber = 10;
 voxelResolution = 5;
 pmDepth = 4;
 pmScale = 1;
-transformationsFilename = 'transformations';
+transformationsFilename = 'transformationStored';
 outputFilePath = 'Output/S%iAreaIntersection.csv';
-tableHeaders = {'Timestamp','X_Translation','Y_Translation','Z_Translation','Quaternion_Value_1','Quaternion_Value_2','Quaternion_Value_3','Quaternion_Value_4','Percent_Volume_Intersection'};
+tableHeaders = {'Timestamp','X_Translation','Y_Translation','Z_Translation','Axis_X','Axis_Y','Axis_Z','Angle_Rotated','Percent_Volume_Intersection'};
 disp('Started Script');
 %% If not already loaded, load the transformation values
 if ~exist('transformationStruct','var')
@@ -34,6 +34,7 @@ if ~exist('transformationStruct','var')
         load(transformationsFilename);
     end
 end
+disp('Generated/loaded transformations');
 %% Load the object and scale to origin
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
 objectVpad = [objectV ones(size(objectV,1),1)]; % Pad the points list with ones to work with 4x4 transformation matrices
@@ -61,13 +62,15 @@ voxOut = applySavedTransformations(transformationStruct.trajectorySteps,objectVo
 disp('Applied transformations');
 %% Get the amount of volume intersection
 volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStruct.numInterpolationSteps);
+numValues = size(transformationStruct.values,2);
 for stepIndex = 1:transformationStruct.numInterpolationSteps
-    parfor valueIndex = 1:size(transformationStruct.values,2)
+    for valueIndex = 1:numValues
         volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,voxelResolution,pmDepth,pmScale);
+        fprintf('Calculated volume intersection for set #%i/%i\n',valueIndex,numValues);
     end
 end
 %% Concatenate with the step values
-outputMatrix = [transformationStruct.stepValues; permute(volumeIntersecting,[3 1 2])];
+outputMatrix = [1:numValues;transformationStruct.stepValues; permute(volumeIntersecting,[3 1 2])];
 %% Remap output to timestamp pages
 outputMatrix = permute(outputMatrix,[2 1 3]);
 %% Save to file
