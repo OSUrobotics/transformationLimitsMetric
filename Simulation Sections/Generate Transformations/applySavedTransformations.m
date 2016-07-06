@@ -1,8 +1,11 @@
-function [ ptsTransformed ] = applySavedTransformations( transformsFilename, pts, verticalOut )
+function [ ptsTransformed ] = applySavedTransformations( transformations, pts, verticalOut )
 %% APPLYSAVEDTRANSFORMATIONS takes saved transformation steps and applies them to create a multi-dimensional indexed set of points
 %   Detailed explanation goes here
-%% Read in structure
-load([transformsFilename '.mat']);
+if ischar(transformations) % pass in nothing if have already loaded variables
+    %% Read in structure
+    load([transformations '.mat']);
+    transformations = transformationStruct.trajectorySteps;
+end    
 % transformationStruct.trajectorySteps is a 4d set of transformations in [4x4 transformation matrix, step, values set index] 
 %% Reformat pts if not in the right dimensions to be horizontal and pad
 if size(pts,2) == 3 && size(pts,1) ~= 3 % if in a vertical format
@@ -10,11 +13,11 @@ if size(pts,2) == 3 && size(pts,1) ~= 3 % if in a vertical format
 end
 pts = [pts; ones(1,size(pts,2))];
 %% Initialize matrix for output
-ptsTransformed = zeros(4,size(pts,2),size(transformationStruct.trajectorySteps,3),size(transformationStruct.trajectorySteps,4));
+ptsTransformed = zeros(4,size(pts,2),size(transformations,3),size(transformations,4));
 %% Loop through value sets
-for valueIndex = 1:size(transformationStruct.trajectorySteps,4)
-    for stepIndex = 1:size(transformationStruct.trajectorySteps,3)
-        ptsTransformed(:,:,stepIndex,valueIndex) = transformationStruct.trajectorySteps(:,:,stepIndex,valueIndex)*pts;
+for stepIndex = 1:size(transformations,3)
+    parfor valueIndex = 1:size(transformations,4)
+        ptsTransformed(:,:,stepIndex,valueIndex) = transformations(:,:,stepIndex,valueIndex)*pts;
     end
 end
 %% Remove padding and reformat if wanted

@@ -8,10 +8,8 @@ if nargin == 1 % If ploting the points alone, not an STL file
     cmap = summer(size(pts,3));
     %% Plot the points
     for index = 1:size(pts,3)
-        if ~unique(isnan(pts(:,:,index)))
-            plot3(pts(:,1,index),pts(:,2,index),pts(:,3,index),'.-','Color',cmap(index,:));
-            hold on
-        end
+        plot3(pts(:,1,index),pts(:,2,index),pts(:,3,index),'.-','Color',cmap(index,:));
+        hold on
     end
 else % Plotting an STL file
     for index = 1:size(pts,3)

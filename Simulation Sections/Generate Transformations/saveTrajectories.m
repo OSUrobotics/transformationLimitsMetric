@@ -1,5 +1,6 @@
 function [ transformationStruct ] = saveTrajectories( numTranslationDirections, numRotationAxes, numAngleDivisions, numInterpolationSteps, translateScalar, filename, divisionRange)
 %% SAVETRAJECTORIES Uses the other functions to generate and save a 4D matrix with all of the transformations interpolated
+% 
 %% Make a parpool 
 p = gcp('nocreate');
 if isempty(p)
