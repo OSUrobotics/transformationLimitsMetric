@@ -46,7 +46,8 @@ scatter3(objectVox(:,1),objectVox(:,2),objectVox(:,3), '.r');
 camlight('headlight');
 material('dull');
 %% Apply the saved transformations to the voxels and vertices
-applySavedTransformations(
+applySavedTransformations(transformationStruct.trajectorySteps,objectV);
+applySavedTransformations(transformationStruct.trajectorySteps,objectVox);
 disp('Done looping');
 %% Remap output to timestamp pages
 outputMatrix = permute(outputMatrix,[3 2 1]);
