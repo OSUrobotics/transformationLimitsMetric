@@ -4,11 +4,11 @@ tic;
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
 %% Declare variables and start parallel pool
-% p = gcp('nocreate');
-% if isempty(p)
-%     parpool(7);
-% end
-
+try
+    parpool(7);
+catch er
+    disp('Looks like someone tried to start a parallel pool when there was one already running');
+end
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
 objectScaleFactor = 5;
@@ -21,15 +21,27 @@ interpolationNumber = 3;
 voxelResolution = 5;
 pmDepth = 4;
 pmScale = 1;
+transformationsFilename = 'transformationStored';
 outputFilePath = 'Output/S%iAreaIntersection.csv';
-tableHeaders = {'Timestamp','X_Translation','Y_Translation','Z_Translation','Quaternion_Value_1','Quaternion_Value_2','Quaternion_Value_3','Quaternion_Value_4','Percent_Volume_Intersection'};
+tableHeaders = {'X_Translation','Y_Translation','Z_Translation','Axis_X','Axis_Y','Axis_Z','Angle_Rotated','Percent_Volume_Intersection'};
 disp('Started Script');
+%% If not already loaded, load the transformation values
+if ~exist('transformationStruct','var')
+    %% If not already created, create the file
+    if ~exist(transformationsFilename,'file')
+        transformationStruct = saveTrajectories(numDirectionPoints,numOrientationPoints,angleDistribution,interpolationNumber,transformationScaleFactor,transformationsFilename);
+    else
+        load(transformationsFilename);
+    end
+end
+disp('Generated/loaded transformations');
 %% Load the object and scale to origin
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
 objectVpad = [objectV ones(size(objectV,1),1)]; % Pad the points list with ones to work with 4x4 transformation matrices
 objectVpad = objectVpad*(makehgtform('translate',-getCentroidMesh(objectV)).'); % Translate the object to origin
 objectVpad = objectVpad*(makehgtform('scale',objectScaleFactor/max(abs(objectV(:)))).'); % Scale the object to one,then to the scaleFactor inputted
 objectV = objectVpad(:,1:3); % Remove padding
+objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
 %% Load the hand and scale to origin
 [handV,handF,~,~] = stlRead(path2hand); % Same as above
 handVpad = [handV ones(size(handV,1),1)];
@@ -37,46 +49,34 @@ handVpad = handVpad*(makehgtform('translate',-getCentroidMesh(handV)).');
 handVpad = handVpad*(makehgtform('scale',handScaleFactor/max(abs(handV(:)))).');
 handV = handVpad(:,1:3);
 disp('Loaded and scaled objects');
-%Display the hand and object
+%% Display the hand and object
 clf;
 stlPlot(objectV,objectF,true);
 stlPlot(handV,handF,true,'Object & Hand');
+scatter3(objectVox(:,1),objectVox(:,2),objectVox(:,3), '.r');
 camlight('headlight');
 material('dull');
-    
-%Generate Voxels
-objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
-disp('Generated Voxels');
-%% Generate transformation directions and orientations
-transformationValues = makeTransformationValues(numDirectionPoints,numOrientationPoints,angleDistribution); % Use the function to generate the matrix of combinations
-%% Loop through and render on the plot
-%clf;
-outputMatrix = zeros(interpolationNumber,9,size(transformationValues, 2));
-lengthValues = size(transformationValues, 2);
-% bar = waitbar(0,'Starting Loop...','Name','Running Grasp Simulation...');
-for valueIndex = 1:lengthValues % For every combination of values
-    fprintf('Started value set %i/%i\n',valueIndex,lengthValues);
-    %% Transform to all locations
-    values = transformationValues(:,valueIndex); % Get the set of values
-    [ptsOut,positionTransformsVector,~] = eulerIntegration3dFromValues(values,objectV,interpolationNumber,transformationScaleFactor); % Transform the object to each step
-    [voxOut,~,~] = eulerIntegration3dFromValues(values,objectVox,interpolationNumber,transformationScaleFactor); % Transform voxels as well
-    fprintf('Transformed value set %i/%i\n',valueIndex,lengthValues);
-    %% Volume of intersection
-    percentages = zeros(1,interpolationNumber); % Preallocate
-    for i = 1:size(ptsOut, 3) % For every step, get the percent collision and add it to percentages
-        percentages(i) = getPercentCollisionWithVerts(ptsOut(:,:,i),voxOut(:,:,i),handV,handF,voxelResolution,pmDepth,pmScale);
+%% Apply the saved transformations to the voxels and vertices
+ptsOut = applySavedTransformations(transformationStruct.trajectorySteps,objectV,true);
+voxOut = applySavedTransformations(transformationStruct.trajectorySteps,objectVox,true);
+disp('Applied transformations');
+%% Declare variables for output generation
+volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStruct.numInterpolationSteps);
+numValues = size(transformationStruct.values,2);
+%% Test origin case
+volumeOrigin = getPercentCollisionWithVerts(objectV,objectVox,handV,handF,voxelResolution,pmDepth,pmScale);
+fprintf('Volume at origin:%f',volumeOrigin);
+%% Loop and test all other cases
+for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
+    parfor valueIndex = 1:numValues
+        volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,voxelResolution,pmDepth,pmScale);
+        fprintf('Calculated volume intersection for set #%i/%i\n',valueIndex,numValues);
     end
-    fprintf('Have volume with value set %i/%i\n',valueIndex,lengthValues);
-    %% Write to matrix
-    outputMatrix(:,:,valueIndex) = [((1:interpolationNumber)-1).' positionTransformsVector.' percentages(1:interpolationNumber).'];
-    %% Update the parallel progress
-    fprintf('Done with value set %i/%i\n',valueIndex,lengthValues);
-    % waitbar(valueIndex / size(transformationValues, 2),bar,sprintf('Simulating... (%i/%i)', valueIndex,size(transformationValues,2)));
 end
-%% End the timer and progressbar
-disp('Done looping');
+%% Concatenate with the step values
+outputMatrix = [transformationStruct.stepValues; permute(volumeIntersecting,[3 1 2])];
 %% Remap output to timestamp pages
-outputMatrix = permute(outputMatrix,[3 2 1]);
+outputMatrix = permute(outputMatrix,[2 1 3]);
 %% Save to file
 for i = 2:size(outputMatrix,3)
     outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', tableHeaders);
@@ -84,6 +84,7 @@ for i = 2:size(outputMatrix,3)
     fprintf('File written for time %i\n',i-1);
 end
 %% End of script, kill parallel pool
+p = gcp;
 delete(p);
 disp('Done with script');
 toc;
