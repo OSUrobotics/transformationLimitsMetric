@@ -4,20 +4,20 @@ tic;
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
 %% Declare variables and start parallel pool
-p = gcp('nocreate');
-if isempty(p)
-    parpool(7);
-end
+% p = gcp('nocreate');
+% if isempty(p)
+%     parpool(7);
+% end
 
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';
-objectScaleFactor = 15;
+objectScaleFactor = 5;
 handScaleFactor = 15;
 transformationScaleFactor = 20;
 numDirectionPoints = 10;
-numOrientationPoints = 10;
+numOrientationPoints = 5;
 angleDistribution = 5;
-interpolationNumber = 10;
+interpolationNumber = 3;
 voxelResolution = 5;
 pmDepth = 4;
 pmScale = 1;
@@ -54,7 +54,7 @@ transformationValues = makeTransformationValues(numDirectionPoints,numOrientatio
 outputMatrix = zeros(interpolationNumber,9,size(transformationValues, 2));
 lengthValues = size(transformationValues, 2);
 % bar = waitbar(0,'Starting Loop...','Name','Running Grasp Simulation...');
-parfor valueIndex = 1:lengthValues % For every combination of values
+for valueIndex = 1:lengthValues % For every combination of values
     fprintf('Started value set %i/%i\n',valueIndex,lengthValues);
     %% Transform to all locations
     values = transformationValues(:,valueIndex); % Get the set of values

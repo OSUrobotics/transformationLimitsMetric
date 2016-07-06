@@ -47,8 +47,6 @@ function [ collisionPercent ] = getPercentCollisionWithVerts( meshAVerts, meshAV
 %% Test the voxels in meshB
 testedPoints = [meshAVoxels(:,1), meshAVoxels(:,2), meshAVoxels(:,3), ...
                  intriangulation(meshBVerts,meshBFaces,meshAVoxels)];
-% testedPoints = [meshAVoxels(:,1), meshAVoxels(:,2), meshAVoxels(:,3), ...
-%                 in_polyhedron(meshBFaces,meshBVerts,meshAVoxels)];
 %Remove all the points that tested outside meshB
 condition = testedPoints(:,4)==0;
 testedPoints(condition, :) = [];
@@ -56,8 +54,6 @@ testedPoints(condition, :) = [];
 %% Test the vertecies in meshB
 testedVerts = [meshAVerts(:,1),meshAVerts(:,2),meshAVerts(:,3), ...
                intriangulation(meshBVerts,meshBFaces,meshAVerts)];
-% testedVerts = [meshAVerts(:,1),meshAVerts(:,2),meshAVerts(:,3), ...
-%                in_polyhedron(meshBFaces,meshBVerts,meshAVerts)];
 %Remove all the points that tested outside meshB
 condition = testedVerts(:,4)==0;
 testedVerts(condition, :) = [];
