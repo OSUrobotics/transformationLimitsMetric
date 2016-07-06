@@ -21,9 +21,19 @@ interpolationNumber = 10;
 voxelResolution = 5;
 pmDepth = 4;
 pmScale = 1;
+transformationsFilename = 'transformations';
 outputFilePath = 'Output/S%iAreaIntersection.csv';
 tableHeaders = {'Timestamp','X_Translation','Y_Translation','Z_Translation','Quaternion_Value_1','Quaternion_Value_2','Quaternion_Value_3','Quaternion_Value_4','Percent_Volume_Intersection'};
 disp('Started Script');
+%% If not already loaded, load the transformation values
+if ~exist('transformationStruct','var')
+    %% If not already created, create the file
+    if ~exist(transformationsFilename,'file')
+        transformationStruct = saveTrajectories(numDirectionPoints,numOrientationPoints,angleDistribution,interpolationNumber,transformationScaleFactor,transformationsFilename);
+    else
+        load(transformationsFilename);
+    end
+end
 %% Load the object and scale to origin
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
 objectVpad = [objectV ones(size(objectV,1),1)]; % Pad the points list with ones to work with 4x4 transformation matrices
@@ -46,11 +56,20 @@ scatter3(objectVox(:,1),objectVox(:,2),objectVox(:,3), '.r');
 camlight('headlight');
 material('dull');
 %% Apply the saved transformations to the voxels and vertices
-applySavedTransformations(transformationStruct.trajectorySteps,objectV);
-applySavedTransformations(transformationStruct.trajectorySteps,objectVox);
-disp('Done looping');
+ptsOut = applySavedTransformations(transformationStruct.trajectorySteps,objectV,true);
+voxOut = applySavedTransformations(transformationStruct.trajectorySteps,objectVox,true);
+disp('Applied transformations');
+%% Get the amount of volume intersection
+volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStruct.numInterpolationSteps);
+for stepIndex = 1:transformationStruct.numInterpolationSteps
+    parfor valueIndex = 1:size(transformationStruct.values,2)
+        volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,voxelResolution,pmDepth,pmScale);
+    end
+end
+%% Concatenate with the step values
+outputMatrix = [transformationStruct.stepValues; permute(volumeIntersecting,[3 1 2])];
 %% Remap output to timestamp pages
-outputMatrix = permute(outputMatrix,[3 2 1]);
+outputMatrix = permute(outputMatrix,[2 1 3]);
 %% Save to file
 for i = 2:size(outputMatrix,3)
     outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', tableHeaders);

@@ -14,9 +14,12 @@ if nargin == 7
 end
 %% Prepare for and loop through creating the steps
 trajectorySteps = zeros(4,4,numInterpolationSteps,size(values,2));
-parfor transformIndex = 1:size(values,2)
+numValues = size(values,2);
+stepValues = zeros(7,numValues,numInterpolationSteps);
+parfor transformIndex = 1:numValues
     trajectorySteps(:,:,:,transformIndex) = trajectoryStepsEXPM(values(:,transformIndex),numInterpolationSteps,translateScalar);
-    fprintf('Done with value set #%i/%i\n',transformIndex,size(values,2));
+    fprintf('Done with value set #%i/%i\n',transformIndex,numValues);
+    stepValues(:,transformIndex,:) = matrix2values(trajectorySteps(:,:,:,transformIndex));
 end
 %% Save to structure
 transformationStruct = struct;
@@ -27,6 +30,7 @@ transformationStruct.numInterpolationSteps = numInterpolationSteps;
 transformationStruct.translateScalar = translateScalar;
 transformationStruct.trajectorySteps = trajectorySteps;
 transformationStruct.values = values;
+transformationStruct.stepValues = stepValues;
 %% Save to file
 save([filename '.mat'],'transformationStruct','-mat');
 end
