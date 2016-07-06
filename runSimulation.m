@@ -60,10 +60,14 @@ material('dull');
 ptsOut = applySavedTransformations(transformationStruct.trajectorySteps,objectV,true);
 voxOut = applySavedTransformations(transformationStruct.trajectorySteps,objectVox,true);
 disp('Applied transformations');
-%% Get the amount of volume intersection
+%% Declare variables for output generation
 volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStruct.numInterpolationSteps);
 numValues = size(transformationStruct.values,2);
-for stepIndex = 1:transformationStruct.numInterpolationSteps
+%% Test origin case
+volumeOrigin = getPercentCollisionWithVerts(objectV,objectVox,handV,handF,voxelResolution,pmDepth,pmScale);
+fprintf('Volume at origin:%f',volumeOrigin);
+%% Loop and test all other cases
+for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
     parfor valueIndex = 1:numValues
         volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,voxelResolution,pmDepth,pmScale);
         fprintf('Calculated volume intersection for set #%i/%i\n',valueIndex,numValues);
