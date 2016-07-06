@@ -22,8 +22,9 @@ function [ outputMatrix ] = generateTrajectories( directionPoints, orientationPo
 %   -This code uses SpiralSampleSphere by Anton Semechko
 %==========================================================================
 
-%% Make the translation vectors using a uniform sphere
-translateVectors = SpiralSampleSphere(directionPoints).';
+%% Make the translation vectors using a uniform sphere and a case for no movement
+translateVectors = SpiralSampleSphere(directionPoints-1).';
+translateVectors = [translateVectors [0;0;0]];
 %% Make a set of normal vectors using a sphere
 normalVectors = SpiralSampleSphere(orientationPoints).';
 %% Make the angle values for the angle rotation
