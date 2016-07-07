@@ -11,7 +11,7 @@ function [ outputMatrix ] = generateTrajectories( directionPoints, orientationPo
 %
 %       orientationPoints   - Mandatory - Integer Value     -Number of axes to rotate around desired
 %
-%       angleDistribution   - Mandatory - Integer Value     -Number of rotation values desired
+%       angleDistribution   - Mandatory - Vector Value      -What angles to rotate the object by around each axis on a -1 to 1 scale
 %
 % OUTPUTS
 %
@@ -28,7 +28,7 @@ translateVectors = [translateVectors [0;0;0]];
 %% Make a set of normal vectors using a sphere
 normalVectors = SpiralSampleSphere(orientationPoints).';
 %% Make the angle values for the angle rotation
-angleRotations = -pi:(2*pi)/angleDistribution:pi;
+angleRotations = pi*angleDistribution;
 %% Combine them into the possible combinations
 outputMatrix = combvec(translateVectors,normalVectors,angleRotations);
 end
