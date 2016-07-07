@@ -11,7 +11,7 @@ function [ voxels ] = getVoxelisedVerts( v,f,resolution )
 %
 %       f           - Mandatory - Nx3 array         -List of that mesh's face data where N is the number of faces
 %       
-%       resolution  - Mandatory - Decimal value     -Value dictating the density of output voxels where 1 yields 1 voxel per unit
+%       resolution  - Mandatory - Decimal value     -Value dictating the number of voxels along the maximum dimension of the mesh
 %
 % OUTPUTS
 %
