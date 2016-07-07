@@ -4,7 +4,7 @@ function [ transformationStruct ] = saveTrajectories( numTranslationDirections, 
 %% Make a parpool 
 p = gcp('nocreate');
 if isempty(p)
-    parpool(8);
+    parpool(7);
 end
 %% Generate the trajectories interpolated along
 values = generateTrajectories(numTranslationDirections, numRotationAxes, numAngleDivisions);

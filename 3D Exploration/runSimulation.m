@@ -18,8 +18,8 @@ transformationScaleFactor = 20;
 numDirectionPoints = 10;
 numOrientationPoints = 5;
 angleDistribution = 5;
-interpolationNumber = 3;
-voxelResolution = 5;
+interpolationNumber = 2;
+voxelResolution = 100;
 pmDepth = 4;
 pmScale = 1;
 transformationsFilename = 'transformationStored';
@@ -36,12 +36,8 @@ if ~exist('transformationStruct','var')
     end
 end
 disp('Generated/loaded transformations');
-%% Load the object and scale to origin
+%% Load the object assuming it has been realigned previously
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
-objectVpad = [objectV ones(size(objectV,1),1)]; % Pad the points list with ones to work with 4x4 transformation matrices
-objectVpad = objectVpad*(makehgtform('translate',-getCentroidMesh(objectV)).'); % Translate the object to origin
-objectVpad = objectVpad*(makehgtform('scale',objectScaleFactor/max(abs(objectV(:)))).'); % Scale the object to one,then to the scaleFactor inputted
-objectV = objectVpad(:,1:3); % Remove padding
 objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
 %% Load the hand and scale to origin
 [handV,handF,~,~] = stlRead(path2hand); % Same as above
@@ -50,6 +46,12 @@ handVpad = handVpad*(makehgtform('translate',-getCentroidMesh(handV)).');
 handVpad = handVpad*(makehgtform('scale',handScaleFactor/max(abs(handV(:)))).');
 handV = handVpad(:,1:3);
 disp('Loaded and scaled objects');
+%% Align system on origin based on gripPivot
+%Get hand BB
+handBB = [max(handV(:,1)),min(handV(:,1)); ...
+          max(handV(:,2)),min(handV(:,2)); ...
+          max(handV(:,3)),min(handV(:,3))].';
+%isInside = 
 %% Display the hand and object
 clf;
 stlPlot(objectV,objectF,true);
@@ -69,7 +71,7 @@ volumeOrigin = getPercentCollisionWithVerts(objectV,objectVox,handV,handF,voxelR
 fprintf('Volume at origin:%f',volumeOrigin);
 %% Loop and test all other cases
 for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
-    parfor valueIndex = 1:numValues
+    for valueIndex = 1:numValues
         volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,voxelResolution,pmDepth,pmScale);
         fprintf('Calculated volume intersection for set #%i/%i\n',valueIndex,numValues);
     end
