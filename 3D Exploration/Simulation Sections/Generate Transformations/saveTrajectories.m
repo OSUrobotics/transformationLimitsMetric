@@ -1,7 +1,7 @@
 function [ transformationStruct ] = saveTrajectories( numTranslationDirections, numRotationAxes, angleDivisions, numInterpolationSteps, translateScalar, filename, divisionRange)
 %% SAVETRAJECTORIES Uses the other functions to generate and save a 4D matrix with all of the transformations interpolated
 % INPUTS:
-%     numTranslationDirections - How many directions to translate the object in, excluding rotation, when defining the values for the possible transformations
+%     numTranslationDirections - Mandatory int - How many directions to translate the object in, excluding rotation, when defining the values for the possible transformations
 % 
 %     numRotationAxes - Mandatory int - How many axes to rotate the object around when defining the values for the possible transformations
 % 
@@ -14,7 +14,16 @@ function [ transformationStruct ] = saveTrajectories( numTranslationDirections, 
 %     filename - Optional string - Saves to a mat file with this name, if included. Enter the string relative to the current directory and without the .mat extension, that is added later. When not included just outputs the structure. 
 % 
 %     divisionRange - Optional vector - Saves the trajectories for only those value sets, if you select 1:100 or [1 2 5:60] it will only return the transformations for that subselection of total values. When not included saves all value sets. 
-
+% 
+% OUTPUT: TRANSFORMATIONSTRUCT
+%     tS.numTranslationDirections - Input repeated
+%     tS.numRotationAxes - Input repeated
+%     tS.angleDivisions - Input repeated
+%     tS.numInterpolationSteps - Input repeated
+%     tS.translateScalar - Input repeated
+%     tS.trajectorySteps - The master matrix in 4D which saves in the first 2 dimensions the 4x4 transformation matrix to get to that given step for that value, with the 3rd dimension indicating the transformation step, and the 4th dimension indicating which value set is being used in the interpolation. 
+%     tS.values - The outcome values based on the input settings, the end location for each possible transformaton tested, the basis of the interpolation. 
+%     tS.stepValues - The x,y,z position, then axis-angle notation for a 7 value long translated position at a given step from the origin. Stored in a 7x(# values)x(# interpolation steps) matrix. 
 %% Make a parpool 
 p = gcp('nocreate');
 if isempty(p)
@@ -43,7 +52,7 @@ end
 transformationStruct = struct;
 transformationStruct.numTranslationDirections = numTranslationDirections;
 transformationStruct.numRotationAxes = numRotationAxes;
-transformationStruct.numAngleDivisions = angleDivisions;
+transformationStruct.angleDivisions = angleDivisions;
 transformationStruct.numInterpolationSteps = numInterpolationSteps;
 transformationStruct.translateScalar = translateScalar;
 transformationStruct.trajectorySteps = trajectorySteps;
