@@ -1,5 +1,5 @@
 function [ transformations4x4xN ] = trajectoryStepsEuler( values, stepNums, translateScalar)
-%% TRAJECTORYSTEPSEULER interpolates between origin and a given set of transformation values using the Euler method, a faster yet less accurate method
+%% TRAJECTORYSTEPSEULER interpolates between origin and a given set of transformation values using the Euler method, a faster yet less accurate method, outputting 4x4 transformation matrix. Called by saveTrajectories.
 %==========================================================================
 %
 % USAGE

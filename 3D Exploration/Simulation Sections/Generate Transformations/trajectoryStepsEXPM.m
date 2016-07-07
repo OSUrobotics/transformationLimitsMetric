@@ -1,5 +1,5 @@
 function [ transformations4x4xN ] = trajectoryStepsEXPM( values, stepNums, translateScalar)
-%% TRAJECTORYSTEPSEXPM interpolates between origin and a given set of transformation values using EXPM, a better yet slower mathematical model
+%% TRAJECTORYSTEPSEXPM interpolates between origin and a given set of transformation values using EXPM, a better yet slower mathematical model, outputting 4x4 transformation matrix. Called by saveTrajectories.
 %==========================================================================
 %
 % USAGE
