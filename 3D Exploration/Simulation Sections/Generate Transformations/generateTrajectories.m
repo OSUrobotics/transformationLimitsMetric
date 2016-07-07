@@ -1,5 +1,5 @@
 function [ outputMatrix ] = generateTrajectories( directionPoints, orientationPoints, angleDistribution )
-%% GENERATETRAJECTORIES Returns a list of evenly distributed trajectories with rotation aspects as well
+%% GENERATETRAJECTORIES Returns a list of evenly distributed trajectories with rotation aspects for the basis of the saveTrajectories and trajectory stepping with the EXPM functions
 %==========================================================================
 %
 % USAGE
