@@ -1,6 +1,6 @@
 function [ ptsTransformed ] = applySavedTransformations( transformations, pts, verticalOut )
 %% APPLYSAVEDTRANSFORMATIONS takes saved transformation steps and applies them to create a multi-dimensional indexed set of points
-%   Detailed explanation goes here
+%   Uses the transformationStruct and applies the transformations contained to a set of points, with an option to return in vertical list format or horizontal list format, defaulting to horizontal
 if ischar(transformations) % pass in nothing if have already loaded variables
     %% Read in structure
     load([transformations '.mat']);
@@ -22,9 +22,7 @@ for stepIndex = 1:size(transformations,3)
 end
 %% Remove padding and reformat if wanted
 ptsTransformed = ptsTransformed(1:3,:,:,:);
-if nargin == 3
-    if verticalOut
-        ptsTransformed = permute(ptsTransformed,[2 1 3 4]);
-    end
+if nargin == 3 && verticalOut
+    ptsTransformed = permute(ptsTransformed,[2 1 3 4]);
 end
 end
