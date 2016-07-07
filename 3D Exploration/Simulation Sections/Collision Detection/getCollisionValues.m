@@ -3,7 +3,7 @@ function [ totalAreaColliding ] = getCollisionValues( meshAVerts, meshAVoxels, m
 %==========================================================================
 %
 % USAGE
-%       [ collisionPercent ] = getPercentCollisionWithVerts( meshAVerts, meshAVoxels, meshBVerts, meshBFaces, resolution, pmDepth, pmScale )
+%       [ collisionPercent ] = getCollisionValues( meshAVerts, meshAVoxels, meshBVerts, meshBFaces, resolution, pmDepth, pmScale )
 %
 % INPUTS
 %
@@ -23,12 +23,12 @@ function [ totalAreaColliding ] = getCollisionValues( meshAVerts, meshAVoxels, m
 %
 % OUTPUTS
 %
-%       collisionPercent - Mandatory - 0.0 to 1.0 value - Amount of meshA inside meshB as a percentage
+%       totalAreaColliding - Mandatory - 0.0 to 1.0 value - Amount of meshA inside meshB
 %
 % EXAMPLE
 %
 %       To get the collision of a PolyMended ply file with an stl file:
-%       >>  [ collisionPercent ] = getPercentCollisionWithVerts( plyVerts, plyVoxels, stlVerts, stlVoxels, voxelResolution, polyMenderOctreeDepth, polyMenderScale )
+%       >>  [ totalAreaColliding ] = getCollisionValues( plyVerts, plyVoxels, stlVerts, stlVoxels, voxelResolution, polyMenderOctreeDepth, polyMenderScale )
 %
 % NOTES
 %
