@@ -8,5 +8,6 @@ objectV = (transformationMatrix*(objectV.')).';
 if nargin == 5
 	handRelativeCenter = [0 0 handSpreadDistance/(2*pi)]; 
 end
-objectV = objectV + handRelative;
+objectV = objectV - repmat(handRelativeCenter,[size(objectV,1) 1]);
+handV = handV - repmat(handRelativeCenter,[size(handV,1) 1]);
 end
