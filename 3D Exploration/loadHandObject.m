@@ -1,4 +1,4 @@
-function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, objectTransformationFilepath, handTransformationFilepath, objectFilepath, handSpreadDistance, sphereRadius, handRelativeCenter )
+function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, transformationFilepath, objectFilepath, handSpreadDistance, sphereRadius, handRelativeCenter )
 %% LOADHANDOBJECT Normalizes an inputed grasp system
 %==========================================================================
 %
@@ -13,9 +13,7 @@ function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, obje
 %
 %       handFilepath                    - Mandatory - Filepath String   - Path to the hand STL file
 %
-%       objectTransformationFilepath    - Mandatory - Filepath String   - Path to the object transformation matrix csv from OpenRave 
-%
-%       handTransformationFilepath      - Mandatory - Filepath String   - Path to the hand transformation matrix csv from OpenRave
+%       transformationFilepath    - Mandatory - Filepath String         - Path to the transformation matrices file from OpenRave 
 %
 %       objectFilepath                  - Mandatory - Filepath String   - Path to the PolyMended ply file
 %
@@ -52,8 +50,17 @@ function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, obje
 %% Read in data
 [handV, handF] = stlRead(handFilepath);
 [objectV, objectF] = read_ply(objectFilepath);
-transformationMatrix = csvread(objectTransformationFilepath);
-handTransformationMatrix = csvread(handTransformationMatrixFilepath);
+% Read file in
+textIn = fileread(transformationFilepath);
+% Remove pesky brackets
+textIn = regexprep(textIn,'[',' ');
+textIn = regexprep(textIn,']',' ');
+% Split into an array of values
+splitStrings = strsplit(textIn);
+splitStrings = str2double(splitStrings);
+% Reshape into proper transformation matrices
+transformationMatrix = reshape(splitStrings(2:17), [4,4]).';
+handTransformationMatrix = reshape(splitStrings(19:34), [4,4]).';
 %% Create object transformation matrix and translate object
 transformationMatrix = handTransformationMatrix \ transformationMatrix;
 objectV = (transformationMatrix*(objectV.')).';
