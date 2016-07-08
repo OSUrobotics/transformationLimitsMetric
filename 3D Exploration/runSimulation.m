@@ -4,10 +4,10 @@ tic;
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
 %% Start parallel pool
-try
+p = gcp('nocreate');
+if isempty(p)
     parpool(7);
-catch er
-    disp('Looks like someone tried to start a parallel pool when there was one already running');
+    p = gcp();
 end
 %% Declare Variables
 path2object = 'BallOut.ply';
@@ -87,7 +87,6 @@ for i = 2:size(outputMatrix,3)
     fprintf('File written for time %i\n',i-1);
 end
 %% End of script, kill parallel pool
-p = gcp;
 delete(p);
 disp('Done with script');
 toc;
