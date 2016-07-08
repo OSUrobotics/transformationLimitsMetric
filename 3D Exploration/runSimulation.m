@@ -38,6 +38,10 @@ end
 disp('Generated/loaded transformations');
 %% Load the object assuming it has been realigned previously
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
+objectVpad = [objectV ones(size(objectV,1),1)];
+objectVpad = objectVpad*(makehgtform('translate',-getCentroidMesh(objectV)).');
+objectVpad = objectVpad*(makehgtform('scale',objectScaleFactor/max(abs(objectV(:)))).');
+objectV = objectVpad(:,1:3);
 objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
 %% Load the hand and scale to origin
 [handV,handF,~,~] = stlRead(path2hand); % Same as above
@@ -45,13 +49,7 @@ handVpad = [handV ones(size(handV,1),1)];
 handVpad = handVpad*(makehgtform('translate',-getCentroidMesh(handV)).');
 handVpad = handVpad*(makehgtform('scale',handScaleFactor/max(abs(handV(:)))).');
 handV = handVpad(:,1:3);
-disp('Loaded and scaled objects');
-%% Align system on origin based on gripPivot
-%Get hand BB
-handBB = [max(handV(:,1)),min(handV(:,1)); ...
-          max(handV(:,2)),min(handV(:,2)); ...
-          max(handV(:,3)),min(handV(:,3))].';
-%isInside = 
+disp('Loaded and scaled objects'); 
 %% Display the hand and object
 clf;
 stlPlot(objectV,objectF,true);
@@ -71,7 +69,7 @@ volumeOrigin = getPercentCollisionWithVerts(objectV,objectVox,handV,handF,voxelR
 fprintf('Volume at origin:%f',volumeOrigin);
 %% Loop and test all other cases
 for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
-    for valueIndex = 1:numValues
+    parfor valueIndex = 1:numValues
         volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,voxelResolution,pmDepth,pmScale);
         fprintf('Calculated volume intersection for set #%i/%i\n',valueIndex,numValues);
     end
