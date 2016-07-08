@@ -1,4 +1,4 @@
-% function [ output_args ] = visualizeData( input_args )
+% function [ output_args ] = visualizeData( path2object, path2hand, dataFilePath, handScaleFactor, objectScaleFactor, collisionThreshold, numSteps,  )
 clear, clf, close all;
 path2object = 'BallOut.ply';
 path2hand = 'roboHand.stl';

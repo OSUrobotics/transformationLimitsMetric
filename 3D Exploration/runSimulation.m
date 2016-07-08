@@ -36,7 +36,7 @@ if ~exist('transformationStruct','var')
     end
 end
 disp('Generated/loaded transformations');
-%% Load the object assuming it has been realigned previously
+%% Load the object and scale to origin
 [objectV,objectF] = read_ply(path2object); % Gives vertical vertices matrix,association matrix
 objectVpad = [objectV ones(size(objectV,1),1)];
 objectVpad = objectVpad*(makehgtform('translate',-getCentroidMesh(objectV)).');
