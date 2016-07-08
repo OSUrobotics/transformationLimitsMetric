@@ -1,3 +1,4 @@
 *.asv
 *.ini
 .dropbox
+matts_stls/*
