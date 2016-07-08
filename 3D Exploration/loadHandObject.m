@@ -49,7 +49,9 @@ function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, tran
 
 %% Read in data
 [handV, handF] = stlRead(handFilepath);
+handV(:,4) = 1;
 [objectV, objectF] = read_ply(objectFilepath);
+objectV(:,4) = 1;
 % Read file in
 textIn = fileread(transformationFilepath);
 % Remove pesky brackets
@@ -63,12 +65,12 @@ transformationMatrix = reshape(splitStrings(2:17), [4,4]).';
 handTransformationMatrix = reshape(splitStrings(19:34), [4,4]).';
 %% Create object transformation matrix and translate object
 transformationMatrix = handTransformationMatrix \ transformationMatrix;
-objectV = (transformationMatrix*(objectV.')).';
+objectV = (transformationMatrix*((objectV.')/1000)).';
 %% Calculate relative center if none given
-if nargin <= 6
-    handRelativeCenter = [0 0 handSpreadDistance/(2*pi)]; 
+if nargin <= 5
+    handRelativeCenter = [0 0 handSpreadDistance/(2*pi) 1]; 
 end
-if nargin == 5
+if nargin == 4
     sphereRadius = 1;
 end
 %% Transform object and hand to new center
@@ -82,4 +84,6 @@ transformationMatrix = makehgtform('scale', ...
 %% Apply scale transformation
 objectV = (transformationMatrix*(objectV.')).';
 handV = (transformationMatrix*(handV.')).';
+handV = handV(:,1:3);
+objectV = objectV(:,1:3);
 end
