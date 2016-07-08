@@ -23,4 +23,3 @@ s = str2double(s);
 matrixA = reshape(s(2:17), [4,4]).';
 matrixB = reshape(s(19:34), [4,4]).';
 
-
