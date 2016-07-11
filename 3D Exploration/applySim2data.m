@@ -18,8 +18,7 @@ transformationSettings.numRotationAxes = 5;
 transformationSettings.angleDivisions = [-1 -.5 -.25 0 .25 .5 1];
 transformationSettings.numInterpolationSteps = 10;
 %% Other variables
-originToPalmVector = [0 0 4];
-handSpreadDistance = .385;
+originToCenter = [0 0 0.085/2+0.08]; % Half of the height of a fingers touching position to the palm, plus the palm-origin offset
 voxelResolution = 50;
 pmDepth = 4;
 pmScale = 1;
@@ -48,7 +47,7 @@ end
 disp('Loaded the hand-object-transformation linking csv');
 %% Sort by object so don't load in unnecisarily many times, and run the first object in
 handObjectLinking = sortrows(handObjectLinking, 2);
-[standardOV,standardOF] = read_ply(handObjectLinking{1,2});
+[standardOV,standardOF] = stlRead(handObjectLinking{1,2});
 %% Loop through the items in the handObjectLinking list
 for pairingIndex = 2:size(handObjectLinking,2)
     %% If using the same object, don't load a new one
@@ -56,7 +55,7 @@ for pairingIndex = 2:size(handObjectLinking,2)
         [standardOV,standardOF] = read_ply(handObjectLinking{pairingIndex,2});
     end
     %% Load and normalize with loadHandObject
-    [handV,handF,objectV,~] = loadHandObject(handObjectLinking{pairingIndex,3},originToPalmVector,handObjectLinking{pairingIndex,1},standardOV,handSpreadDistance);
+    [handV,handF,objectV] = loadHandObject(handObjectLinking{pairingIndex,3},originToCenter,handObjectLinking{pairingIndex,1},standardOV,handSpreadDistance);
     %% Run script on it all
-    runSimFun(transformationStruct,objectV,objectF,handV,handF,handObjectLinking{pairingIndex,4},voxelResolution,pmDepth,pmScale,outputFilePath)
+    runSimFun(transformationStruct,objectV,standardOF,handV,handF,voxelResolution,pmDepth,pmScale,outputFilePath)
 end
