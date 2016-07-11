@@ -50,8 +50,21 @@ function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, tran
 %% Read in data
 [handV, handF] = stlRead(handFilepath);
 handV(:,4) = 1;
-[objectV, objectF] = read_ply(objectFilepath);
+fileType = objectFilepath(end - 3:end);
+if(strcmpi(fileType, '.stl'))
+    [objectV, objectF] = stlRead(objectFilepath);
+    disp('Loading STL file.');
+    warning('WARNING:  A PolyMended PLY file should be used for actual simulations');
+elseif(strcmpi(fileType, '.ply'))
+    [objectV, objectF] = read_ply(objectFilepath);
+    disp('Loading PLY file');
+else
+    error('INVALID OBJECT:  Object filepath does not point to an STL or PLY');
+end
 objectV(:,4) = 1;
+objectV = objectV * makehgtform('scale',0.001).';
+% objectV = objectV * makehgtform('translate',0,0,-0.08).';
+handV = handV * makehgtform('translate',0,0,0.08).';
 % Read file in
 textIn = fileread(transformationFilepath);
 % Remove pesky brackets
@@ -65,7 +78,7 @@ transformationMatrix = reshape(splitStrings(2:17), [4,4]).';
 handTransformationMatrix = reshape(splitStrings(19:34), [4,4]).';
 %% Create object transformation matrix and translate object
 transformationMatrix = handTransformationMatrix \ transformationMatrix;
-objectV = (transformationMatrix*((objectV.')/1000)).';
+objectV = (transformationMatrix*((objectV.'))).';
 %% Calculate relative center if none given
 if nargin <= 5
     handRelativeCenter = [0 0 handSpreadDistance/(2*pi) 1]; 
@@ -73,10 +86,6 @@ end
 if nargin == 4
     sphereRadius = 1;
 end
-%% Transform object and hand to new center
-objectV = objectV - repmat(handRelativeCenter,[size(objectV,1) 1]);
-handV = handV - repmat(handRelativeCenter,[size(handV,1) 1]);
-
 %% Define a scale matrix based on the ratio of sphere cross section diameter over handSpreadDistance
 transformationMatrix = makehgtform('scale', ...
                       (2*sqrt(sphereRadius^2-handRelativeCenter(3)^2)) / ...
@@ -84,6 +93,9 @@ transformationMatrix = makehgtform('scale', ...
 %% Apply scale transformation
 objectV = (transformationMatrix*(objectV.')).';
 handV = (transformationMatrix*(handV.')).';
+%% Transform object and hand to new center
+objectV = objectV - repmat(handRelativeCenter,[size(objectV,1) 1]);
+handV = handV - repmat(handRelativeCenter,[size(handV,1) 1]);
 handV = handV(:,1:3);
 objectV = objectV(:,1:3);
 end
