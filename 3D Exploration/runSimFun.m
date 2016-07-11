@@ -1,4 +1,4 @@
-function [ outputMatrix ] = runSimFun( transformationStruct, objectV, objectF, handV, handF, voxelResolution, pmDepth, pmScale, outputFilePath )
+function [ outputMatrix ] = runSimFun( transformationStruct, objectV, objectF, handV, handF, objectNumber, voxelResolution, pmDepth, pmScale, outputFilePath )
 %RUNSIMULATION Creates data representing a grasp
 %   Loads an object PLY file, a pre-positioned hand STL, and some settings 
 %   and returns the area overlap of the two objects at evenly distributed 
@@ -28,7 +28,7 @@ outputMatrix = permute(outputMatrix,[2 1 3]);
 %% Save to file
 for i = 2:size(outputMatrix,3)
     outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', {'X_Translation','Y_Translation','Z_Translation','Axis_X','Axis_Y','Axis_Z','Angle_Rotated','Percent_Volume_Intersection'});
-    writetable(outputTable, sprintf(outputFilePath,i-1));
+    writetable(outputTable, sprintf(outputFilePath,objectNumber,i-1));
     fprintf('File written for time %i\n',i-1);
 end
 end

@@ -56,7 +56,7 @@ for pairingIndex = 2:size(handObjectLinking,2)
         [standardOV,standardOF] = read_ply(handObjectLinking{pairingIndex,2});
     end
     %% Load and normalize with loadHandObject
-    [handV,handF,objectV,~] = loadHandObject(handObjectLinking{pairingIndex,2},originToPalmVector,handObjectLinking{pairingIndex,1},standardOV,handSpreadDistance);
+    [handV,handF,objectV,~] = loadHandObject(handObjectLinking{pairingIndex,3},originToPalmVector,handObjectLinking{pairingIndex,1},standardOV,handSpreadDistance);
     %% Run script on it all
-    runSimFun(transformationStruct,objectV,objectF,handV,handF,voxelResolution,pmDepth,pmScale,outputFilePath)
+    runSimFun(transformationStruct,objectV,objectF,handV,handF,handObjectLinking{pairingIndex,4},voxelResolution,pmDepth,pmScale,outputFilePath)
 end
