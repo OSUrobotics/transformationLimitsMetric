@@ -1,4 +1,4 @@
-function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, transformationFilepath, objectFilepath, handSpreadDistance, sphereRadius, handRelativeCenter )
+function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, originToPalmVector, transformationFilepath, objectFilepath, handSpreadDistance, sphereRadius, handRelativeCenter )
 %% LOADHANDOBJECT Normalizes an inputed grasp system
 %==========================================================================
 %
@@ -13,7 +13,9 @@ function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, tran
 %
 %       handFilepath                    - Mandatory - Filepath String   - Path to the hand STL file
 %
-%       transformationFilepath    - Mandatory - Filepath String         - Path to the transformation matrices file from OpenRave 
+%       originToPalmVector              - Mandatory - 1x3 Vector        - Vector from the hand's origin to the center of its palm
+%
+%       transformationFilepath          - Mandatory - Filepath String   - Path to the transformation matrices file from OpenRave 
 %
 %       objectFilepath                  - Mandatory - Filepath String   - Path to the PolyMended ply file
 %
@@ -64,7 +66,7 @@ end
 objectV(:,4) = 1;
 objectV = objectV * makehgtform('scale',0.001).';
 % objectV = objectV * makehgtform('translate',0,0,-0.08).';
-handV = handV * makehgtform('translate',0,0,0.08).';
+% handV = handV * makehgtform('translate',0,0,0.08).';
 % Read file in
 textIn = fileread(transformationFilepath);
 % Remove pesky brackets
@@ -96,6 +98,9 @@ handV = (transformationMatrix*(handV.')).';
 %% Transform object and hand to new center
 objectV = objectV - repmat(handRelativeCenter,[size(objectV,1) 1]);
 handV = handV - repmat(handRelativeCenter,[size(handV,1) 1]);
+%% Move system so palm is in correct location
+objectV = objectV * makehgtform('translate',originToPalmVector);
+handV = handV * makehgtform('translate',originToPalmVector);
 handV = handV(:,1:3);
 objectV = objectV(:,1:3);
 end
