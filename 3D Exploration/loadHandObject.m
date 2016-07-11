@@ -1,13 +1,13 @@
-function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, originToPalmVector, transformationFilepath, objectFilepath, handSpreadDistance, sphereRadius, handRelativeCenter )
+function [ handV, handF, objectV] = loadHandObject( handFilepath, originToPalmVector, transformationFilepath, objectV, handSpreadDistance, sphereRadius, handRelativeCenter )
 %% LOADHANDOBJECT Normalizes an inputed grasp system
 %==========================================================================
 %
 % USAGE
-%       [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, objectTransformationFilepath, objectFilepath, handSpreadDistance, sphereRadius, handRelativeCenter )
+%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToPalmVector, objectTransformationFilepath, objectV, handSpreadDistance, sphereRadius, handRelativeCenter )
 %
-%       [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, objectTransformationFilepath, objectFilepath, handSpreadDistance, sphereRadius )
+%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToPalmVector, objectTransformationFilepath, objectV, handSpreadDistance, sphereRadius )
 %
-%       [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, objectTransformationFilepath, objectFilepath, handSpreadDistance )
+%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToPalmVector, objectTransformationFilepath, objectV, handSpreadDistance )
 %
 % INPUTS
 %
@@ -17,7 +17,7 @@ function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, orig
 %
 %       transformationFilepath          - Mandatory - Filepath String   - Path to the transformation matrices file from OpenRave 
 %
-%       objectFilepath                  - Mandatory - Filepath String   - Path to the PolyMended ply file
+%       objectV                         - Mandatory - Nx3 Matrix        - List of a PolyMended ply object's vertices where N is the number of verteces
 %
 %       handSpreadDistance              - Mandatory - Double Value      - Distance between fingertips at the largest possible reach of the hand
 %
@@ -33,12 +33,10 @@ function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, orig
 %
 %       objectV                         - Mandatory - Nx3 Array         - Vertex data of the object where N is the number of vertices
 %
-%       objectF                         - Mandatory - Nx3 Array         - Face data of the object where N is the number of faces
-%
 % EXAMPLE
 %
 %       To get the normalized hand and object of a grasp system w/ a BH8-280 and a pitcher:
-%       >>  [ handV, handF, objectV, objectF ] = loadHandObject( pathToBH8-280, pathToTransformationMatrix, pathToPolyMendedPitcher, 0.385 )
+%       >>  [ handV, handF, objectV ] = loadHandObject( pathToBH8-280,[0,0,-0.08] ,pathToTransformationMatrix, pitcherVerts, 0.385 )
 %
 % NOTES
 %
@@ -52,21 +50,8 @@ function [ handV, handF, objectV, objectF ] = loadHandObject( handFilepath, orig
 %% Read in data
 [handV, handF] = stlRead(handFilepath);
 handV(:,4) = 1;
-fileType = objectFilepath(end - 3:end);
-if(strcmpi(fileType, '.stl'))
-    [objectV, objectF] = stlRead(objectFilepath);
-    disp('Loading STL file.');
-    warning('WARNING:  A PolyMended PLY file should be used for actual simulations');
-elseif(strcmpi(fileType, '.ply'))
-    [objectV, objectF] = read_ply(objectFilepath);
-    disp('Loading PLY file');
-else
-    error('INVALID OBJECT:  Object filepath does not point to an STL or PLY');
-end
 objectV(:,4) = 1;
 objectV = objectV * makehgtform('scale',0.001).';
-% objectV = objectV * makehgtform('translate',0,0,-0.08).';
-% handV = handV * makehgtform('translate',0,0,0.08).';
 % Read file in
 textIn = fileread(transformationFilepath);
 % Remove pesky brackets
@@ -81,6 +66,9 @@ handTransformationMatrix = reshape(splitStrings(19:34), [4,4]).';
 %% Create object transformation matrix and translate object
 transformationMatrix = handTransformationMatrix \ transformationMatrix;
 objectV = (transformationMatrix*((objectV.'))).';
+%% Move system so palm is in correct location
+objectV = objectV * makehgtform('translate',originToPalmVector).';
+handV = handV * makehgtform('translate',originToPalmVector).';
 %% Calculate relative center if none given
 if nargin <= 6
     handRelativeCenter = [0 0 handSpreadDistance/(2*pi) 1]; 
@@ -88,6 +76,9 @@ end
 if nargin == 5
     sphereRadius = 1;
 end
+%% Transform object and hand to new center
+objectV = objectV - repmat(handRelativeCenter,[size(objectV,1) 1]);
+handV = handV - repmat(handRelativeCenter,[size(handV,1) 1]);
 %% Define a scale matrix based on the ratio of sphere cross section diameter over handSpreadDistance
 transformationMatrix = makehgtform('scale', ...
                       (2*sqrt(sphereRadius^2-handRelativeCenter(3)^2)) / ...
@@ -95,12 +86,6 @@ transformationMatrix = makehgtform('scale', ...
 %% Apply scale transformation
 objectV = (transformationMatrix*(objectV.')).';
 handV = (transformationMatrix*(handV.')).';
-%% Transform object and hand to new center
-objectV = objectV - repmat(handRelativeCenter,[size(objectV,1) 1]);
-handV = handV - repmat(handRelativeCenter,[size(handV,1) 1]);
-%% Move system so palm is in correct location
-objectV = objectV * makehgtform('translate',originToPalmVector);
-handV = handV * makehgtform('translate',originToPalmVector);
 handV = handV(:,1:3);
 objectV = objectV(:,1:3);
 end
