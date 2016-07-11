@@ -1,19 +1,19 @@
-function [ handV, handF, objectV] = loadHandObject( handFilepath, originToPalmVector, transformationFilepath, objectV, handSpreadDistance, sphereRadius, handRelativeCenter )
+function [ handV, handF, objectV] = loadHandObject( handFilepath, originToCenterVector, transformationFilepath, objectV, handSpreadDistance)
 %% LOADHANDOBJECT Normalizes an inputed grasp system
 %==========================================================================
 %
 % USAGE
-%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToPalmVector, objectTransformationFilepath, objectV, handSpreadDistance, sphereRadius, handRelativeCenter )
+%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToCenterVector, objectTransformationFilepath, objectV, handSpreadDistance, sphereRadius, handRelativeCenter )
 %
-%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToPalmVector, objectTransformationFilepath, objectV, handSpreadDistance, sphereRadius )
+%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToCenterVector, objectTransformationFilepath, objectV, handSpreadDistance, sphereRadius )
 %
-%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToPalmVector, objectTransformationFilepath, objectV, handSpreadDistance )
+%       [ handV, handF, objectV ] = loadHandObject( handFilepath, originToCenterVector, objectTransformationFilepath, objectV, handSpreadDistance )
 %
 % INPUTS
 %
 %       handFilepath                    - Mandatory - Filepath String   - Path to the hand STL file
 %
-%       originToPalmVector              - Mandatory - 1x3 Vector        - Vector from the hand's origin to the center of its palm
+%       originToCenterVector            - Mandatory - 1x3 Vector        - Vector from the hand's origin to the center of its grasp
 %
 %       transformationFilepath          - Mandatory - Filepath String   - Path to the transformation matrices file from OpenRave 
 %
@@ -67,21 +67,11 @@ handTransformationMatrix = reshape(splitStrings(19:34), [4,4]).';
 transformationMatrix = handTransformationMatrix \ transformationMatrix;
 objectV = (transformationMatrix*((objectV.'))).';
 %% Move system so palm is in correct location
-objectV = objectV * makehgtform('translate',originToPalmVector).';
-handV = handV * makehgtform('translate',originToPalmVector).';
-%% Calculate relative center if none given
-if nargin <= 6
-    handRelativeCenter = [0 0 handSpreadDistance/(2*pi) 1]; 
-end
-if nargin == 5
-    sphereRadius = 1;
-end
-%% Transform object and hand to new center
-objectV = objectV - repmat(handRelativeCenter,[size(objectV,1) 1]);
-handV = handV - repmat(handRelativeCenter,[size(handV,1) 1]);
+objectV = objectV * makehgtform('translate',originToCenterVector).';
+handV = handV * makehgtform('translate',originToCenterVector).';
 %% Define a scale matrix based on the ratio of sphere cross section diameter over handSpreadDistance
 transformationMatrix = makehgtform('scale', ...
-                      (2*sqrt(sphereRadius^2-handRelativeCenter(3)^2)) / ...
+                      (2*sqrt(sphereRadius^2-originToCenterVector(3)^2)) / ...
                        handSpreadDistance);
 %% Apply scale transformation
 objectV = (transformationMatrix*(objectV.')).';
