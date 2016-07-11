@@ -1,4 +1,4 @@
-function [ valuesOut ] = linkObjectStlsCsv( outputFilePath )
+function [ valuesOut ] = linkHandObject( outputFilePath )
 %% Declaring variables
 path2transforms = 'handAndAlignment/transforms/';
 format4hands = 'handAndAlignment/hand/obj%i_sub%i_grasp%i_%s.stl';

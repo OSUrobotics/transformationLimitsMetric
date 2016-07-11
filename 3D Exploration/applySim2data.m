@@ -22,7 +22,7 @@ voxelResolution = 50;
 pmDepth = 4;
 pmScale = 1;
 handObjectLinkingFilePath = 'pathMapping.csv';
-outputFilePath = 'Output/S%iAreaIntersection.csv';
+outputFilePath = 'Output/Obj%iStep%iAreaIntersection.csv';
 %% If not already loaded, load the transformation values
 if ~exist('transformationStruct','var')
     %% If not already created, create the file
@@ -41,8 +41,20 @@ end
 if exist(handObjectLinkingFilePath,'file')
     handObjectLinking = table2cell(readtable(handObjectLinkingFilePath));
 else
-    handObjectLinking = linkObjectStlsCsv(handObjectLinkingFilePath);
+    handObjectLinking = linkHandObject(handObjectLinkingFilePath);
 end
 disp('Loaded the hand-object-transformation linking csv');
 %% Sort by object so don't load in unnecisarily many times, and run the first object in
 handObjectLinking = sortrows(handObjectLinking, 2);
+[standardOV,~] = read_ply(handObjectLinking{1,2});
+%% Loop through the items in the handObjectLinking list
+for pairingIndex = 2:size(handObjectLinking,2)
+    %% If using the same object, don't load a new one
+    if handObjectLinking{pairingIndex-1,2} ~= handObjectLinking{pairingIndex,2}
+        [standardOV,~] = read_ply(handObjectLinking{pairingIndex,2});
+    end
+    %% Load in hand
+    
+    %% Normalize 
+    %% Run 
+end

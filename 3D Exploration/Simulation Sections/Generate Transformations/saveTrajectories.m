@@ -40,7 +40,7 @@ translateScalar = transformationStruct.translateScalar;
 %% Prepare for and loop through creating the steps
 trajectorySteps = zeros(4,4,transformationStruct.numInterpolationSteps,size(values,2));
 numValues = size(values,2);
-stepValues = zeros(7,transformationStruct.numValues,transformationStruct.numInterpolationSteps);
+stepValues = zeros(7,numValues,transformationStruct.numInterpolationSteps);
 parfor transformIndex = 1:numValues
     trajectorySteps(:,:,:,transformIndex) = trajectoryStepsEXPM(values(:,transformIndex),numInterpolationSteps,translateScalar);
     stepValues(:,transformIndex,:) = matrix2values(trajectorySteps(:,:,:,transformIndex));
