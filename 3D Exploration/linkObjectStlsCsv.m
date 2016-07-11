@@ -1,10 +1,10 @@
+function [ valuesOut ] = linkObjectStlsCsv( outputFilePath )
 %% Declaring variables
 path2transforms = 'handAndAlignment/transforms/';
 format4hands = 'handAndAlignment/hand/obj%i_sub%i_grasp%i_%s.stl';
 format4transforms = 'obj%d_sub%d_grasp%d_%s_object_transform.txt';
 path2numObjectReference = 'handAndAlignment/obj_dict.csv';
 path2objects = 'sampleSTLs/';
-outputFilePath = 'pathMapping.csv';
 tableHeaders = {'TransformsFilepath','ObjectFilepath','HandFilepath','ObjectNum','SubjectNum','GraspNum','Extreme'};
 %% Get the object number to filepath link
 fID = fopen(path2numObjectReference);
@@ -31,3 +31,4 @@ end
 valuesOut = [strcat(repmat(path2transforms,[length(names) 1]),names.') valuesOut];
 outputTable = cell2table(valuesOut,'VariableNames',tableHeaders);
 writetable(outputTable,outputFilePath);
+end
