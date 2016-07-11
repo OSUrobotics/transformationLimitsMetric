@@ -82,10 +82,10 @@ handTransformationMatrix = reshape(splitStrings(19:34), [4,4]).';
 transformationMatrix = handTransformationMatrix \ transformationMatrix;
 objectV = (transformationMatrix*((objectV.'))).';
 %% Calculate relative center if none given
-if nargin <= 5
+if nargin <= 6
     handRelativeCenter = [0 0 handSpreadDistance/(2*pi) 1]; 
 end
-if nargin == 4
+if nargin == 5
     sphereRadius = 1;
 end
 %% Define a scale matrix based on the ratio of sphere cross section diameter over handSpreadDistance
