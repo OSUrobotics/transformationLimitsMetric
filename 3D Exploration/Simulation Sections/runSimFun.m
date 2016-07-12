@@ -14,12 +14,13 @@ volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStr
 numValues = size(transformationStruct.values,2);
 %% Test origin case
 volumeOrigin = getPercentCollisionWithVerts(objectV,objectVox,handV,handF,voxelResolution,pmDepth,pmScale);
-fprintf('Volume at origin:%f',volumeOrigin);
+fprintf('Volume at origin: %f\n',volumeOrigin);
 %% Loop and test all other cases
 for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
-    parfor valueIndex = 1:numValues
+    for valueIndex = 1:numValues
         volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,voxelResolution,pmDepth,pmScale);
     end
+    fprintf('Done with step %i\n',stepIndex);
 end
 %% Concatenate with the step values
 outputMatrix = [transformationStruct.stepValues; permute(volumeIntersecting,[3 1 2])];

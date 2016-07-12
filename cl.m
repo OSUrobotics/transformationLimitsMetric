@@ -9,6 +9,7 @@ if isequal(str, 'Y') || isequal(str, 'y')
     evalin('base', 'fclose all');       % Close all open files
     clf;                                % Clear the figure
     close all;                          % Close all windows
+    dbclear all;                        % Clear breakpoints
     evalin('base', 'clear all');        % Clear the workspace
     clc;                                % Clear the console
 end

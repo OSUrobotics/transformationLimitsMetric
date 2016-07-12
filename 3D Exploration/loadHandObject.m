@@ -1,4 +1,4 @@
-function [ handV, handF, objectV] = loadHandObject( handFilepath, originToCenterVector, transformationFilepath, objectV, handSpreadDistance)
+function [ handV, handF, objectV] = loadHandObject( handFilepath, originToCenterVector, transformationFilepath, objectV, handSpreadDistance, sphereRadius )
 %% LOADHANDOBJECT Normalizes an inputed grasp system
 %==========================================================================
 %

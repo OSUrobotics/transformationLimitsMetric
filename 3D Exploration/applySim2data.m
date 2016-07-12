@@ -10,8 +10,7 @@ disp('Parpool started');
 %% Declaring transformation settings variables
 transformationsFilename = 'transformationStored';
 transformationSettings = struct;
-transformationSettings.objectScaleFactor = 5;
-transformationSettings.handScaleFactor = 15;
+transformationSettings.handAndObjectScalar = 15;
 transformationSettings.translateScalar = 20;
 transformationSettings.numTranslationDirections = 10;
 transformationSettings.numRotationAxes = 5;
@@ -19,6 +18,7 @@ transformationSettings.angleDivisions = [-1 -.5 -.25 0 .25 .5 1];
 transformationSettings.numInterpolationSteps = 10;
 %% Other variables
 originToCenter = -[0 0 0.085/2+0.08]; % Half of the height of a fingers touching position to the palm, plus the palm-origin offset
+handSpreadDistance = 0.385; % Hand setting for scaling
 voxelResolution = 50;
 pmDepth = 4;
 pmScale = 1;
@@ -55,7 +55,7 @@ for pairingIndex = 2:size(handObjectLinking,2)
         [standardOV,standardOF] = read_ply(handObjectLinking{pairingIndex,2});
     end
     %% Load and normalize with loadHandObject
-    [handV,handF,objectV] = loadHandObject(handObjectLinking{pairingIndex,3},originToCenter,handObjectLinking{pairingIndex,1},standardOV);
+    [handV,handF,objectV] = loadHandObject(handObjectLinking{pairingIndex,3},originToCenter,handObjectLinking{pairingIndex,1},standardOV,handSpreadDistance,transformationSettings.handAndObjectScalar);
     %% Run script on it all
     runSimFun(transformationStruct,objectV,standardOF,handV,handF,voxelResolution,pmDepth,pmScale,sprintf(outputFilePath,'%i',handObjectLinking{pairingIndex,4},handObjectLinking{pairingIndex,5},handObjectLinking{pairingIndex,6},handObjectLinking{pairingIndex,7}))
 end

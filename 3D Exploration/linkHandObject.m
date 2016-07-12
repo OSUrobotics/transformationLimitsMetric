@@ -1,4 +1,5 @@
 function [ valuesOut ] = linkHandObject( outputFilePath )
+%% LINKHANDOBJECT scans the handAndAlignment directories and files to create a csv file of the relations between those files, with one line per object-person-grasp-extremism set, with a filepath for the object STL, hand STL, and transformation matrices to align them
 %% Declaring variables
 path2transforms = 'handAndAlignment/transforms/';
 format4hands = 'handAndAlignment/hand/obj%i_sub%i_grasp%i_%s.stl';
