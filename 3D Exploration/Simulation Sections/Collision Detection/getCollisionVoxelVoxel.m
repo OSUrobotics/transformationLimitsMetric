@@ -1,11 +1,11 @@
 function [ amountCollide, countCollide ] = getCollisionVoxelVoxel( handVox, objectVox, objectSurfPoints, objectSurfaceArea, resolution, method )
 %% GETCOLLISIONVOXELVOXEL Gets the amount of collisions between a set of voxels in both count and summed internal distance, given voxel coordinates Nx3 matrix, and a Nx4 matrix defining the SDF values at the meshgrid coordinates
 %   Detailed explanation goes here
-sdfValuesAtVoxels = interp3(handVox(:,1),handVox(:,2),handVox(:,3),ones(size(handVox,1),1),objectVox(:,1),objectVox(:,2),objectVox(:,3),method);
+sdfValuesAtVoxels = interp3(handVox(:,:,:,1),handVox(:,:,:,2),handVox(:,:,:,3),handVox(:,:,:,4),objectVox(:,1),objectVox(:,2),objectVox(:,3),method);
 %% Filter by only inside
 sdfValuesAtVoxels = sdfValuesAtVoxels(sdfValuesAtVoxels>0.5);
 %% Same for objectSurfPoints
-sdfValuesAtSurf = interp3(handVox(:,1),handVox(:,2),handVox(:,3),ones(size(handVox,1),1),objectSurfPoints(:,1),objectSurfPoints(:,2),objectSurfPoints(:,3),method);
+sdfValuesAtSurf = interp3(handVox(:,:,:,1),handVox(:,:,:,2),handVox(:,:,:,3),handVox(:,:,:,4),objectSurfPoints(:,1),objectSurfPoints(:,2),objectSurfPoints(:,3),method);
 %% Filter by only inside
 sdfValuesAtSurf = sdfValuesAtSurf(sdfValuesAtSurf>0.5);
 %% Get areaPerVoxel

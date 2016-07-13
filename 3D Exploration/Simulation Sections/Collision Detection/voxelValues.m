@@ -38,33 +38,17 @@ fv.vertices = v;
 fv.faces = f;
 %% Prepare Dimensions for VOXELISE
 %Calculate the dimensions of the object
-dimRanges = [range(fv.vertices(:,1)),range(fv.vertices(:,2)),range(fv.vertices(:,3))];
+ranges = [range(fv.vertices(:,1)),range(fv.vertices(:,2)),range(fv.vertices(:,3))];
+center = getBBcenter(v);
+mins = min(v);
+maxs = max(v);
 %Scale based on resolution
-voxInputs = floor(resolution/max(dimRanges)*dimRanges);
+voxInputs = floor(resolution/max(ranges)*ranges);
+steps = ranges./voxInputs;
 %% Use VOXELISE to get a logical array of voxels
 OUT = VOXELISE(voxInputs(1),voxInputs(2),voxInputs(3),fv,'xyz');
 %% Convert to points in 3D space and readjust to fit original geometry
 %Set x y and z index values, and put in a vector
-indices = repmat((1:length(OUT(:))).',[1 3]);
-%Move to a zero index
-indices = indices -1;
-%Convert verts back to their original scale
-%% Get index ranges
-indexRanges = range(indices);
-%% Devide the values by the ranges
-indexRanges = repmat(indexRanges,size(indices(:,1), 1),1);
-indices = indices ./ indexRanges;
-%% Multiply by the new scale and account for difference between center and edge of voxel
-dimRanges = dimRanges - (max(dimRanges(:))/resolution)*2.1;
-dimRanges = repmat(dimRanges,size(indices(:,1), 1),1);
-voxels = indices .* dimRanges;
-%% Center on orgin
-voxels = translateMesh(voxels, [-1,0,0], range(xindices)/2);
-voxels = translateMesh(voxels, [0,-1,0], range(yindices)/2);
-voxels = translateMesh(voxels, [0,0,-1], range(zindices)/2);
-%% Translate to object
-center = getBBcenter(v);
-thisCenter = getBBcenter(voxels);
-difference = center - thisCenter;
-voxels = translateMesh(voxels, difference, norm(difference));
+[voxelX, voxelY, voxelZ] = meshgrid((mins(1)+0.5*steps(1)):steps(1):(maxs(1)-0.5*steps(1)),(mins(2)+0.5*steps(2)):steps(2):(maxs(2)-0.5*steps(2)),(mins(3)+0.5*steps(3)):steps(3):(maxs(3)-0.5*steps(3)));
+voxels = cat(4,voxelX,voxelY,voxelZ,permute(OUT,[2 1 3]));
 end
