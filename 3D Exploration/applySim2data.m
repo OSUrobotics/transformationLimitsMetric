@@ -20,6 +20,7 @@ transformationSettings.numInterpolationSteps = 10;
 originToCenter = -[0 0 0.085/2+0.08]; % Half of the height of a fingers touching position to the palm, plus the palm-origin offset
 handSpreadDistance = 0.385; % Hand setting for scaling
 voxelResolution = 50;
+handVoxelResolution = 100;
 pmDepth = 4;
 pmScale = 1;
 handObjectLinkingFilePath = 'pathMapping.csv';
@@ -57,5 +58,5 @@ for pairingIndex = 2:size(handObjectLinking,2)
     %% Load and normalize with loadHandObject
     [handV,handF,objectV] = loadHandObject(handObjectLinking{pairingIndex,3},originToCenter,handObjectLinking{pairingIndex,1},standardOV,handSpreadDistance,transformationSettings.handAndObjectScalar);
     %% Run script on it all
-    runSimFun(transformationStruct,objectV,standardOF,handV,handF,voxelResolution,pmDepth,pmScale,sprintf(outputFilePath,'%i',handObjectLinking{pairingIndex,4},handObjectLinking{pairingIndex,5},handObjectLinking{pairingIndex,6},handObjectLinking{pairingIndex,7}))
+    runSimFun(transformationStruct,objectV,standardOF,handV,handF,voxelResolution,handVoxelResolution,pmDepth,pmScale,sprintf(outputFilePath,'%i',handObjectLinking{pairingIndex,4},handObjectLinking{pairingIndex,5},handObjectLinking{pairingIndex,6},handObjectLinking{pairingIndex,7}))
 end

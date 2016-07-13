@@ -1,4 +1,4 @@
-function [ outputMatrix ] = runSimFun( transformationStruct, objectV, objectF, handV, handF, objectVoxelResolution, pmDepth, pmScale, outputFilePath )
+function [ outputMatrix ] = runSimFun( transformationStruct, objectV, objectF, handV, handF, objectVoxelResolution, handVoxelResolution, pmDepth, pmScale, outputFilePath )
 %RUNSIMULATION Creates data representing a grasp
 %   Loads an object PLY file, a pre-positioned hand STL, and some settings 
 %   and returns the area overlap of the two objects at evenly distributed 
