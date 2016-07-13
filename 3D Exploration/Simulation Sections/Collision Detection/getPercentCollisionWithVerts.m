@@ -63,7 +63,7 @@ testedVerts(condition, :) = [];
 xRange = range(meshAVoxels(:,1));
 %Multiply by resolution to get # of voxels in that range
 xVoxels = xRange * resolution;
-%Devide size by number of voxels, and then cube that to get area per voxel
+%Divide size by number of voxels, and then cube that to get area per voxel
 unitsPerVoxel = xRange / xVoxels;
 areaPerVoxel = unitsPerVoxel^3;
 
@@ -78,15 +78,12 @@ mUnitsPerVoxel = (maxDimension * pmScale) / (2^pmDepth);
 areaPerVertex = (mUnitsPerVoxel / 2)^3;
 
 %% Calculate Volume Intersection
-%Add number of verts * areaPerVertex to voxels * areaPerVoxel to get total
-%area
+%Add number of verts * areaPerVertex to voxels * areaPerVoxel to get total area
 totalArea = size(meshAVerts(:,1),1) * areaPerVertex + ...
             size(meshAVoxels(:,1),1) * areaPerVoxel;
-%Add collidingVerts * areaPerVertx to collidingVoxels * areaPerVoxel to get
-%total area colliding
+%Add collidingVerts * areaPerVertx to collidingVoxels * areaPerVoxel to get total area colliding
 totalAreaColliding = size(testedVerts(:,1),1) * areaPerVertex + ...
                      size(testedPoints(:,1),1) * areaPerVoxel;
-%Devide area colliding by total area to get a value 0.0 - 1.0 representing
-%percent of object colliding with meshB
+%Devide area colliding by total area to get a value 0.0 - 1.0 representing percent of object colliding with meshB
 collisionPercent = totalAreaColliding / totalArea;
 end
