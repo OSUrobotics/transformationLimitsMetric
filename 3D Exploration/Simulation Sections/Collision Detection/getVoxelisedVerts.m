@@ -71,5 +71,3 @@ thisCenter = getBBcenter(voxels);
 difference = center - thisCenter;
 voxels = translateMesh(voxels, difference, norm(difference));
 end
-
-
