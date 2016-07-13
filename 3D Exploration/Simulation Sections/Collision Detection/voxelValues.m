@@ -1,4 +1,4 @@
-function [ voxels, gridVals ] = getVoxelisedVerts( v,f,resolution )
+function [ voxels ] = voxelValues( v,f,resolution )
 %GENERATETRANSLATIONVECTORS Takes a mesh and converts it to a voxel volume
 %==========================================================================
 %
@@ -15,7 +15,7 @@ function [ voxels, gridVals ] = getVoxelisedVerts( v,f,resolution )
 %
 % OUTPUTS
 %
-%       voxels      - Mandatory - Nx3 array         -List of voxels where N is the number of voxels and the 3 columns are their x, y, and z coordinates respectively
+%       voxels      - Mandatory - Nx4 array         -List of voxels where N is the number of points sampled and the 4 columns are their x, y, and z coordinates and v, the voxel value at that location
 %
 % EXAMPLE
 %
@@ -45,24 +45,23 @@ voxInputs = floor(resolution/max(dimRanges)*dimRanges);
 OUT = VOXELISE(voxInputs(1),voxInputs(2),voxInputs(3),fv,'xyz');
 %% Convert to points in 3D space and readjust to fit original geometry
 %Set x y and z index values, and put in a vector
-[xIndeces,yIndeces,zIndeces] = ind2sub(size(OUT),find(OUT));
-indeces = [xIndeces,yIndeces,zIndeces];
+indices = repmat((1:length(OUT(:))).',[1 3]);
 %Move to a zero index
-indeces = indeces -1;
+indices = indices -1;
 %Convert verts back to their original scale
 %% Get index ranges
-indexRanges = range(indeces);
+indexRanges = range(indices);
 %% Devide the values by the ranges
-indexRanges = repmat(indexRanges,size(indeces(:,1), 1),1);
-indeces = indeces ./ indexRanges;
+indexRanges = repmat(indexRanges,size(indices(:,1), 1),1);
+indices = indices ./ indexRanges;
 %% Multiply by the new scale and account for difference between center and edge of voxel
 dimRanges = dimRanges - (max(dimRanges(:))/resolution)*2.1;
-dimRanges = repmat(dimRanges,size(indeces(:,1), 1),1);
-voxels = indeces .* dimRanges;
+dimRanges = repmat(dimRanges,size(indices(:,1), 1),1);
+voxels = indices .* dimRanges;
 %% Center on orgin
-voxels = translateMesh(voxels, [-1,0,0], range(xIndeces)/2);
-voxels = translateMesh(voxels, [0,-1,0], range(yIndeces)/2);
-voxels = translateMesh(voxels, [0,0,-1], range(zIndeces)/2);
+voxels = translateMesh(voxels, [-1,0,0], range(xindices)/2);
+voxels = translateMesh(voxels, [0,-1,0], range(yindices)/2);
+voxels = translateMesh(voxels, [0,0,-1], range(zindices)/2);
 %% Translate to object
 center = getBBcenter(v);
 thisCenter = getBBcenter(voxels);
