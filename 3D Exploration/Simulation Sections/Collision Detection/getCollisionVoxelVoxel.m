@@ -1,4 +1,4 @@
-function [ countCollide, amountCollide ] = getCollisionVoxelVoxel( handVox, objectVox, objectSurfPoints, objectSurfaceArea, resolution, method )
+function [ amountCollide, countCollide ] = getCollisionVoxelVoxel( handVox, objectVox, objectSurfPoints, objectSurfaceArea, resolution, method )
 %% GETCOLLISIONVOXELVOXEL Gets the amount of collisions between a set of voxels in both count and summed internal distance, given voxel coordinates Nx3 matrix, and a Nx4 matrix defining the SDF values at the meshgrid coordinates
 %   Detailed explanation goes here
 sdfValuesAtVoxels = interp3(handVox(:,1),handVox(:,2),handVox(:,3),handVox(:,4),objectVox(:,1),objectVox(:,2),objectVox(:,3),method);

@@ -16,7 +16,8 @@ numValues = size(transformationStruct.values,2);
 volumeOrigin = getPercentCollisionWithVerts(objectV,objectVox,handV,handF,objectVoxelResolution,pmDepth,pmScale);
 fprintf('Volume at origin: %f\n',volumeOrigin);
 %% Compare with voxel method
-[volumeVoxels = getCollisionSDF(objectVox,handVox,'cubic');
+volumeVoxels = getCollisionVoxelVoxel(handVox,objectVox,objectV,objectSurfaceArea,resolution,'cubic');
+
 %% Loop and test all other cases
 for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
     for valueIndex = 1:numValues
