@@ -13,12 +13,17 @@ disp('Applied transformations');
 volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStruct.numInterpolationSteps);
 numValues = size(transformationStruct.values,2);
 %% Test origin case
+tic;
 volumeOrigin = getCollisionValues(objectV,objectVox,handV,handF,objectVoxelResolution,pmDepth,pmScale);
 fprintf('Volume at origin: %f\n',volumeOrigin);
+toc;
 %% Compare with voxel method
+
 [handVox] = voxelValues(handV,handF,handVoxelResolution);
+tic;
 [volumeVoxels,countCollide]= getCollisionVoxelVoxel(handVox,objectVox,objectV,trimeshSurfaceArea(objectV,objectF),objectVoxelResolution,'cubic');
 fprintf('Volume at origin w/ voxels: %f, %f\n',volumeVoxels,countCollide);
+toc;
 %% Loop and test all other cases
 for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
     for valueIndex = 1:numValues
