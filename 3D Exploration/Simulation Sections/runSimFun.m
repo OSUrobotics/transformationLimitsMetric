@@ -1,10 +1,10 @@
-function [ outputMatrix ] = runSimFun( transformationStruct, objectV, objectF, handV, handF, voxelResolution, pmDepth, pmScale, outputFilePath )
+function [ outputMatrix ] = runSimFun( transformationStruct, objectV, objectF, handV, handF, objectVoxelResolution, pmDepth, pmScale, outputFilePath )
 %RUNSIMULATION Creates data representing a grasp
 %   Loads an object PLY file, a pre-positioned hand STL, and some settings 
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
 %% Get the object voxels based on the voxel resolution
-objectVox = getVoxelisedVerts(objectV,objectF,voxelResolution);
+objectVox = getVoxelisedVerts(objectV,objectF,objectVoxelResolution);
 %% Apply the saved transformations to the voxels and vertices
 ptsOut = applySavedTransformations(transformationStruct.trajectorySteps,objectV,true);
 voxOut = applySavedTransformations(transformationStruct.trajectorySteps,objectVox,true);
@@ -13,12 +13,14 @@ disp('Applied transformations');
 volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStruct.numInterpolationSteps);
 numValues = size(transformationStruct.values,2);
 %% Test origin case
-volumeOrigin = getPercentCollisionWithVerts(objectV,objectVox,handV,handF,voxelResolution,pmDepth,pmScale);
+volumeOrigin = getPercentCollisionWithVerts(objectV,objectVox,handV,handF,objectVoxelResolution,pmDepth,pmScale);
 fprintf('Volume at origin: %f\n',volumeOrigin);
+%% Compare with voxel method
+[volumeVoxels = getCollisionSDF(objectVox,handVox,'cubic');
 %% Loop and test all other cases
 for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
     for valueIndex = 1:numValues
-        volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,voxelResolution,pmDepth,pmScale);
+        volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,objectVoxelResolution,pmDepth,pmScale);
     end
     fprintf('Done with step %i\n',stepIndex);
 end
