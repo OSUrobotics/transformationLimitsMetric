@@ -21,7 +21,7 @@ toc;
 
 [handVox] = voxelValues(handV,handF,handVoxelResolution);
 tic;
-[volumeVoxels,countCollide]= getCollisionVoxelVoxel(handVox,objectVox,objectV,trimeshSurfaceArea(objectV,objectF),objectVoxelResolution,'cubic');
+[volumeVoxels,countCollide] = getCollisionVoxelVoxelScatter(handVox,objectVox,objectV,trimeshSurfaceArea(objectV,objectF),objectVoxelResolution);
 fprintf('Volume at origin w/ voxels: %f, %f\n',volumeVoxels,countCollide);
 toc;
 %% Loop and test all other cases

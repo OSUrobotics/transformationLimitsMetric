@@ -1,4 +1,4 @@
-function [ amountCollide, countCollide ] = getCollisionVoxelVoxelScatter( handVoxWVals, objectVox, objectSurfPoints, objectSurfaceArea, resolution )
+ function [ amountCollide, countCollide ] = getCollisionVoxelVoxelScatter( handVoxWVals, objectVox, objectSurfPoints, objectSurfaceArea, resolution )
 %% GETCOLLISIONVOXELVOXELSCATTER Gets the amount of collisions between a set of voxels in both count and summed internal distance, given voxel coordinates Nx3 matrix, and a Nx4 matrix defining the SDF values at the meshgrid coordinates
 %   Detailed explanation goes here
 functionHand = scatteredInterpolant(handVoxWVals(:,1),handVoxWVals(:,2),handVoxWVals(:,3),handVoxWVals(:,4));
@@ -7,19 +7,16 @@ valuesAtVoxels = functionHand(objectVox(:,1),objectVox(:,2),objectVox(:,3));
 %% Same for objectSurfPoints
 valuesAtSurf = functionHand(objectSurfPoints(:,1),objectSurfPoints(:,2),objectSurfPoints(:,3));
 %% Get areaPerVoxel
-%Get x dimension of bounding box
-xRange = range(objectSurfPoints(:,1));
-%Multiply by resolution to get # of voxels in that range
-xVoxels = xRange * resolution;
+%Get max dimension of bounding box
+maxRange = max([range(objectSurfPoints(:,1)),range(objectSurfPoints(:,2)),range(objectSurfPoints(:,3))]);
 %Devide size by number of voxels, and then cube that to get area per voxel
-unitsPerVoxel = xRange / xVoxels;
-volumePerVoxel = unitsPerVoxel^3;
+volumePerVoxel = (maxRange / resolution)^3;
 
 %% Get areaPerSurfPoint
 %Get surface area per point
 surfAreaPerPoint = objectSurfaceArea / size(objectSurfPoints,1);
 %Covert to a volume
-volumePerPoint = surfAreaPerPoint ^ (3/2);
+volumePerPoint = surfAreaPerPoint * (sqrt(surfAreaPerPoint));
 %Devide by two to compensate for edge-ness
 volumePerPoint = (volumePerPoint / 2);
 
