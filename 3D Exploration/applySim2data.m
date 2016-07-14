@@ -50,8 +50,9 @@ disp('Loaded the hand-object-transformation linking csv');
 handObjectLinking = sortrows(handObjectLinking, 2);
 [standardOV,standardOF] = stlRead(handObjectLinking{1,2});
 [standardOSV,~] = read_ply(handObjectLinking{1,3});
+disp('Loaded first iteration of object');
 %% Loop through the items in the handObjectLinking list
-for pairingIndex = 2:size(handObjectLinking,11)
+for pairingIndex = 30:size(handObjectLinking,1)
     %% If using the same object, don't load a new one
     if handObjectLinking{pairingIndex-1,2} ~= handObjectLinking{pairingIndex,2}
         [standardOV,standardOF] = read_ply(handObjectLinking{pairingIndex,2});
