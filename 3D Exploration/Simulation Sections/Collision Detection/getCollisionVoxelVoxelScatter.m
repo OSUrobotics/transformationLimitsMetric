@@ -1,4 +1,4 @@
- function [ amountCollide, countCollide ] = getCollisionVoxelVoxelScatter( handVoxWVals, objectVox, objectSurfPoints, objectSurfaceArea, resolution )
+ function [ amountCollide ] = getCollisionVoxelVoxelScatter( handVoxWVals, objectVox, objectSurfPoints, objectSurfaceArea, resolution )
 %% GETCOLLISIONVOXELVOXELSCATTER Gets the amount of collisions between a set of voxels in both count and summed internal distance, given voxel coordinates Nx3 matrix, and a Nx4 matrix defining the SDF values at the meshgrid coordinates
 %   Detailed explanation goes here
 functionHand = scatteredInterpolant(handVoxWVals(:,1),handVoxWVals(:,2),handVoxWVals(:,3),handVoxWVals(:,4));
@@ -21,7 +21,6 @@ volumePerPoint = surfAreaPerPoint * (sqrt(surfAreaPerPoint));
 volumePerPoint = (volumePerPoint / 2);
 
 %% Add values together
-countCollide = length(valuesAtVoxels) + length(valuesAtSurf);
 amountCollide = length(valuesAtVoxels) * volumePerVoxel + ...
                 length(valuesAtSurf) * volumePerPoint;
 end

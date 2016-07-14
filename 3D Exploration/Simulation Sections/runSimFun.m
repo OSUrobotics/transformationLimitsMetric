@@ -12,22 +12,17 @@ disp('Applied transformations');
 %% Declare variables for output generation
 volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStruct.numInterpolationSteps);
 numValues = size(transformationStruct.values,2);
-%% Test origin case
-tic;
-volumeOrigin = getCollisionValues(objectV,objectVox,handV,handF,objectVoxelResolution,pmDepth,pmScale);
-fprintf('Volume at origin: %f\n',volumeOrigin);
-toc;
-%% Compare with voxel method
-
+%% Get voxelValues for the hand
 [handVox] = voxelValues(handV,handF,handVoxelResolution);
-tic;
-[volumeVoxels,countCollide] = getCollisionVoxelVoxelScatter(handVox,objectVox,objectV,trimeshSurfaceArea(objectV,objectF),objectVoxelResolution);
-fprintf('Volume at origin w/ voxels: %f, %f\n',volumeVoxels,countCollide);
-toc;
+%% Test origin case
+volumeOrigin = getCollisionVoxelVoxel(handVox,objectVox,objectV,trimeshSurfaceArea(objectV,objectF),objectVoxelResolution);
+fprintf('Volume at origin: %f\n',volumeOrigin);
 %% Loop and test all other cases
 for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
     for valueIndex = 1:numValues
-        volumeIntersecting(valueIndex,stepIndex) = getPercentCollisionWithVerts(ptsOut(:,:,stepIndex,valueIndex),voxOut(:,:,stepIndex,valueIndex),handV,handF,objectVoxelResolution,pmDepth,pmScale);
+        %TODO Replace 3rd arg (objectV) with poisson sample mesh vertices
+        %TODO Replace 4th arg (trimeshSurfaceArea(...)) with a variable that stores that value so we only calculate once per object
+        volumeIntersecting(valueIndex,stepIndex) = getCollisionVoxelVoxel(handVox,voxOut(:,:,stepIndex,valueIndex),ptsOut(:,:,stepIndex,valueIndex),trimeshSurfaceArea(ptsOut(:,:,stepIndex,valueIndex),objectF),objectVoxelResolution);
     end
     fprintf('Done with step %i\n',stepIndex);
 end
@@ -37,7 +32,7 @@ outputMatrix = [transformationStruct.stepValues; permute(volumeIntersecting,[3 1
 outputMatrix = permute(outputMatrix,[2 1 3]);
 %% Save to file
 for i = 2:size(outputMatrix,3)
-    outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', {'X_Translation','Y_Translation','Z_Translation','Axis_X','Axis_Y','Axis_Z','Angle_Rotated','Percent_Volume_Intersection'});
+    outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', {'X_Translation','Y_Translation','Z_Translation','Axis_X','Axis_Y','Axis_Z','Angle_Rotated','Intersection'});
     writetable(outputTable, sprintf(outputFilePath,i-1));
     fprintf('File written for time %i\n',i-1);
 end
