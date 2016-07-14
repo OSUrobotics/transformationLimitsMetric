@@ -28,6 +28,6 @@ outputMatrix = permute(outputMatrix,[2 1 3]);
 for i = 2:size(outputMatrix,3)
     outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', {'X_Translation','Y_Translation','Z_Translation','Axis_X','Axis_Y','Axis_Z','Angle_Rotated','Intersection'});
     writetable(outputTable, sprintf(outputFilePath,i-1));
-    fprintf('File written for time %i\n',i-1);
 end
+disp('Files written');
 end
