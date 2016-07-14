@@ -1,28 +1,22 @@
-function [ outputMatrix ] = runSimFun( transformationStruct, objectV, objectF, handV, handF, objectVoxelResolution, handVoxelResolution, pmDepth, pmScale, outputFilePath )
+function [ outputMatrix ] = runSimFun( transformationStruct, objectVox, objectSV, handVox, objectVoxelResolution, surfArea, outputFilePath )
 %RUNSIMULATION Creates data representing a grasp
 %   Loads an object PLY file, a pre-positioned hand STL, and some settings 
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
-%% Get the object voxels based on the voxel resolution
-objectVox = getVoxelisedVerts(objectV,objectF,objectVoxelResolution);
 %% Apply the saved transformations to the voxels and vertices
-ptsOut = applySavedTransformations(transformationStruct.trajectorySteps,objectV,true);
+ptsOut = applySavedTransformations(transformationStruct.trajectorySteps,objectSV,true);
 voxOut = applySavedTransformations(transformationStruct.trajectorySteps,objectVox,true);
 disp('Applied transformations');
 %% Declare variables for output generation
 volumeIntersecting = zeros(size(transformationStruct.values,2),transformationStruct.numInterpolationSteps);
 numValues = size(transformationStruct.values,2);
-%% Get voxelValues for the hand
-[handVox] = voxelValues(handV,handF,handVoxelResolution);
 %% Test origin case
-volumeOrigin = getCollisionVoxelVoxel(handVox,objectVox,objectV,trimeshSurfaceArea(objectV,objectF),objectVoxelResolution);
+volumeOrigin = getCollisionVoxelVoxel(handVox,objectVox,objectSV,surfArea,objectVoxelResolution,'cubic');
 fprintf('Volume at origin: %f\n',volumeOrigin);
 %% Loop and test all other cases
 for stepIndex = 2:transformationStruct.numInterpolationSteps % Indexing from 2 to remove unnneeded origin case
-    for valueIndex = 1:numValues
-        %TODO Replace 3rd arg (objectV) with poisson sample mesh vertices
-        %TODO Replace 4th arg (trimeshSurfaceArea(...)) with a variable that stores that value so we only calculate once per object
-        volumeIntersecting(valueIndex,stepIndex) = getCollisionVoxelVoxel(handVox,voxOut(:,:,stepIndex,valueIndex),ptsOut(:,:,stepIndex,valueIndex),trimeshSurfaceArea(ptsOut(:,:,stepIndex,valueIndex),objectF),objectVoxelResolution);
+    parfor valueIndex = 1:numValues
+        volumeIntersecting(valueIndex,stepIndex) = getCollisionVoxelVoxel(handVox,voxOut(:,:,stepIndex,valueIndex),ptsOut(:,:,stepIndex,valueIndex),surfArea,objectVoxelResolution,'cubic');
     end
     fprintf('Done with step %i\n',stepIndex);
 end
