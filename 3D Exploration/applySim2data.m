@@ -12,8 +12,8 @@ transformationsFilename = 'transformationStored';
 transformationSettings = struct;
 transformationSettings.handAndObjectScalar = 0.5;
 transformationSettings.translateScalar = 1;
-transformationSettings.numTranslationDirections = 10;
-transformationSettings.numRotationAxes = 5;
+transformationSettings.numTranslationDirections = 12;
+transformationSettings.numRotationAxes = 7;
 transformationSettings.angleDivisions = [-1 -.5 -.25 0 .25 .5 1];
 transformationSettings.numInterpolationSteps = 10;
 %% Other variables
@@ -52,10 +52,10 @@ handObjectLinking = sortrows(handObjectLinking, 2);
 [standardOSV,~] = read_ply(handObjectLinking{1,3});
 disp('Loaded first iteration of object');
 %% Loop through the items in the handObjectLinking list
-for pairingIndex = 1:size(handObjectLinking,1)
+for pairingIndex = 107:size(handObjectLinking,1)
     %% If using the same object, don't load a new one
     if pairingIndex ~= 1 && ~strcmp(handObjectLinking{pairingIndex-1,2},handObjectLinking{pairingIndex,2})
-        [standardOV,standardOF] = read_ply(handObjectLinking{pairingIndex,2});
+        [standardOV,standardOF] = stlRead(handObjectLinking{pairingIndex,2});
         [standardOSV,~] = read_ply(handObjectLinking{pairingIndex,3});
     end
     %% Load and normalize with loadHandObject
