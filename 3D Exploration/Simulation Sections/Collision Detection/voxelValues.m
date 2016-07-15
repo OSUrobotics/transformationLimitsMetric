@@ -1,5 +1,5 @@
 function [ voxels ] = voxelValues( v,f,resolution )
-%GENERATETRANSLATIONVECTORS Takes a mesh and converts it to a voxel volume
+%% VOXELVALUES Takes vertices and generates a coordinate system to store the volume at a given point in the grid around the object
 %==========================================================================
 %
 % USAGE
@@ -15,7 +15,7 @@ function [ voxels ] = voxelValues( v,f,resolution )
 %
 % OUTPUTS
 %
-%       voxels      - Mandatory - Nx4 array         -List of voxels where N is the number of points sampled and the 4 columns are their x, y, and z coordinates and v, the voxel value at that location
+%       voxels      - Mandatory - XxYxZx4 array     -The output of the function, given in the format of the meshgrid generated X coordinate values matrix, concatenated in the 4th dimension with the Y and Z location matrices, which are 3d, and finally with the 4th 4D dimension being the volume value on a scale of 0-1 at the coordinates given by the previous 3 values.
 %
 % EXAMPLE
 %
