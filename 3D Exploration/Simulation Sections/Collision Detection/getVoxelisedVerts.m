@@ -25,7 +25,6 @@ function [ voxels, gridVals ] = getVoxelisedVerts( v,f,resolution )
 % NOTES
 %
 %   -Mesh must be properly closed (ie. watertight)
-%   -In most cases, any resolution greater than 1 is excessive
 % 
 % REFERENCES
 %

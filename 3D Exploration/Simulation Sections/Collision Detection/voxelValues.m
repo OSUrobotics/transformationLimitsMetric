@@ -49,6 +49,8 @@ steps = ranges./voxInputs;
 OUT = VOXELISE(voxInputs(1),voxInputs(2),voxInputs(3),fv,'xyz');
 %% Convert to points in 3D space and readjust to fit original geometry
 %Set x y and z index values, and put in a vector
-[voxelX, voxelY, voxelZ] = meshgrid((mins(1)+0.5*steps(1)):steps(1):(maxs(1)-0.5*steps(1)),(mins(2)+0.5*steps(2)):steps(2):(maxs(2)-0.5*steps(2)),(mins(3)+0.5*steps(3)):steps(3):(maxs(3)-0.5*steps(3)));
+[voxelX, voxelY, voxelZ] = meshgrid(linspace((mins(1)+0.5*steps(1)),(maxs(1)-0.5*steps(1)),voxInputs(1)), ... 
+                                    linspace((mins(2)+0.5*steps(2)),(maxs(2)-0.5*steps(2)),voxInputs(2)), ...
+                                    linspace((mins(3)+0.5*steps(3)),(maxs(3)-0.5*steps(3)),voxInputs(3)));
 voxels = cat(4,voxelX,voxelY,voxelZ,permute(OUT,[2 1 3]));
 end
