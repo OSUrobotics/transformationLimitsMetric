@@ -11,7 +11,19 @@ for nameIndex = 1:length(names)
     noStep(nameIndex,:) = textscan(names{nameIndex},'Step%d%s');
 end
 %% Simplify array down
-numSteps = max([noStep{:,1}]);
 names = unique([noStep{:,2}]);
-
+%% Run through RyanCode
+for uniqueNameIndex = 1:length(names)
+    files = dir(sprintf('Output/*%s',names{uniqueNameIndex}));
+    usedFiles = {files.name};
+    firstFile = table2array(readtable(sprintf('Output/%s',usedFiles{1})));
+    lengthPerStep = size(firstFile,1);
+    matrixOut(uniqueNameIndex,1:lengthPerStep) = firstFile(:,8).';
+    for currentStep = 2:size(files,1)
+        currentVector = table2array(readtable(sprintf('Output/%s', ...
+                                                     usedFiles{currentStep})));
+        matrixOut(uniqueNameIndex,(lengthPerStep * currentStep - lengthPerStep):(lengthPerStep * currentStep - 1)) ...
+                     = currentVector(:,8).';
+    end
+end
 end
