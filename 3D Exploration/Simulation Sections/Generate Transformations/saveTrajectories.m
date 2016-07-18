@@ -23,7 +23,7 @@ function [ transformationStruct ] = saveTrajectories( transformationStruct, file
 %     tS.translateScalar - Input repeated
 %     tS.trajectorySteps - The master matrix in 4D which saves in the first 2 dimensions the 4x4 transformation matrix to get to that given step for that value, with the 3rd dimension indicating the transformation step, and the 4th dimension indicating which value set is being used in the interpolation. 
 %     tS.values - The outcome values based on the input settings, the end location for each possible transformaton tested, the basis of the interpolation. 
-%     tS.stepValues - The x,y,z position, then axis-angle notation for a 7 value long translated position at a given step from the origin. Stored in a 7x(# values)x(# interpolation steps) matrix. 
+%     tS.stepValues - The x,y,z position, then quaternion for a 7 value long translated position at a given step from the origin. Stored in a 7x(# values)x(# interpolation steps) matrix. 
 %% Generate the trajectories interpolated along
 values = generateTrajectories(transformationStruct.numTranslationDirections,transformationStruct.numRotationAxes,transformationStruct.angleDivisions);
 %% If want subselection, apply it here

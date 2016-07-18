@@ -26,7 +26,7 @@ outputMatrix = [transformationStruct.stepValues; permute(volumeIntersecting,[3 1
 outputMatrix = permute(outputMatrix,[2 1 3]);
 %% Save to file
 for i = 2:size(outputMatrix,3)
-    outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', {'X_Translation','Y_Translation','Z_Translation','Axis_X','Axis_Y','Axis_Z','Angle_Rotated','Intersection'});
+    outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', {'X_Translation','Y_Translation','Z_Translation','Quat_1','Quat_2','Quat_3','Quat_4','Intersection'});
     writetable(outputTable, sprintf(outputFilePath,i-1));
 end
 disp('Files written');
