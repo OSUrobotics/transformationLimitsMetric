@@ -1,4 +1,4 @@
-function [ matrixOut ] = load4kmeans( directory, sizeInStep )
+function [ matrixOut, namesOut ] = load4kmeans( directory, sizeInStep )
 %% LOAD4KMEANS Takes in a directory name and returns a list of values for the data in that folder
 %   Detailed explanation goes here
 %% Load in the directory files
@@ -12,8 +12,10 @@ for nameIndex = 1:length(names)
 end
 %% Simplify array down
 names = unique([noStep{:,2}]);
+numSteps = max([noStep{:,1}]);
 %% Preallocate an array for storing values
-matrixOut = zeros(length(names),sizeInStep*length(names));
+matrixOut = zeros(length(names),sizeInStep*numSteps);
+namesOut = cell(1);
 %% Run through RyanCode
 for uniqueNameIndex = 1:length(names)
     files = dir(sprintf('Output/*%s',names{uniqueNameIndex}));
@@ -27,5 +29,6 @@ for uniqueNameIndex = 1:length(names)
         matrixOut(uniqueNameIndex,(lengthPerStep * currentStep - lengthPerStep):(lengthPerStep * currentStep - 1)) ...
                      = currentVector(:,8).';
     end
+    namesOut{uniqueNameIndex,:} = names{uniqueNameIndex};
 end
 end
