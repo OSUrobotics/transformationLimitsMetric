@@ -3,8 +3,6 @@ function [ valuesOut ] = matrix2values( matrixIn )
 %   
 %% Get and zero the translation values
 valuesOut(1:3,:) = matrixIn(1:3,4,:);
-matrixIn(1:3,4,:) = 0;
 %% Remaining matrix to quaternion
 valuesOut(4:7,:) = dcm2quat(matrixIn(1:3,1:3,:))';
 end
-
