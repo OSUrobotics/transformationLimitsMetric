@@ -1,19 +1,21 @@
-function visualizeTransformations( pts, faces )
-%%VISUALIZETRANSFORMATIONS Takes 3D matrix of points with indexes [value, axis, stepIndex] visualizes the steps in a transformation with a color gradient
-% pts: a 3d array of points, indexed like [# points, 3, timeStep]
-% faces: used in visualizing the stl files, only needed if that. Will be the 2d matrix and used for all time steps
-
-if nargin == 1 % If ploting the points alone, not an STL file
-    %% Make a colormap
-    cmap = summer(size(pts,3));
-    %% Plot the points
-    for index = 1:size(pts,3)
-        plot3(pts(:,1,index),pts(:,2,index),pts(:,3,index),'.-','Color',cmap(index,:));
-        hold on
-    end
-else % Plotting an STL file
-    for index = 1:size(pts,3)
-        stlPlot(pts(:,:,index), faces, false);
-    end
+function visualizeTransformations( transformationMatrices, handV, handF, objectV, scaleAxes, collisionThreshhold )
+%% VISUALIZETRANSFORMATIONS 
+for tformIndex = 1:size(transformationMatrices,4)
+    plotAxesArrows(transformationMatrices(:,:,:,tformIndex),.1);
 end
+%% If have hand, plot as well
+if nargin >= 3
+    stlPlot(handV,handF);
+end
+%% If have the vertices
+if nargin == 4
+    %% Make a colormap
+    cmap = summer(size(objectV,3));
+    %% Loop through values
+    for valueIndex = 1:size(objectV,4)
+        %% Loop through steps
+        for stepIndex = 1:size(objectV,3)
+            plot3(objectV(:,1,stepIndex,valueIndex),objectV(:,2,stepIndex,valueIndex),objectV(:,3,stepIndex,valueIndex),'.-','Color',cmap(stepIndex,:));
+        end
+    end
 end
