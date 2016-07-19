@@ -52,7 +52,7 @@ handObjectLinking = sortrows(handObjectLinking, 2);
 [standardOSV,~] = read_ply(handObjectLinking{1,3});
 disp('Loaded first iteration of object');
 %% Loop through the items in the handObjectLinking list
-for pairingIndex = 107:size(handObjectLinking,1)
+for pairingIndex = 1:size(handObjectLinking,1)
     %% If using the same object, don't load a new one
     if pairingIndex ~= 1 && ~strcmp(handObjectLinking{pairingIndex-1,2},handObjectLinking{pairingIndex,2})
         [standardOV,standardOF] = stlRead(handObjectLinking{pairingIndex,2});

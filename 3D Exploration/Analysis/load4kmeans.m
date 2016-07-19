@@ -14,7 +14,7 @@ end
 names = unique([noStep{:,2}]);
 numSteps = max([noStep{:,1}]);
 %% Preallocate an array for storing values
-matrixOut = zeros(length(names),numValues*length(names));
+matrixOut = zeros(length(names),numValues * numSteps);
 %% Run through RyanCode
 for uniqueNameIndex = 1:length(names)
     files = dir(sprintf('Output/*%s',names{uniqueNameIndex}));
