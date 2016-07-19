@@ -1,4 +1,29 @@
 function kmeans2images( kmeansMat, namesMatrix, imageDir, outputDir, imageFiletype )
+%% KMEANS2IMAGES Creates a folder with images sorted based on clusters
+%==========================================================================
+%
+% USAGE
+%
+%       kmeans2images( kmeansMat, namesMatrix, imageDir, outputDir, imageFiletype )
+%
+% INPUTS
+%
+%       kmeansMat       - Mandatory - Kmeans Output Matrix      - Matrix containing kmeans results
+%
+%       namesMatrix     - Mandatory - Cell Array                - Array containing grasp names that line up with the kmeansMat
+%
+%       imageDir        - Mandatory - Filepath String           - Path to the dir containing the grasp images
+%
+%       outputDir       - Mandatory - Filepath String           - Path to the dir you want the sorted files to end up in
+%
+%       imageFiletype   - Mandatory - File extension String     - Image filetype (ex: .bmp)
+%
+% NOTES
+%
+%   -Names of images must match the names of the grasps (except for the file extension)
+%
+%==========================================================================
+
 %check for image directory
 if exist(imageDir,'dir') ~= 7
     error('Image directory does not exist');
