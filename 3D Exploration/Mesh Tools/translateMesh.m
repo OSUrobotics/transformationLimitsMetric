@@ -7,7 +7,7 @@ function [ verticesOut ] = translateMesh( verticesIn, directionVector, distanceT
 %
 % INPUTS
 %
-%       verticesIn          - Mandatory - Nx3 array     -List of verteces where N is the number of verteces 
+%       verticesIn          - Mandatory - Nx3 array     -List of vertices where N is the number of vertices 
 %       
 %       directionVector     - Mandatory - 1x3 array     -Vector to translate along
 %       
@@ -15,7 +15,7 @@ function [ verticesOut ] = translateMesh( verticesIn, directionVector, distanceT
 %
 % OUTPUTS
 %
-%       verticesOut     - Mandatory - Nx3 array     -List of verteces where N is the number of verteces in.
+%       verticesOut     - Mandatory - Nx3 array     -List of verteces where N is the number of vertices in.
 %
 % EXAMPLE
 %
