@@ -3,11 +3,8 @@ function [ handV, handF, objectV, objectSurf ] = loadHandObject( handFilepath, o
 %==========================================================================
 %
 % USAGE
+%
 %       [ handV, handF, objectV, objectSurf ] = loadHandObject( handFilepath, originToCenterVector, objectTransformationFilepath, objectV, objectSurf, handSpreadDistance, sphereRadius, handRelativeCenter )
-%
-%       [ handV, handF, objectV, objectSurf ] = loadHandObject( handFilepath, originToCenterVector, objectTransformationFilepath, objectV, objectSurf, handSpreadDistance, sphereRadius )
-%
-%       [ handV, handF, objectV, objectSurf ] = loadHandObject( handFilepath, originToCenterVector, objectTransformationFilepath, objectV, objectSurf, handSpreadDistance )
 %
 % INPUTS
 %
@@ -40,7 +37,7 @@ function [ handV, handF, objectV, objectSurf ] = loadHandObject( handFilepath, o
 % EXAMPLE
 %
 %       To get the normalized hand and object of a grasp system w/ a BH8-280 and a pitcher:
-%       >>  [ handV, handF, objectV ] = loadHandObject( pathToBH8-280,[0,0,-0.08] ,pathToTransformationMatrix, pitcherVerts, 0.385 )
+%       >>  [ handV, handF, objectV ] = loadHandObject( pathToBH8-280,[0,0,-0.08] ,pathToTransformationMatrix, pitcherVerts, pitcherSurfSamples, 0.385 )
 %
 % NOTES
 %
