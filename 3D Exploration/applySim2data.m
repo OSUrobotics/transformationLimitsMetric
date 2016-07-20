@@ -24,7 +24,6 @@ handVoxelResolution = 100;
 pmDepth = 4;
 pmScale = 1;
 handObjectLinkingFilePath = 'pathMapping.csv';
-outputFilePath = 'Output/Step%sObject%iSubject%iGrasp%i%sAreaIntersection.csv';
 %% If not already loaded, load the transformation values
 if ~exist('transformationStruct','var')
     %% If not already created, create the file
@@ -71,6 +70,6 @@ for pairingIndex = 1:size(handObjectLinking,1)
     surfArea = trimeshSurfaceArea(objectV,standardOF);
     disp('Calculated surface area');
     %% Run script on it all
-    runSimFun(transformationStruct,objectVox,objectSV,handVox,objectVoxelResolution,surfArea,sprintf(outputFilePath,'%i',handObjectLinking{pairingIndex,5},handObjectLinking{pairingIndex,6},handObjectLinking{pairingIndex,7},handObjectLinking{pairingIndex,8}));
+    runSimFun(transformationStruct,objectVox,objectSV,handVox,objectVoxelResolution,surfArea,handObjectLinking{pairingIndex,9});
     fprintf('Done with loop index %i/%i\n\n',pairingIndex,size(handObjectLinking,1))
 end

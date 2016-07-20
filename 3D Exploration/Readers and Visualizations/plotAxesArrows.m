@@ -29,11 +29,11 @@ for transformIndex = 1:size(input_args,3)
         = input_args(:,:,transformIndex)*zArrow;
 end
 %% Plot
-plotAF(xArrowsOut(1:3,:),'r');
+plotAlt(xArrowsOut(1:3,:),'r');
 hold on
-plotAF(yArrowsOut(1:3,:),'g');
+plotAlt(yArrowsOut(1:3,:),'g');
 hold on
-plotAF(zArrowsOut(1:3,:),'b');
+plotAlt(zArrowsOut(1:3,:),'b');
 axis image
 end
 

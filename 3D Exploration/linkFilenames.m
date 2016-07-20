@@ -28,6 +28,7 @@ for nameIndex = 1:length(names)
     valuesOut(nameIndex, 2) = strcat(path2objects,objectList(valuesOut{nameIndex,4},2));
     %% Get the output hands equivalent filename
     valuesOut{nameIndex, 3} = sprintf(format4hands,valuesOut{nameIndex,4},valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7});
+    %% Add the output data filepath to the folder for use
     valuesOut{nameIndex, 8} = sprintf(format4output,'%i',valuesOut{nameIndex,4},valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7});
 end
 %% Prep for saving and save
