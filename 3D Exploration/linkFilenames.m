@@ -3,11 +3,11 @@ function [ valuesOut ] = linkFilenames( outputFilePath )
 %% Declaring variables
 path2transforms = 'handAndAlignment/transforms/';
 format4hands = 'handAndAlignment/hand/obj%i_sub%i_grasp%i_%s.stl';
+format4output = 'Output/Step%sObject%iSubject%iGrasp%i%sAreaIntersection.csv';
 format4transforms = 'obj%d_sub%d_grasp%d_%s_object_transform.txt';
 path2numObjectReference = 'handAndAlignment/obj_dict.csv';
-outputFilepath = 'Output/Step%iObject%iSubject%iGrasp%i%sAreaIntersection.csv'
 path2objects = 'sampleSTLs/';
-tableHeaders = {'TransformsFilepath','ObjectFilepath','ObjectSurfaceFilepath','HandFilepath','ObjectNum','SubjectNum','GraspNum','Extreme'};
+tableHeaders = {'TransformsFilepath','ObjectFilepath','ObjectSurfaceFilepath','HandFilepath','ObjectNum','SubjectNum','GraspNum','Extreme','OutputFormat'};
 %% Get the object number to filepath link
 fID = fopen(path2numObjectReference);
 objectMapping = textscan(fID,'%d %s %s %s','Delimiter',',');
@@ -18,7 +18,7 @@ dirOut = dir(path2transforms);
 names = {dirOut.name};
 names = names(3:end); % Prune . and ..
 %% Scan in the format for the transformation names
-valuesOut = cell(length(names),7);
+valuesOut = cell(length(names),8);
 for nameIndex = 1:length(names)
     %% Read in the filename
     valuesOut(nameIndex,4:7) = textscan(names{nameIndex},format4transforms);
@@ -29,6 +29,7 @@ for nameIndex = 1:length(names)
     valuesOut(nameIndex, 2) = strcat(path2objects,objectList(valuesOut{nameIndex,4},2));
     %% Get the output hands equivalent filename
     valuesOut{nameIndex, 3} = sprintf(format4hands,valuesOut{nameIndex,4},valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7});
+    valuesOut{nameIndex, 8} = sprintf(format4output,'%i',valuesOut{nameIndex,4},valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7});
 end
 %% Prep for saving and save
 valuesOut = [strcat(repmat(path2transforms,[length(names) 1]),names.') valuesOut];
