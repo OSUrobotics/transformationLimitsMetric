@@ -25,8 +25,6 @@ function [ handV, handF, objectV, objectSurf ] = loadHandObject( handFilepath, o
 %
 %       sphereRadius                    - Optional  - Double Value      - Radius of the sphere to normalize to.  Defaults to 1 when given no argument
 %
-%       handRelativeCenter              - Optional  - 1x3 Vector        - Offset from hand origin to center of grasp.  Calculates from handSpreadDistance when given no argument
-%
 % OUTPUTS
 %
 %       handV                           - Mandatory - Nx3 Array         - Vertex data of the hand where N is the number of vertices
@@ -76,6 +74,10 @@ objectSurf = (transformationMatrix*((objectSurf.'))).';
 objectV = objectV * makehgtform('translate',originToCenterVector).';
 objectSurf = objectSurf * makehgtform('translate',originToCenterVector).';
 handV = handV * makehgtform('translate',originToCenterVector).';
+%% If no sphereRadius, make it be 1 by default
+if nargin < 7
+    sphereRadius = 1;
+end
 %% Define a scale matrix based on the ratio of sphere cross section diameter over handSpreadDistance
 transformationMatrix = makehgtform('scale', ...
                       (2*sqrt(sphereRadius^2-originToCenterVector(3)^2)) / ...

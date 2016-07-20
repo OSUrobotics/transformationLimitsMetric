@@ -1,10 +1,11 @@
-function [ valuesOut ] = linkHandObject( outputFilePath )
-%% LINKHANDOBJECT scans the handAndAlignment directories and files to create a csv file of the relations between those files, with one line per object-person-grasp-extremism set, with a filepath for the object STL, hand STL, and transformation matrices to align them
+function [ valuesOut ] = linkFilenames( outputFilePath )
+%% LINKFILENAMES scans the handAndAlignment directories and files to create a csv file of the relations between those files, with one line per object-person-grasp-extremism set, with a filepath for the object STL, hand STL, and transformation matrices and output data filepaths
 %% Declaring variables
 path2transforms = 'handAndAlignment/transforms/';
 format4hands = 'handAndAlignment/hand/obj%i_sub%i_grasp%i_%s.stl';
 format4transforms = 'obj%d_sub%d_grasp%d_%s_object_transform.txt';
 path2numObjectReference = 'handAndAlignment/obj_dict.csv';
+outputFilepath = 'Output/Step%iObject%iSubject%iGrasp%i%sAreaIntersection.csv'
 path2objects = 'sampleSTLs/';
 tableHeaders = {'TransformsFilepath','ObjectFilepath','ObjectSurfaceFilepath','HandFilepath','ObjectNum','SubjectNum','GraspNum','Extreme'};
 %% Get the object number to filepath link
