@@ -1,4 +1,5 @@
 *.asv
-.dropbox
-.gitignore
 *.ini
+handAndAlignment/hand/*
+handAndAlignment/transforms/*
+Output/*

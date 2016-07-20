@@ -11,7 +11,7 @@ function [ verticesOut ] = translateMesh( verticesIn, directionVector, distanceT
 %       
 %       directionVector     - Mandatory - 1x3 array     -Vector to translate along
 %       
-%       distanceTransform   - Mandatory - Single value  -Number of units to move along the directionVector
+%       distanceTransform   - Optional  - Single value  -Number of units to move along the directionVector
 %
 % OUTPUTS
 %

@@ -1,4 +1,4 @@
-function [ voxels ] = getVoxelisedVerts( v,f,resolution )
+function [ voxels, gridVals ] = getVoxelisedVerts( v,f,resolution )
 %GENERATETRANSLATIONVECTORS Takes a mesh and converts it to a voxel volume
 %==========================================================================
 %
@@ -11,7 +11,7 @@ function [ voxels ] = getVoxelisedVerts( v,f,resolution )
 %
 %       f           - Mandatory - Nx3 array         -List of that mesh's face data where N is the number of faces
 %       
-%       resolution  - Mandatory - Decimal value     -Value dictating the density of output voxels where 1 yields 1 voxel per unit
+%       resolution  - Mandatory - Decimal value     -Value dictating the number of voxels along the maximum dimension of the mesh
 %
 % OUTPUTS
 %
@@ -25,7 +25,6 @@ function [ voxels ] = getVoxelisedVerts( v,f,resolution )
 % NOTES
 %
 %   -Mesh must be properly closed (ie. watertight)
-%   -In most cases, any resolution greater than 1 is excessive
 % 
 % REFERENCES
 %
@@ -50,35 +49,22 @@ indeces = [xIndeces,yIndeces,zIndeces];
 %Move to a zero index
 indeces = indeces -1;
 %Convert verts back to their original scale
-
-%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%Get index ranges and TODO account for difference between center and edge of voxel
-indexRanges = range(indeces) + ((max(max(dimRanges))/resolution) / 2);
-% xIRange = range(xIndeces) + (resolution / 2);
-% yIRange = range(yIndeces) + (resolution / 2);
-% zIRange = range(zIndeces) + (resolution / 2);
-%Devide the values by the ranges
+%% Get index ranges
+indexRanges = range(indeces);
+%% Devide the values by the ranges
 indexRanges = repmat(indexRanges,size(indeces(:,1), 1),1);
 indeces = indeces ./ indexRanges;
-%Multiply by the new scale
+%% Multiply by the new scale and account for difference between center and edge of voxel
+dimRanges = dimRanges - (max(dimRanges(:))/resolution)*2.1;
 dimRanges = repmat(dimRanges,size(indeces(:,1), 1),1);
 voxels = indeces .* dimRanges;
-%Center on orgin
+%% Center on orgin
 voxels = translateMesh(voxels, [-1,0,0], range(xIndeces)/2);
 voxels = translateMesh(voxels, [0,-1,0], range(yIndeces)/2);
 voxels = translateMesh(voxels, [0,0,-1], range(zIndeces)/2);
-
-% voxels = voxels * ((range(xIndeces)/2) * makehgtform('translate', [-1,0,0]).');
-% voxels = voxels * ((range(yIndeces)/2) * makehgtform('translate', [0,-1,0]).');
-% voxels = voxels * ((range(zIndeces)/2) * makehgtform('translate', [0,0,-1]).');
-
-%Translate to object
+%% Translate to object
 center = getBBcenter(v);
 thisCenter = getBBcenter(voxels);
 difference = center - thisCenter;
 voxels = translateMesh(voxels, difference, norm(difference));
-
-% voxels = voxels * (norm(difference) * makehgtform('translate', difference / norm(difference)).');
 end
-
-
