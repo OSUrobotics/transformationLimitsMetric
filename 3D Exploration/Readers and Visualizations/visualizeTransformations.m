@@ -4,11 +4,7 @@ function visualizeTransformations( transformationMatrices, handFilepath, objectF
 if nargin < 6
     scaleAxes = 0.1;
 end
-%% Plot the transformation arrows
-for tformIndex = 1:size(transformationMatrices,4)
-    plotAxesArrows(transformationMatrices(:,:,:,tformIndex),scaleAxes);
-end
-%% Load Object and Hand and link
+%% Load object and hand and link
 [objectV, ~] = stlRead(objectFilepath);
 [objectSurfV, ~] = read_ply(surfaceFilepath);
 [handV,handF,~,objectSurfV] = loadHandObject(handFilepath, -[0 0 0.085/2+0.08], objectTransformationFilepath, objectV, objectSurfV, 0.385);
@@ -23,6 +19,8 @@ disp('transformation applied');
 cmap = summer(size(objectVout,3));
 %% Loop through values
 for valueIndex = 1:size(objectVout,4)
+    %% Plot the arrows
+    plotAxesArrows(transformationMatrices(:,:,:,valueIndex),scaleAxes);
     %% Loop through steps
     for stepIndex = 1:size(objectVout,3)
         plot3(objectVout(:,1,stepIndex,valueIndex),objectVout(:,2,stepIndex,valueIndex),objectVout(:,3,stepIndex,valueIndex),'.','MarkerEdgeColor',cmap(stepIndex,:));
