@@ -1,6 +1,11 @@
-function visualizeTransformations( transformationMatrices, handFilepath, objectFilepath, surfaceFilepath, objectTransformationFilepath, scaleAxes, outputFilepath, collisionThreshhold )
+function visualizeTransformations( object, subject, grasp, extreme, scaleAxes, collisionThreshhold )
 %% VISUALIZETRANSFORMATIONS 
-%% if no scaleAxes value, set default
+%% Load the transformations
+load('transformationStored.mat');
+transformationMatrices = transformationStruct.trajectorySteps;
+%% Get the filenames out
+[objectTransformationFilepath,objectFilepath,surfaceFilepath,handFilepath,outputFP] = filenamesFromComponents(object,subject,grasp,extreme,1:transformationStruct.numInterpolationSteps);
+%% If no scaleAxes value, set default
 if nargin < 6
     scaleAxes = 0.1;
 end
@@ -10,8 +15,6 @@ end
 [handV,handF,~,objectSurfV] = loadHandObject(handFilepath, -[0 0 0.085/2+0.08], objectTransformationFilepath, objectV, objectSurfV, 0.385);
 %% Plot the hand
 stlPlot(handV,handF);
-%% Load the transformations
-load('transformationStored.mat');
 %% Apply the transformation
 objectVout = applySavedTransformations(transformationMatrices,objectSurfV,true);
 disp('transformation applied');
