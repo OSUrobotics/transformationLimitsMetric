@@ -9,10 +9,9 @@ path2numObjectReference = 'handAndAlignment/obj_dict.csv';
 path2objects = 'sampleSTLs/';
 tableHeaders = {'TransformsFilepath','ObjectFilepath','ObjectSurfaceFilepath','HandFilepath','ObjectNum','SubjectNum','GraspNum','Extreme','OutputFormat'};
 %% Get the object number to filepath link
-fID = fopen(path2numObjectReference);
-objectMapping = textscan(fID,'%d %s %s %s','Delimiter',',');
+objectMapping = table2cell(readtable(path2numObjectReference));
 %% Remap objects to different system
-objectList(objectMapping{1},1:2) = [objectMapping{3} objectMapping{4}];
+objectList([objectMapping{:,1}],1:2) = [objectMapping(:,3) objectMapping(:,4)];
 %% Get the filenames in all of transforms
 dirOut = dir(path2transforms);
 names = {dirOut.name};
