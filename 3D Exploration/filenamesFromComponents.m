@@ -1,6 +1,6 @@
 function [ transformationFP, objectFP, surfaceFP, handFP, outputFP ] = filenamesFromComponents( objectNum, subjectNum, graspNum, extreme, stepNum )
 %% FILENAMESFROMCOMPONENTS Takes in filepath components and outputs the filenames for the hand, object, transformations, and output file
-% stepNum - Optional - use only if want a specific output
+% stepNum - Optional - use only if want a specific output, can use single number or range, range leads to cell array output
 transformationFP = sprintf('handAndAlignment/transforms/obj%i_sub%i_grasp%i_%s_object_transform.txt',objectNum,subjectNum,graspNum,extreme);
 handFP = sprintf('handAndAlignment/hand/obj%i_sub%i_grasp%i_%s.stl',objectNum,subjectNum,graspNum,extreme);
 if nargin == 5 && length(stepNum) ~= 1
