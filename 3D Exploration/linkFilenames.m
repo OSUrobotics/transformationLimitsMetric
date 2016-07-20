@@ -17,22 +17,19 @@ dirOut = dir(path2transforms);
 names = {dirOut.name};
 names = names(3:end); % Prune . and ..
 %% Scan in the format for the transformation names
-valuesOut = cell(length(names),8);
+valuesOut = cell(length(names),9);
 for nameIndex = 1:length(names)
-    %% Read in the filename
-    valuesOut(nameIndex,4:7) = textscan(names{nameIndex},format4transforms);
-    valuesOut{nameIndex,7} = valuesOut{nameIndex,7}{1};
-    valuesOut{nameIndex,7} = valuesOut{nameIndex,7}(1:8);
-    %% Get the object filepath
-    valuesOut(nameIndex, 1) = strcat(path2objects,objectList(valuesOut{nameIndex,4},1));
-    valuesOut(nameIndex, 2) = strcat(path2objects,objectList(valuesOut{nameIndex,4},2));
-    %% Get the output hands equivalent filename
-    valuesOut{nameIndex, 3} = sprintf(format4hands,valuesOut{nameIndex,4},valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7});
-    %% Add the output data filepath to the folder for use
-    valuesOut{nameIndex, 8} = sprintf(format4output,'%i',valuesOut{nameIndex,4},valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7});
+    %% Read in the filename of the transformation
+    valuesOut(nameIndex,5:8) = textscan(names{nameIndex},format4transforms);
+    %% Get only string out
+    valuesOut{nameIndex,8} = valuesOut{nameIndex,8}{1};
+    valuesOut{nameIndex,8} = valuesOut{nameIndex,8}(1:8);
+    %% Extract other filepaths
+    [valuesOut{nameIndex,1}, valuesOut{nameIndex,2}, valuesOut{nameIndex,3}, valuesOut{nameIndex,4}, valuesOut{nameIndex,9}] = ...
+        filenamesFromComponents(valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7}, ...
+                                valuesOut{nameIndex,8});
 end
 %% Prep for saving and save
-valuesOut = [strcat(repmat(path2transforms,[length(names) 1]),names.') valuesOut];
 outputTable = cell2table(valuesOut,'VariableNames',tableHeaders);
 writetable(outputTable,outputFilePath);
 end
