@@ -41,7 +41,7 @@ v1 = v(f(:, 2), :) - v(f(:, 1), :);
 v2 = v(f(:, 3), :) - v(f(:, 1), :);
 
 % area of each triangle is half the cross product norm
-vn = vectorNorm3d(vectorCross3d(v1, v2));
+vn = norm(vectorCross3d(v1, v2));
 
 % sum up and normalize
 area = sum(vn) / 2;

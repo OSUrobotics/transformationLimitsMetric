@@ -1,6 +1,6 @@
 *.asv
 *.ini
 .dropbox
-*/handAndAlignment/*
+*/handAndAlignment/hand/*
+*/handAndAlignment/transforms/*
 */Output/*
-*/PlotAF.m
