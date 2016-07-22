@@ -53,7 +53,7 @@ for uniqueNameIndex = 1:length(names)
                      = currentVector(:,8).';
     end
 end
-% Reorient names to match the collums of matrixOut
+% Reorient names to match the collumns of matrixOut
 names = names.';
 
 end
