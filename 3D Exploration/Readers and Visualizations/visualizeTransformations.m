@@ -21,7 +21,7 @@ end
 [objectSurfV, ~] = read_ply(surfaceFilepath);
 [handV,handF,~,objectSurfV] = loadHandObject(handFilepath, -[0 0 0.085/2+0.08], objectTransformationFilepath, objectV, objectSurfV, 0.385);
 %% Plot the hand
-stlPlot(handV,handF);
+% stlPlot(handV,handF);
 %% Apply the transformation
 objectVout = applySavedTransformations(transformationMatrices,objectSurfV,true);
 disp('transformation applied');
@@ -29,7 +29,7 @@ disp('transformation applied');
 cmap = autumn(transformationStruct.numInterpolationSteps);    
 %% Plot the arrows
 for valueIndex = values2plot
-    plotAxesArrows(transformationMatrices(:,:,:,valueIndex),scaleAxes);
+   % plotAxesArrows(transformationMatrices(:,:,:,valueIndex),scaleAxes);
 end
 %% Loop through steps
 for stepIndex = 1:transformationStruct.numInterpolationSteps-1
@@ -40,6 +40,7 @@ for stepIndex = 1:transformationStruct.numInterpolationSteps-1
     for valueIndex = values2plotcurrent
         if outputStepData(valueIndex,8) <= collisionThreshhold
             plot3(objectVout(:,1,stepIndex,valueIndex),objectVout(:,2,stepIndex,valueIndex),objectVout(:,3,stepIndex,valueIndex),'.','MarkerEdgeColor',cmap(stepIndex,:));
+            hold on;
         else %% If not meeting the threshold, remove that value from the list, making it deadend at that point
             values2plot(values2plot == valueIndex) = [];
         end
