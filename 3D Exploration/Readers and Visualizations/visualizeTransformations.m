@@ -26,7 +26,7 @@ stlPlot(handV,handF);
 objectVout = applySavedTransformations(transformationMatrices,objectSurfV,true);
 disp('transformation applied');
 %% Make a colormap
-cmap = summer(transformationStruct.numInterpolationSteps);    
+cmap = winter(transformationStruct.numInterpolationSteps);    
 %% Plot the arrows
 for valueIndex = values2plot
     plotAxesArrows(transformationMatrices(:,:,:,valueIndex),scaleAxes);
