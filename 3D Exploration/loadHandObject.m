@@ -60,9 +60,16 @@ textIn = regexprep(textIn,']',' ');
 % Split into an array of values
 splitStrings = strsplit(textIn);
 splitStrings = str2double(splitStrings);
-% Reshape into proper transformation matrices
-transformationMatrix = reshape(splitStrings(2:17), [4,4]).';
-handTransformationMatrix = reshape(splitStrings(19:34), [4,4]).';
+% Check for different file format
+if isnan(splitStrings(1))
+    matrixOut = csvread(transformationFilepath);
+    transformationMatrix = matrixOut(1:4,:);
+    handTransformationMatrix = matrixOut(5:8,:);
+else
+    % Reshape into proper transformation matrices
+    transformationMatrix = reshape(splitStrings(2:17), [4,4]).';
+    handTransformationMatrix = reshape(splitStrings(19:34), [4,4]).';
+end
 %% Create object transformation matrix and translate object
 transformationMatrix = handTransformationMatrix \ transformationMatrix;
 objectV = (transformationMatrix*((objectV.'))).';
