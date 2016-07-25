@@ -10,7 +10,7 @@ disp('Parpool started');
 %% Declaring transformation settings variables
 transformationsFilename = 'transformationStored';
 transformationSettings = struct;
-transformationSettings.handAndObjectScalar = 0.5;
+transformationSettings.handAndObjectScalar = 1;
 transformationSettings.translateScalar = 1;
 transformationSettings.numTranslationDirections = 12;
 transformationSettings.numRotationAxes = 7;
