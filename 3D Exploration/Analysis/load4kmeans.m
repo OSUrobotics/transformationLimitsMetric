@@ -56,4 +56,30 @@ end
 % Reorient names to match the collumns of matrixOut
 names = names.';
 
+%Do capping stuff
+
+% for i = 1:size(matrixOut,1) %For each grasp system
+%     for j = 1:numValues %For each directionOrientationThing
+%         triggered = false;
+%         triggeredValue = 0;
+%         for k = 0:8 %For each step
+%             if matrixOut(i,k*numValues+j) > 0.0055
+%                 triggered = true;
+%                 triggeredValue = matrixOut(i,k*numValues+j);
+%             end
+%             if triggered == true
+%                 matrixOut(i,k*numValues+j) = triggeredValue;
+%             end
+%         end
+%     end
+% end
+
+stepNow = matrixOut(:,1:numValues) > 0.0055;
+logicTotal = stepNow;
+for step = 1:numSteps-1
+    stepNow = (matrixOut(:,step*numValues+1:(step+1)*numValues) > 0.0055) | (stepNow);
+    logicTotal = [logicTotal stepNow];
+end
+matrixOut(logicTotal) = 0.0055;
+
 end
