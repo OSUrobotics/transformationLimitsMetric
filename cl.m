@@ -11,5 +11,6 @@ if isequal(str, 'Y') || isequal(str, 'y')
     close all;                          % Close all windows
     evalin('base', 'clear all');        % Clear the workspace
     clc;                                % Clear the console
+    dbstop if error;                    % Reset error breakpoint setting
 end
 end
