@@ -14,3 +14,8 @@ plot(1:100,mins);
 plot(1:100,means);
 legend('Max','Min','Mean');
 axis([1,100,0,5]);
+axis equal;
+
+tmp = abs(diff(means)+1);
+[~,idx] = min(tmp);
+disp(idx);

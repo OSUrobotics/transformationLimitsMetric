@@ -42,7 +42,7 @@ numSteps = max([noStep{:,1}]);
 %% Get objects ids out
 noStep = cell(length(names),2);
 for nameIndex = 1:length(names)
-    noStep(nameIndex,:) = textscan(names{nameIndex},'Object%d%s');
+    noStep(nameIndex,:) = textscan(names{nameIndex},'obj%d%s');
 end
 %% Simplify array down
 objectNums = [noStep{:,1}];
@@ -92,4 +92,5 @@ end
 names = names.';
 %% Reshape matrixOut into expected form
 matrixOut = reshape(matrixOut,length(names),[]);
+matrixFlattened = reshape(matrixFlattened,length(names),[]);
 end
