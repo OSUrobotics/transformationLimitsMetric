@@ -1,4 +1,4 @@
-function [ matrixOut, names ] = load4kmeans( directory, numValues )
+function [ matrixOut, names, collisionTime ] = load4kmeans( directory, numValues )
 %% LOAD4KMEANS Takes in a directory name and returns a list of values for the data in that folder
 %==========================================================================
 %
@@ -74,12 +74,24 @@ names = names.';
 %     end
 % end
 
-stepNow = matrixOut(:,1:numValues) > 0.0055;
-logicTotal = stepNow;
-for step = 1:numSteps-1
-    stepNow = (matrixOut(:,step*numValues+1:(step+1)*numValues) > 0.0055) | (stepNow);
-    logicTotal = [logicTotal stepNow];
+% stepNow = matrixOut(:,1:numValues) > 0.0055;
+% logicTotal = stepNow;
+% for step = 1:numSteps-1
+%     stepNow = (matrixOut(:,step*numValues+1:(step+1)*numValues) > 0.0055) | (stepNow);
+%     logicTotal = [logicTotal stepNow];
+% end
+% matrixOut(logicTotal) = 0.0055;
+
+waldo = reshape(matrixOut,[149,numValues,numSteps]);
+collisionTime = zeros(size(waldo,1),size(waldo,2));
+for system = 1:size(waldo,1)
+    for direction = 1:size(waldo,2)
+        where = find(waldo(system,direction,:) > 0.0055,1);
+        if isempty(where)
+            where = numSteps+1;
+        end
+        collisionTime(system,direction) = where;
+    end
 end
-matrixOut(logicTotal) = 0.0055;
 
 end

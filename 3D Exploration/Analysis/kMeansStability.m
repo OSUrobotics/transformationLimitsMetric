@@ -1,7 +1,7 @@
-index1 = 1;
-index2 = 1;
+index1 = 132;
+index2 = 35;
 clc;
-for j = 1:4
+for j = 1:100
     together = 0;
     apart = 0;
     for i = 1:100
