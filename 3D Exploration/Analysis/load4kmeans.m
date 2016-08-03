@@ -74,7 +74,7 @@ for system = 1:size(matrixOut,1)
     threshold = objectLinking{[objectLinking{:,1}] == objectNums(system),5};
     for direction = 1:numValues
         %% Do the collision thresholding indexing 
-        where = find(matrixOut(system,direction,:) > threshold,1);
+        where = find(matrixOut(system,direction,:) >= threshold,1);
         if isempty(where)
             where = numSteps+1;
         end
@@ -82,9 +82,9 @@ for system = 1:size(matrixOut,1)
     end
     %% Do the flattening after first occurance
     stepLogical = false(length(names),numValues,numSteps);
-    stepLogical(system,:,1) = matrixOut(system,:,1) > threshold;
+    stepLogical(system,:,1) = matrixOut(system,:,1) >= threshold;
     for step = 2:numSteps
-        stepLogical(system,:,step) = matrixOut(system,:,step) > threshold | stepLogical(system,:,step-1);
+        stepLogical(system,:,step) = matrixOut(system,:,step) >= threshold | stepLogical(system,:,step-1);
     end
     matrixFlattened(stepLogical) = threshold;
 end
