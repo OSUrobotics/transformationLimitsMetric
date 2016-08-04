@@ -21,7 +21,7 @@ end
 [objectSurfV, ~] = read_ply(surfaceFilepath);
 [handV,handF,~,objectSurfV] = loadHandObject(handFilepath, -[0 0 0.085/2+0.08], objectTransformationFilepath, objectV, objectSurfV, 0.385);
 %% Plot the hand
-% stlPlot(handV,handF);
+stlPlot(handV,handF);
 %% Apply the transformation
 objectVout = applySavedTransformations(transformationMatrices,objectSurfV,true);
 disp('transformation applied');
