@@ -1,4 +1,4 @@
-function getThresholds( directory, numValues )
+function [ objectDataCSV ] = getThresholds( directory, numValues, write )
 %% GETTHRESHOLDS Loads in the data and plots it, then saves the thresholds generated somehow
 %% Load in the directory files
 dirOut = dir(directory);
@@ -48,9 +48,15 @@ for object = objectList
     thisObjectValues = intersectionsMatrix(objectMatching == object,:,:);
     averagedByStep = mean(thisObjectValues,2);
     averagesPerObjectStep(object,:) = mean(averagedByStep,1);
+    %% Store that to matrix pre-writing, at 75% of maximum, also display
+    objectDataCSV{[objectDataCSV{:,1}] == object,5} = 0.75*max(averagesPerObjectStep(object,:));
+    fprintf('Object %i threshold: %f\n',object,0.75*max(averagesPerObjectStep(object,:)));
 end
 %% Visualize the averages per object
 plot(1:numSteps,averagesPerObjectStep)
 legend('show');
-
+%% If saving, save
+if nargin == 3 && write == true
+    writetable(cell2table(objectDataCSV),'handAndAlignment/obj_dict.csv');
+end
 end
