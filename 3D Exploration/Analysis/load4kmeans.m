@@ -86,6 +86,7 @@ for system = 1:size(matrixOut,1)
     for step = 2:numSteps
         stepLogical(system,:,step) = matrixOut(system,:,step) >= threshold | stepLogical(system,:,step-1);
     end
+    matrixOut(system,:,:) = matrixOut(system,:,:)/threshold;
     matrixFlattened(stepLogical) = threshold;
 end
 %% Reorient names to match the collumns of matrixOut
