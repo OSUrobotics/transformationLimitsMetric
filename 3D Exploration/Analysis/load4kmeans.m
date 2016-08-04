@@ -3,7 +3,7 @@ function [ matrixOut, matrixFlattened, names, collisionTime ] = load4kmeans( dir
 %==========================================================================
 %
 % USAGE
-%       [ matrixOut, names ] = load4kmeans( directory, numValues )
+%       [ matrixOut, matrixFlattened, names, collisionTime ] = load4kmeans( directory, numValues )
 %
 % INPUTS
 %
@@ -13,14 +13,18 @@ function [ matrixOut, matrixFlattened, names, collisionTime ] = load4kmeans( dir
 %
 % OUTPUTS
 %
-%       matrixOut   - Mandatory - NxM Matrix        - Array of collision values where N is the number of unique grasps and M is the number of values per step * number of steps
+%       matrixOut           - NxM Matrix            - Array of collision values where N is the number of unique grasps and M is the number of values per step * number of steps
+%       
+%       matrixFlattened     - NxM Matrix            - An array of processed data, raw data found in matrixOut. Comes in the form of normalized to one values, where after surpassing a threshold, later steps are automatically set to that threshold, then normalized
 %
-%       names       - Optional  - Nx1 Cell Array    - List of unique grasp names organized by row to match up with matrixOut (The values in the first row of matrixOut coorespond to the name in the first row of names)
+%       names               - Nx1 Cell Array        - List of unique grasp names organized by row to match up with matrixOut (The values in the first row of matrixOut coorespond to the name in the first row of names)
+%
+%       collisionTime       - NxP Matrix            - Array featuring the step timestamp of collision above a threshold. 
 %
 % EXAMPLE
 %
 %       To prepare all the grasps in a folder called 'Output' where each step has 588 values:
-%       >>  [ matrixOut, names ] = load4kmeans( 'Output', 588 )
+%       >>  [ matrixOut, matrixFlattened, names, collisionTime ] = load4kmeans( 'Output', 588 )
 %
 % NOTES
 %
@@ -86,8 +90,8 @@ for system = 1:size(matrixOut,1)
     for step = 2:numSteps
         stepLogical(system,:,step) = matrixOut(system,:,step) >= threshold | stepLogical(system,:,step-1);
     end
-    matrixOut(system,:,:) = matrixOut(system,:,:)/threshold;
     matrixFlattened(stepLogical) = threshold;
+	matrixFlattened(system,:,:) = matrixFlattened(system,:,:)/threshold;
 end
 %% Reorient names to match the collumns of matrixOut
 names = names.';
