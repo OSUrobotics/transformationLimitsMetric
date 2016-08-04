@@ -1,0 +1,36 @@
+* Analysis
+  * getThresholds.m
+  * imageGenerator.m
+  * kMeansStability.m
+  * kmeans2images.m
+  * load4kmeans.asv
+  * load4kmeans.m
+  * plotKmeans.m
+  * prepGraspForKmeans.m
+* ClusterOut
+* handAndAlignment
+  * hand
+  * transforms
+  * obj_dict.csv
+* Images
+* Mesh Tools
+  * File Readers        
+  * File Writers        
+  * getBBcenter.m       
+  * getCentroidMesh.m   
+  * rotateMesh.m        
+  * translateMesh.m     
+  * trimeshSurfaceArea.m
+  * vectorCross3d.m     
+* Output
+* Readers and Visualizations
+* sampleSTLs
+* Simulation Sections
+* applySim2data.m
+* filenamesFromComponents.m
+* linkFilenames.m
+* loadHandObject.m
+* makeTransformationValuesOld.m
+* pathMapping.csv
+* simpleHand.stl
+* transformationStored.mat
