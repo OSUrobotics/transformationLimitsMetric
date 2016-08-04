@@ -1,4 +1,4 @@
-function kmeans2images( kmeansMat, namesMatrix, imageDir, outputDir, imageFiletype )
+function kmeans2images( kmeansMat, namesMatrix, imageDir, outputDir, imageFiletype, moveData, dataDir )
 %% KMEANS2IMAGES Creates a folder with images sorted based on clusters
 %==========================================================================
 %
@@ -46,14 +46,22 @@ if exist(outputDir,'dir')
 end
 %Get unique values in kmeansMat, and count them
 numberOfClusters = size(unique(kmeansMat),1);
-for clusterIndex = 1:numberOfClusters
+for clusterIndex = 0:numberOfClusters-1
     indices = find(kmeansMat == clusterIndex);
     mkdir(outputDir,sprintf('Cluster%i',clusterIndex));
+    if moveData == true
+        mkdir(outputDir,sprintf('zzDataCluster%i',clusterIndex));
+    end
     fprintf('Cluster %i \n', clusterIndex);
     for imageIndex = 1:size(indices,1)
         [~,name,~] = fileparts(namesMatrix{indices(imageIndex)});
         name = name(1:end-16);
         copyfile(sprintf('%s/%s%s',imageDir,name,imageFiletype),sprintf('%s/Cluster%i',outputDir,clusterIndex));
+        if moveData == true
+            for i = 1:9
+                copyfile(sprintf('%s/Step%i%s%s',dataDir,i,name,'AreaIntersection.csv'),sprintf('%s/zzDataCluster%i',outputDir,clusterIndex));
+            end
+        end
         fprintf('Grasp: %s \n',namesMatrix{indices(imageIndex)});
 %         if clusterIndex == 99
 %             winopen(sprintf('handAndAlignment/hand/%s.stl',namesMatrix{indices(imageIndex)}(1:end-20)));
