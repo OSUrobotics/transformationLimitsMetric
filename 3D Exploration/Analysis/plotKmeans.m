@@ -3,7 +3,7 @@ maxes = [];
 mins = [];
 means = [];
 for i = 1:100
-    [~,~,sumD] = kmeans(kIn,i,'Distance','correlation');
+    [~,~,sumD] = kmeans(matFlat,i,'Distance','correlation');
     hold on;
     maxes = [maxes max(sumD)];
     mins = [mins min(sumD)];
