@@ -3,6 +3,33 @@ function [ outputMatrix ] = runSimFun( transformationStruct, objectVox, objectSV
 %   Loads an object PLY file, a pre-positioned hand STL, and some settings 
 %   and returns the area overlap of the two objects at evenly distributed 
 %   transformations.
+%
+%==========================================================================
+%
+% USAGE
+%       [ outputMatrix ] = runSimFun( transformationStruct, objectVox, objectSV, handVox, objectVoxelResolution, surfArea, outputFilePath )
+%
+% INPUTS
+%
+%       transformationStruct    - Mandatory - Struct            -A transformationStruct variable (As created by generateTrajectories
+%
+%       objectVox               - Mandatory - Nx3 Matrix        -List of vertex data representing a set of voxel points inside the object where N is the number of vertices
+%
+%       objectSV                - Mandatory - Nx3 Matrix        -List of vertex data representing a set of points evenly distrubuted on the surface of the object where N is the number or vertices
+%
+%       handVox                 - Mandatory - Nx4 Matrix        -List of voxel data where the first 3 columns represent the x, y, and z locations of the voxels and the 4th column is a logical value where 1 means the point is inside the hand and 0 means the point is outside
+%
+%       objectVoxelResolution   - Mandatory - Integer Value     -The resolution passed to getVoxelisedVerts when generating objectVox
+%
+%       surfArea                - Mandatory - Double Value      -The surface area of the object
+%
+%       outputFilePath          - Mandatory - Filepath String   -Path to the folder you would like the simulation data to be saved in
+%
+% OUTPUTS
+%
+%       outputMatrix            - Mandatory - Nx8 Matrix        -Matrix containing all the simulation output data (x,y,z,q1,q2,q3,q4,col)
+%
+%==========================================================================
 %% Apply the saved transformations to the voxels and vertices
 ptsOut = applySavedTransformations(transformationStruct.trajectorySteps,objectSV,true);
 voxOut = applySavedTransformations(transformationStruct.trajectorySteps,objectVox,true);
