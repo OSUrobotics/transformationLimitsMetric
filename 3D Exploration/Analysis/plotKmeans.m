@@ -1,3 +1,5 @@
+%A short script that plots the results of kmeans with various cluster sizes
+%and outputs the value where the slope is closest to -1.
 clf;
 maxes = [];
 mins = [];

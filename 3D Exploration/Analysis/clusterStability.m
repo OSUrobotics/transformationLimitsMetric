@@ -26,7 +26,7 @@ function clusterStability( index1, index2, matrix, clusters, epsilon )
 %
 % NOTES
 %
-%   -Names of images must match the names of the grasps (except for the file extension)
+%   -Easiest way to get index values of particular grasps is to find them in the names output matrix from load4clustering
 %
 %==========================================================================
 

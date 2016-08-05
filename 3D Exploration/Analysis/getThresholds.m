@@ -1,5 +1,21 @@
 function [ objectDataCSV ] = getThresholds( directory, numValues, write )
 %% GETTHRESHOLDS Loads in the data and plots it, then saves the thresholds generated somehow
+%==========================================================================
+%
+% USAGE
+%
+%       [ objectDataCSV ] = getThresholds( directory, numValues, write )
+%
+% INPUTS
+%
+%       directory   - Mandatory - Filepath String   - Matrix containing cluster results in the form of cluster numbers
+%
+%       numValues   - Mandatory - Integer Value     - The number of values for each step of simulation data
+%
+%       write       - Mandatory - Logical Value     - If true will write output to handAndAlignment/obj_dict.csv
+%
+%==========================================================================
+
 %% Load in the directory files
 dirOut = dir(directory);
 names = {dirOut.name};

@@ -1,3 +1,4 @@
+%A short script that draws and saves all of the grasps from pathMapping.csv
 handObjectLinking = table2cell(readtable('pathMapping.csv'));
 for i = 1:size(handObjectLinking,1)
     clf;
