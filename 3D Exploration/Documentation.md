@@ -51,17 +51,17 @@
      * voxelValues.m (*Function*): 
   * **Generate Transformations**
     * **Dependencies**
-      * SpiralSampleSphere.m (*Function*): 
-      * stlPlot.m (*Function*): 
-      * stlPlotWColor.m (*Function*): 
+      * SpiralSampleSphere.m (*Function*): Function from [Suite of functions to perform uniform sampling of a sphere](http://www.mathworks.com/matlabcentral/fileexchange/37004-suite-of-functions-to-perform-uniform-sampling-of-a-sphere) that generates a given number of points on a sphere using a "spiral phyllotaxis" method (Sunflower magic). See also: *generateTrajectories.m*
+      * stlPlot.m (*Function*): Function from [stlTools](https://www.mathworks.com/matlabcentral/fileexchange/51200-stltools) modified to plot vertices as well. See also: *stlPlotWColor.m*
+      * stlPlotWColor.m (*Function*): A modified *stlPlot.m* that accepts an extra value (typically collision volume), which is the percentage of red added to the normal color of the object (high values will add more red to the gray). See also: *stlPlot.m*
     * applySavedTransformations.m (*Function*): 
-    * generateTrajectories.m (*Function*): Uses *SpiralSampleSphere.m* to generate translation vectors and rotation axes, then takes an input for the amount of rotation around each axis and gets all possible combinations of each, with an added no-movement case. See also: *saveTrajectories.m*, *transformationStored.mat*
-    * matrix2values.m (*Function*): Converts a set of 4x4 transformation matrices into *x,y,z* translation vectors and a rotation quaternion, to be stored alongside the collision volume in **Output**. See also: *saveTrajectories.m*, *transformByOutputValues.m*
+    * generateTrajectories.m (*Function*): Uses *SpiralSampleSphere.m* to generate translation vectors and rotation axes, then takes an input for the amount of rotation around each axis and gets all possible combinations of each, with an added no-movement case. See also: *saveTrajectories.m*, *SpiralSampleSphere.m*
+    * matrix2values.m (*Function*): Converts a set of 4x4 transformation matrices from *trajectoryStepsEXPM.m* into *x,y,z* translation vectors and a rotation quaternion, to be stored alongside the collision volume in **Output**. See also: *saveTrajectories.m*
     * oldTrajectoryStepsEXPM.m (*Function*): 
     * oldTrajectoryStepsEuler.m (*Function*): 
     * saveTrajectories.m (*Function*): 
     * trajectoryStepsEXPM.m (*Function*): 
-    * trajectoryStepsEuler.m (*Function*): 
+    * trajectoryStepsEuler.m (*Function*): An alternative to *trajectoryStepsEXPM.m* that uses the Euler to iterate over small transformations instead of EXPM. See also: *trajectoryStepsEXPM.m*
   * runSimFun.m (*Function*): 
 * applySim2data.m (*Script*): **This is the main script to run the simulation.** It loads in or generates the stored transformations (*transformationStored.mat*), all grasp-object sets (**handAndAlignment**), calls *runSimFun.m*, and saves the intersection volume data to **Output**. See also: *runSimFun.m*, *transformationStored.mat*, *pathMapping.csv*, **Output**, **handAndAlignment**
 * filenamesFromComponents.m (*Function*): Takes in the object, subject, grasp, and optimal or extreme string and outputs filenames for the hand, object, transformations, and output data, with optional step numbers or sprintf input format. See also: *pathMapping.csv*, *linkFilenames.m*
