@@ -13,7 +13,8 @@ function plotAxesArrows( input_args, arrowScale )
 %       arrowScale  - Mandatory - Double Value  - Factor by which to scale the axes arrows
 %
 %==========================================================================
-
+%% Only do this all if arrowScale ~= 0
+if nargin == 2 && arrowScale ~= 0
 %% Define arrow coordinates
 arrow = [0,0;0,1;-.1,.8;0,1;.1,.8] * arrowScale;
 xArrow = [arrow(:,2) zeros(5,1) arrow(:,1) ones(5,1)];

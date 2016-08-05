@@ -33,7 +33,6 @@
 * **Readers and Visualizations**
   * **PresentationImages**
   * plotAxesArrows.m (*Function*): 
-  * transformByOutputValues.m (*Function*): 
   * visualizeTransformations.m (*Function*): 
 * **sampleSTLs**
 * **Simulation Sections**
