@@ -1,5 +1,28 @@
-function visualizeTransformations( object, subject, grasp, extreme, scaleAxes, collisionThreshhold, values2plot )
-%% VISUALIZETRANSFORMATIONS 
+function visualizeTransformations( object, subject, grasp, extreme, scaleAxes, collisionThreshold, values2plot )
+%% VISUALIZETRANSFORMATIONS
+%==========================================================================
+%
+% USAGE
+%
+%       visualizeTransformations( object, subject, grasp, extreme, scaleAxes, collisionThreshold, values2plot )
+%
+% INPUTS
+%
+%       object              - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%       subject             - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%       graps               - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%       extreme             - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%       scaleAxes           - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%       collisionThreshold  - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%       values2plot         - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%==========================================================================
 %% Load the transformations
 load('transformationStored.mat');
 transformationMatrices = transformationStruct.trajectorySteps;
@@ -10,7 +33,7 @@ if nargin < 5
     scaleAxes = 0.1;
 end
 if nargin < 6
-    collisionThreshhold = 1;
+    collisionThreshold = 1;
 end
 %% If no values2plot, assign defaultly to all
 if nargin < 7
@@ -38,7 +61,7 @@ for stepIndex = 1:transformationStruct.numInterpolationSteps-1
     values2plotcurrent = values2plot;
     %% Loop through values
     for valueIndex = values2plotcurrent
-        if outputStepData(valueIndex,8) <= collisionThreshhold
+        if outputStepData(valueIndex,8) <= collisionThreshold
             plot3(objectVout(:,1,stepIndex,valueIndex),objectVout(:,2,stepIndex,valueIndex),objectVout(:,3,stepIndex,valueIndex),'.','MarkerEdgeColor',cmap(stepIndex,:));
             hold on;
         else %% If not meeting the threshold, remove that value from the list, making it deadend at that point

@@ -1,6 +1,19 @@
-function [ output_args ] = plotAxesArrows( input_args, arrowScale )
+function plotAxesArrows( input_args, arrowScale )
 %% PLOTAXESARROWS Given a list of 4x4 affine transformation matrices, plot rgb axes labels for each transformation
-%   Detailed explanation goes here
+%==========================================================================
+%
+% USAGE
+%
+%       plotAxesArrows( input_args, arrowScale )
+%
+% INPUTS
+%
+%       input_args  - Mandatory - 4x4xN         - Matrix where N is the number of 4x4 transformation matrixes
+%
+%       arrowScale  - Mandatory - Double Value  - Factor by which to scale the axes arrows
+%
+%==========================================================================
+
 %% Define arrow coordinates
 arrow = [0,0;0,1;-.1,.8;0,1;.1,.8] * arrowScale;
 xArrow = [arrow(:,2) zeros(5,1) arrow(:,1) ones(5,1)];
