@@ -18,6 +18,10 @@ function kmeans2images( kmeansMat, namesMatrix, imageDir, outputDir, imageFilety
 %
 %       imageFiletype   - Mandatory - File extension String     - Image filetype (ex: .bmp)
 %
+%       moveData        - Mandatory - Logical Value             - If true grasp data will be moved to separate cluster folders
+%
+%       dataDir         - Optional  - Filepath String           - Path to the dir containg the grasp data to be moved.
+%
 % NOTES
 %
 %   -Names of images must match the names of the grasps (except for the file extension)
