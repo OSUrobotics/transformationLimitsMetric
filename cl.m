@@ -5,11 +5,11 @@ if nargin ~= 1
 end
 
 if isequal(str, 'Y') || isequal(str, 'y')
-    evalin('base', 'clear functions');  % Clear functions
-    evalin('base', 'fclose all');       % Close all open files
+    evalin('base', 'clear functions;'); % Clear functions
+    evalin('base', 'fclose all;');      % Close all open files
     clf;                                % Clear the figure
     close all;                          % Close all windows
-    evalin('base', 'clear all');        % Clear the workspace
+    evalin('base', 'clear all;');       % Clear the workspace
     clc;                                % Clear the console
     dbstop if error;                    % Reset error breakpoint setting
 end

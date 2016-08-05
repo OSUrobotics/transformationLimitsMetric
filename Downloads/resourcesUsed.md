@@ -2,4 +2,3 @@
 * [read_ply](https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/content/toolbox_graph/read_ply.m) in [Toolbox Graph](https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph)
 * [Mesh voxelisation](https://www.mathworks.com/matlabcentral/fileexchange/27390-mesh-voxelisation)
 * [SpiralSampleSphere](http://www.mathworks.com/matlabcentral/fileexchange/37004-suite-of-functions-to-perform-uniform-sampling-of-a-sphere/content/S2%20Sampling%20Toolbox/SpiralSampleSphere.m) in [Suite of functions to perform uniform sampling of a sphere](http://www.mathworks.com/matlabcentral/fileexchange/37004-suite-of-functions-to-perform-uniform-sampling-of-a-sphere)
-* [intriangulation](https://www.mathworks.com/matlabcentral/fileexchange/43381-intriangulation-which-points-are-inside-a-3d-watertight-triangulation-/content/intriangulation.m)

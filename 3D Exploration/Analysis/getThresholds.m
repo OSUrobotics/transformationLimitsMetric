@@ -10,10 +10,18 @@ function [ objectDataCSV ] = getThresholds( directory, numValues, write )
 %
 %       directory   - Mandatory - Filepath String   - Matrix containing cluster results in the form of cluster numbers
 %
-%       numValues   - Mandatory - Integer Value     - The number of values for each step of simulation data
+%       numValues   - Mandatory - Integer Value     - The number of transformation values for each step of simulation data
 %
-%       write       - Mandatory - Logical Value     - If true will write output to handAndAlignment/obj_dict.csv
+%       write       - Mandatory - Logical Value     - If true will overwrite the thresholds stored in handAndAlignment/obj_dict.csv with the new thresholds, or keep the old thresholds if the object is not present in the dataset used to generate the thresholds
 %
+% OUTPUTS
+%       
+%       objectDataCSV - Optional - Cell Array       - The data that will be stored to handAndAlignment/obj_dict.csv if write is true
+%
+% EXAMPLE
+%       
+%       Generates new thresholds from all of the data in the Output folder, each of which has 588 transformation values, and save it to obj_dict.csv
+%       >> getThresholds('Output',588,true);
 %==========================================================================
 
 %% Load in the directory files
