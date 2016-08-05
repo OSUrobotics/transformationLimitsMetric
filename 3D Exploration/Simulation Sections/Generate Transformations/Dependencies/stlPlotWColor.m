@@ -1,5 +1,5 @@
 function stlPlotWColor(vertices, faces, scatter, name, amount)
-%STLPLOT is an easy way to plot an STL object
+%STLPLOT is a hacky way to plot an stl object with color based on a collision value.  You probably should think twice about using this awful awful piece of code
 %V is the Nx3 array of vertices
 %F is the Mx3 array of faces
 %SCATTER is if there should be a scatterplot or not, default none

@@ -20,6 +20,7 @@ function [ outputMatrix ] = generateTrajectories( directionPoints, orientationPo
 % REFERENCES
 %
 %   -This code uses SpiralSampleSphere by Anton Semechko
+%
 %==========================================================================
 
 %% Make the translation vectors using a uniform sphere and a case for no movement
