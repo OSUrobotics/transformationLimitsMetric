@@ -1,6 +1,18 @@
 function [ ptsOut ] = transformByOutputValues( pts, inputOutput )
 %% TRANSFORMBYOUTPUTVALUES Applies the transformations given in the putput files to a set of points
-%   Detailed explanation goes here
+%==========================================================================
+%
+% USAGE
+%
+%       [ ptsOut ] = transformByOutputValues( pts, inputOutput )
+%
+% INPUTS
+%
+%       pts             - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%       inputOutput     - Mandatory - "TYPE"    - "EXPLANATION"
+%
+%==========================================================================
 %% Get pts to horizontal list
 if size(pts,1) ~= 3
     pts = pts.';
