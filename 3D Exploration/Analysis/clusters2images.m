@@ -1,14 +1,14 @@
-function kmeans2images( kmeansMat, namesMatrix, imageDir, outputDir, imageFiletype, moveData, dataDir )
-%% KMEANS2IMAGES Creates a folder with images sorted based on clusters
+function clusters2images( clustersMat, namesMatrix, imageDir, outputDir, imageFiletype, moveData, dataDir )
+%% CLUSTERS2IMAGES Creates a folder with images sorted based on clusters
 %==========================================================================
 %
 % USAGE
 %
-%       kmeans2images( kmeansMat, namesMatrix, imageDir, outputDir, imageFiletype )
+%       clusters2images( kmeansMat, namesMatrix, imageDir, outputDir, imageFiletype )
 %
 % INPUTS
 %
-%       kmeansMat       - Mandatory - Kmeans Output Matrix      - Matrix containing kmeans results
+%       clustersMat     - Mandatory - Cluster Output Matrix     - Matrix containing cluster results in the form of cluster numbers
 %
 %       namesMatrix     - Mandatory - Cell Array                - Array containing grasp names that line up with the kmeansMat
 %
@@ -48,10 +48,10 @@ if exist(outputDir,'dir')
         mkdir(outputDir);
     end
 end
-%Get unique values in kmeansMat, and count them
-numberOfClusters = size(unique(kmeansMat),1);
+%Get unique values in clustersMat, and count them
+numberOfClusters = size(unique(clustersMat),1);
 for clusterIndex = 0:numberOfClusters-1
-    indices = find(kmeansMat == clusterIndex);
+    indices = find(clustersMat == clusterIndex);
     mkdir(outputDir,sprintf('Cluster%i',clusterIndex));
     if moveData == true
         mkdir(outputDir,sprintf('zzDataCluster%i',clusterIndex));

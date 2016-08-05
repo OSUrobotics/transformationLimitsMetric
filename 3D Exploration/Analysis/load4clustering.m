@@ -1,9 +1,9 @@
-function [ matrixOut, matrixFlattened, names, collisionTime ] = load4kmeans( directory, numValues )
-%% LOAD4KMEANS Takes in a directory name and returns a list of values for the data in that folder
+function [ matrixOut, matrixFlattened, names, collisionTime ] = load4clustering( directory, numValues )
+%% LOAD4CLUSTERING Takes in a directory name and returns a list of values for the data in that folder
 %==========================================================================
 %
 % USAGE
-%       [ matrixOut, matrixFlattened, names, collisionTime ] = load4kmeans( directory, numValues )
+%       [ matrixOut, matrixFlattened, names, collisionTime ] = load4clustering( directory, numValues )
 %
 % INPUTS
 %
@@ -24,7 +24,7 @@ function [ matrixOut, matrixFlattened, names, collisionTime ] = load4kmeans( dir
 % EXAMPLE
 %
 %       To prepare all the grasps in a folder called 'Output' where each step has 588 values:
-%       >>  [ matrixOut, matrixFlattened, names, collisionTime ] = load4kmeans( 'Output', 588 )
+%       >>  [ matrixOut, matrixFlattened, names, collisionTime ] = load4clustering( 'Output', 588 )
 %
 % NOTES
 %
