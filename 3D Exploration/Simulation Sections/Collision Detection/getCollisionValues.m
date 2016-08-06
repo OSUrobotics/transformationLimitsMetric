@@ -1,5 +1,5 @@
 function [ totalAreaColliding ] = getCollisionValues( meshAVerts, meshAVoxels, meshBVerts, meshBFaces, resolution, pmDepth, pmScale )
-%GETPERCENTCOLLISIONFVWES Returns the percent of meshA inside meshB
+%GETCOLLISIONVALUES Returns the percent of meshA inside meshB
 %==========================================================================
 %
 % USAGE

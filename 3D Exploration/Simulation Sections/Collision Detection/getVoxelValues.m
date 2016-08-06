@@ -1,9 +1,9 @@
-function [ voxels ] = voxelValues( v,f,resolution )
-%% VOXELVALUES Takes vertices and generates a coordinate system to store the volume at a given point in the grid around the object
+function [ voxels ] = getVoxelValues( v,f,resolution )
+%% GETVOXELVALUES Takes vertices and generates a coordinate system to store the volume at a given point in the grid around the object
 %==========================================================================
 %
 % USAGE
-%       [ voxels ] = voxelValues( v,f,resolution ) 
+%       [ voxels ] = getVoxelValues( v,f,resolution ) 
 %
 % INPUTS
 %
@@ -33,7 +33,6 @@ fv.faces = f;
 %% Prepare Dimensions for VOXELISE
 %Calculate the dimensions of the object
 ranges = [range(fv.vertices(:,1)),range(fv.vertices(:,2)),range(fv.vertices(:,3))];
-center = getBBcenter(v);
 mins = min(v);
 maxs = max(v);
 %Scale based on resolution

@@ -62,8 +62,8 @@ for pairingIndex = 1:size(handObjectLinking,1)
                                                     originToCenter,handObjectLinking{pairingIndex,1},standardOV,standardOSV, ... 
                                                     handSpreadDistance,transformationSettings.handAndObjectScalar);
     disp('Loaded object and hand and surfacepoints, transformed to origin');
-    %% Generate voxels for passing in
-    handVox = voxelValues(handV,handF,handVoxelResolution);
+    %% Generate voxels for passing into runSimFun
+    handVox = getVoxelValues(handV,handF,handVoxelResolution);
     objectVox = getVoxelisedVerts(objectV,standardOF,objectVoxelResolution);
     disp('Generated voxels');
     %% And surface area
