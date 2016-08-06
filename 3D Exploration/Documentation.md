@@ -32,18 +32,18 @@
 * **Output**
 * **Readers and Visualizations**
   * **PresentationImages**
-  * plotAxesArrows.m (*Function*): 
+  * plotAxesArrows.m (*Function*): Visualizes the transformations in *saveTrajectories.m* as RGB axes markers tracking each step location and orientation. 
   * visualizeTransformations.m (*Function*): 
 * **sampleSTLs**
 * **Simulation Sections**
   * **Collision Detection**
      * **Dependencies**
-        * VOXELISE.m (*Function*): 
-        * intriangulation.m (*Function*): 
+        * VOXELISE.m (*Function*): Function from [Mesh voxelisation](https://www.mathworks.com/matlabcentral/fileexchange/27390-mesh-voxelisation) toolkit that takes the vertices and faces from an STL and generates a binary 3D image of the points inside the mesh. Outputs a matrix, which is converted into coordinates through either *getVoxelValues.m* (for the hand STLs) or *getVoxelisedVerts.m* (for the object STLs), with each type being used in *getCollisionVoxelVoxel.m*. See also: *getVoxelValues.m*, *getVoxelisedVerts.m*, *getCollisionVoxelVoxel.m*
+        * intriangulation.m (*Function*): Old function that calculated the intersection of points (hand voxels) with a mesh (object vertices and faces). Do not use, replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionValues.m*, *getPercentCollision.m*, *getPercentCollisionWithVerts.m*, *getCollisionVoxelVoxel.m*
      * getCollisionValues.m (*Function*): Old function that used *intriangulation.m* to calculate volume of intersection. Was replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionVoxelVoxel.m*, *intriangulation.m*
      * getCollisionVoxelVoxel.m (*Function*): 
      * getPercentCollision.m (*Function*): Old function that used *intriangulation.m* to to calculate volume of intersection and percentage of intersection. Was replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionVoxelVoxel.m*, *intriangulation.m*
-     * getPercentCollisionWithVerts.m (*Function*): Old function that used *intriangulation.m* to calculate volume of intersection and percentage of intersection. Was replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionVoxelVoxel.m*, *intriangulation.m*
+     * getPercentCollisionWithVerts.m (*Function*): Old function that used *intriangulation.m* to calculate volume of intersection and percentage of intersection, factoring in surface vertices as well. Was replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionVoxelVoxel.m*, *intriangulation.m*
      * getVoxelisedVerts.m (*Function*): 
      * getVoxelValues.m (*Function*): 
   * **Generate Transformations**
