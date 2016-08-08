@@ -1,12 +1,12 @@
-function clusterStability( index1, index2, matrix, clusters, epsilon )
+function clusterStability( index1, index2, matrix, clusterType, clusters, epsilon )
 %% CLUSTERSTABILITY Prints the number of times index1 and index2 are clustered together
 %==========================================================================
 %
 % USAGE
 %
-%       clusterStability( index1, index2, matrix, clusters )
+%       clusterStability( index1, index2, matrix, 'kmeans' ,clusters )
 %
-%       clusterStability( index1, index2, matrix, minPts, epsilon )
+%       clusterStability( index1, index2, matrix, 'dbscan', minPts, epsilon )
 %
 % INPUTS
 %
@@ -50,7 +50,7 @@ elseif strcmp(clusterType,'dbscan')
         together = 0;
         apart = 0;
         for i = 1:100
-            kOut = dbscan(matrix,epsilon,cluster); %If this is run, assume that clusters is actually min points
+            kOut = DBSCAN(matrix,epsilon,clusters); %If this is run, assume that clusters is actually min points
             if kOut(index1) == kOut(index2)
                 together = together + 1;
             else
