@@ -1,4 +1,4 @@
-function [ valuesOut ] = linkFilenames( outputFilePath )
+function [ valuesOut ] = linkFilenames( outputFilePath, lengthOfString )
 %% LINKFILENAMES scans the handAndAlignment directories and files to create a csv file of the relations between those files, with one line per object-person-grasp-extremism set, with a filepath for the object STL, hand STL, and transformation matrices and output data filepaths
 %==========================================================================
 %
@@ -9,6 +9,8 @@ function [ valuesOut ] = linkFilenames( outputFilePath )
 % INPUTS
 %
 %       outputFilePath  - Mandatory - Filepath String   - Name of the output csv
+%
+%       lengthOfString  - Mandatory - Integer Value     - Length of the "extreme" string part of the filename 
 %
 % OUTPUTS
 %
@@ -38,7 +40,7 @@ for nameIndex = 1:length(names)
     valuesOut(nameIndex,5:8) = textscan(names{nameIndex},format4transforms);
     %% Get only string out
     valuesOut{nameIndex,8} = valuesOut{nameIndex,8}{1};
-    valuesOut{nameIndex,8} = valuesOut{nameIndex,8}(1:15);
+    valuesOut{nameIndex,8} = valuesOut{nameIndex,8}(1:lengthOfString);
     %% Extract other filepaths
     [valuesOut{nameIndex,1}, valuesOut{nameIndex,2}, valuesOut{nameIndex,3}, valuesOut{nameIndex,4}, valuesOut{nameIndex,9}] = ...
         filenamesFromComponents(valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7}, ...

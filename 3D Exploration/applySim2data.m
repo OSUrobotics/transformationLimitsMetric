@@ -42,7 +42,7 @@ end
 if exist(handObjectLinkingFilePath,'file')
     handObjectLinking = table2cell(readtable(handObjectLinkingFilePath));
 else
-    handObjectLinking = linkFilenames(handObjectLinkingFilePath);
+    handObjectLinking = linkFilenames(handObjectLinkingFilePath, 15); %Set to 15 for Saurabh's file format
 end
 disp('Loaded the hand-object-transformation linking csv');
 %% Sort by object so don't load in unnecisarily many times, and run the first object in
