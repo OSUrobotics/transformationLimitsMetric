@@ -1,4 +1,4 @@
-function [ voxels, gridVals ] = getVoxelisedVerts( v,f,resolution )
+function [ voxels ] = getVoxelisedVerts( v,f,resolution )
 %GENERATETRANSLATIONVECTORS Takes a mesh and converts it to a voxel volume
 %==========================================================================
 %

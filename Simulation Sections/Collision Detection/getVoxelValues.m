@@ -1,9 +1,9 @@
-function [ voxels ] = voxelValues( v,f,resolution )
-%% VOXELVALUES Takes vertices and generates a coordinate system to store the volume at a given point in the grid around the object
+function [ voxels ] = getVoxelValues( v,f,resolution )
+%% GETVOXELVALUES Takes vertices and generates a coordinate system to store the volume at a given point in the grid around the object
 %==========================================================================
 %
 % USAGE
-%       [ voxels ] = getVoxelisedVerts( v,f,resolution ) 
+%       [ voxels ] = getVoxelValues( v,f,resolution ) 
 %
 % INPUTS
 %
@@ -17,15 +17,9 @@ function [ voxels ] = voxelValues( v,f,resolution )
 %
 %       voxels      - Mandatory - XxYxZx4 array     -The output of the function, given in the format of the meshgrid generated X coordinate values matrix, concatenated in the 4th dimension with the Y and Z location matrices, which are 3d, and finally with the 4th 4D dimension being the volume value on a scale of 0-1 at the coordinates given by the previous 3 values.
 %
-% EXAMPLE
-%
-%       To get the voxels of an STL file:
-%       >>  [ voxels ] = getVoxelisedVerts( stlVerts, stlFaces, resolution )
-%
 % NOTES
 %
 %   -Mesh must be properly closed (ie. watertight)
-%   -In most cases, any resolution greater than 1 is excessive
 % 
 % REFERENCES
 %
@@ -39,7 +33,6 @@ fv.faces = f;
 %% Prepare Dimensions for VOXELISE
 %Calculate the dimensions of the object
 ranges = [range(fv.vertices(:,1)),range(fv.vertices(:,2)),range(fv.vertices(:,3))];
-center = getBBcenter(v);
 mins = min(v);
 maxs = max(v);
 %Scale based on resolution

@@ -1,6 +1,25 @@
 function [ ptsTransformed ] = applySavedTransformations( transformations, pts, verticalOut )
 %% APPLYSAVEDTRANSFORMATIONS takes saved transformation steps and applies them to create a multi-dimensional indexed set of points
 %   Uses the transformationStruct and applies the transformations contained to a set of points, with an option to return in vertical list format or horizontal list format, defaulting to horizontal
+%==========================================================================
+%
+% USAGE
+%       [ ptsTransformed ] = applySavedTransformations( transformations, pts, verticalOut )
+%
+% INPUTS
+%
+%       transformations     - Mandatory - Filepath String   -Path to a transformationStruct .mat file
+%
+%       pts                 - Mandatory - Nx3 Matrix        -List of vertex data representing a mesh where N is the number of vertices
+%
+%       verticalOut         - Optional  - Logical Value     -If true output the ptsTransformed as a vertical matrix
+%
+% OUTPUTS
+%
+%       ptsTransformed      - Mandatory - Nx3xM Matrix      -List of vertex data where N is the number of vertices per transformed mesh and M is the number of meshes
+%
+%==========================================================================
+
 if ischar(transformations) % pass in nothing if have already loaded variables
     %% Read in structure
     load([transformations '.mat']);

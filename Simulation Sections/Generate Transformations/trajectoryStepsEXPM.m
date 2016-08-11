@@ -7,11 +7,11 @@ function [ transformations4x4xN ] = trajectoryStepsEXPM( values, stepNums, trans
 %
 % INPUTS
 %
-%       values          - Mandatory - Vector (x,y,z,xN,yN,zN,w) - The transformation from origin intended, given in x,y,z translation and rotation about the xN,yN,zN axis w raidans
+%       values                      - Mandatory - Vector (x,y,z,xN,yN,zN,w) - The transformation from origin intended, given in x,y,z translation and rotation about the xN,yN,zN axis w raidans
 %
-%       stepNums        - Mandatory - Integer Value             - The number of interpolation steps to take between start and finish
+%       stepNums                    - Mandatory - Integer Value             - The number of interpolation steps to take between start and finish
 % 
-%       translateScalar - Mandatory - Float Value               - A number to scale the unit translation vector up by, useful when visualizing the function
+%       translateScalar             - Mandatory - Float Value               - A number to scale the unit translation vector up by, useful when visualizing the function
 % 
 % OUTPUT:
 %

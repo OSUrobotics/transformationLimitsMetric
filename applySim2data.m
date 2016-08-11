@@ -10,7 +10,7 @@ disp('Parpool started');
 %% Declaring transformation settings variables
 transformationsFilename = 'transformationStored';
 transformationSettings = struct;
-transformationSettings.handAndObjectScalar = 0.5;
+transformationSettings.handAndObjectScalar = 1;
 transformationSettings.translateScalar = 1;
 transformationSettings.numTranslationDirections = 12;
 transformationSettings.numRotationAxes = 7;
@@ -42,7 +42,7 @@ end
 if exist(handObjectLinkingFilePath,'file')
     handObjectLinking = table2cell(readtable(handObjectLinkingFilePath));
 else
-    handObjectLinking = linkFilenames(handObjectLinkingFilePath);
+    handObjectLinking = linkFilenames(handObjectLinkingFilePath, 15); %Set to 15 for Saurabh's file format
 end
 disp('Loaded the hand-object-transformation linking csv');
 %% Sort by object so don't load in unnecisarily many times, and run the first object in
@@ -62,8 +62,8 @@ for pairingIndex = 1:size(handObjectLinking,1)
                                                     originToCenter,handObjectLinking{pairingIndex,1},standardOV,standardOSV, ... 
                                                     handSpreadDistance,transformationSettings.handAndObjectScalar);
     disp('Loaded object and hand and surfacepoints, transformed to origin');
-    %% Generate voxels for passing in
-    handVox = voxelValues(handV,handF,handVoxelResolution);
+    %% Generate voxels for passing into runSimFun
+    handVox = getVoxelValues(handV,handF,handVoxelResolution);
     objectVox = getVoxelisedVerts(objectV,standardOF,objectVoxelResolution);
     disp('Generated voxels');
     %% And surface area
