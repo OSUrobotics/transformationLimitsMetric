@@ -18,9 +18,7 @@
     * stlRead.m (*Function*): Function from [STL File Reader] (https://www.mathworks.com/matlabcentral/fileexchange/22409-stl-file-reader) that accepts an stl file and outputs two Nx# matrices, one for vertex coorinates and one for face correlations.  See also: *stlGetFormat.m*, *stlReadBinary.m*, *stlReadAscii*
     * stlReadAscii.m (*Function*): A dependancy of stlRead, from the same toolbox.  Reads an ascii stl file into a vertex matrix and a face matrix.  See also: *stlRead.m*
     * stlReadBinary.m (*Function*): A dependancy of stlRead, from the same toolbox.  Reads a binary stl file into a vertex matrix and a face matrix. See also:  *stlRead.m*
-    * stlSlimVerts.m (*Function*): -- Is this even used anywhere? --
-  * **File Writers**
-    * write_ply.m (*Function*): -- Do we use this either? --
+    * stlSlimVerts.m (*Function*): A dependancy of stlRead, from the same toolbox.  Takes the vertices and faces of an object provided and reduces redundant points. See also:  *stlRead.m*
   * getBBcenter.m (*Function*): Accepts a set of points and returns the point at the center of the bounding box.
   * getCentroidMesh.m (*Function*): Accepts a set of points and returns the centroid point.
   * rotateMesh.m (*Function*): -- Might we consider rewriting the things that use this and removing these? --
