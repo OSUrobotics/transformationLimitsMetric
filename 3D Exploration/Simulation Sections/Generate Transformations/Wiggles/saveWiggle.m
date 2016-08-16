@@ -1,17 +1,13 @@
-function [ transformationStruct ] = saveTrajectories( transformationStruct, filename, divisionRange, structName)
-%% SAVETRAJECTORIES Uses the other functions to generate and save a 4D matrix with all of the transformations interpolated
+function [ transformationStruct ] = saveWiggle( transformationStruct, filename, structName, divisionRange)
+%% SAVEWIGGLE Uses the other functions to generate and save a 4D matrix with all of the transformations for jiggling the object within the thing
 %==========================================================================
 %
 % INPUTS:
 %
 %     transformationStruct.numTranslationDirections     - Mandatory - Integer Value     - How many directions to translate the object in, excluding rotation, when defining the values for the possible transformations
 % 
-%     transformationStruct.numRotationAxes              - Mandatory - Integer Value     - How many axes to rotate the object around when defining the values for the possible transformations
-% 
 %     transformationStruct.angleDivisions               - Mandatory - 1xN Vector        - The angle amounts for rotation around each axis, given in a -1 to 1 range which is then mapped to -pi to pi. 
-% 
-%     transformationStruct.numInterpolationSteps        - Mandatory - Integer Value     - The number of steps in the "animation", how many interpolated stages of the transformation are returned. 
-% 
+%
 %     transformationStruct.translateScalar              - Optional  - Double Value      - The length of the interpolation path. Is roughly similar to the distance away from the origin which the object is transformed to. By default = 1.
 % 
 %     filename                                          - Optional  - String            - Saves to a mat file with this name, if included. Enter the string relative to the current directory and without the .mat extension, that is added later. When not included just outputs the structure. 
@@ -34,14 +30,14 @@ function [ transformationStruct ] = saveTrajectories( transformationStruct, file
 %
 %==========================================================================
 %% Generate the trajectories interpolated along
-values = generateTrajectories(transformationStruct.numTranslationDirections,transformationStruct.numRotationAxes,transformationStruct.angleDivisions);
+values = generateTrajectories(transformationStruct.numTranslationDirections,transformationStruct.translateScalar,transformationStruct.angleDivisions);
 %% If want subselection, apply it here
 if nargin == 4
     values = values(:,divisionRange);
 end
 %% If no name given, use default name
-if nargin >= 3
-    structName = 'transformationStruct';
+if nargin > 3
+    structName = 'wiggleStruct';
 end
 %% Set default translateScalar
 if ~isfield(transformationStruct,'translateScalar');

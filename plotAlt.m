@@ -7,4 +7,3 @@ elseif size(pts,1) == 3 && size(pts,2) ~= 3
     plot3(pts(1,:),pts(2,:),pts(3,:),varargin{2:end});
 end
 end
-

@@ -28,7 +28,7 @@
 * **Output**
 * **Readers and Visualizations**
   * **PresentationImages**
-  * plotAxesArrows.m (*Function*): Visualizes the transformations in *saveTrajectories.m* as RGB axes markers tracking each step location and orientation. 
+  * plotAxesArrows.m (*Function*): Visualizes the transformations from *saveTrajectories.m* and *transformationStored.mat* as RGB axes markers tracking each step location and orientation. 
   * visualizeTransformations.m (*Function*): 
 * **sampleSTLs**
 * **Simulation Sections**
