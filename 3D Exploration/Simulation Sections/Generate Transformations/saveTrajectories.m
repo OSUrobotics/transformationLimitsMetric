@@ -40,7 +40,7 @@ if nargin == 4
     values = values(:,divisionRange);
 end
 %% If no name given, use default name
-if nargin >= 3
+if nargin <= 3
     structName = 'transformationStruct';
 end
 %% Set default translateScalar

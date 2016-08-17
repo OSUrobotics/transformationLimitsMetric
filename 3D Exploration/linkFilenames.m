@@ -1,4 +1,4 @@
-function [ valuesOut ] = linkFilenames( outputFilePath, lengthOfString )
+function [ valuesOut ] = linkFilenames( outputFilePath, lengthOfString, wiggles )
 %% LINKFILENAMES scans the handAndAlignment directories and files to create a csv file of the relations between those files, with one line per object-person-grasp-extremism set, with a filepath for the object STL, hand STL, and transformation matrices and output data filepaths
 %==========================================================================
 %
@@ -10,7 +10,9 @@ function [ valuesOut ] = linkFilenames( outputFilePath, lengthOfString )
 %
 %       outputFilePath  - Mandatory - Filepath String   - Name of the output csv
 %
-%       lengthOfString  - Mandatory - Integer Value     - Length of the "extreme" string part of the filename 
+%       lengthOfString  - Mandatory - Integer Value     - Length of the "extreme" string part of the filename
+%
+%       wiggles         - Optional  - Boolean           - If selected, generate filepaths and names compatable with the wiggles
 %
 % OUTPUTS
 %
@@ -41,10 +43,17 @@ for nameIndex = 1:length(names)
     %% Get only string out
     valuesOut{nameIndex,8} = valuesOut{nameIndex,8}{1};
     valuesOut{nameIndex,8} = valuesOut{nameIndex,8}(1:lengthOfString);
-    %% Extract other filepaths
-    [valuesOut{nameIndex,1}, valuesOut{nameIndex,2}, valuesOut{nameIndex,3}, valuesOut{nameIndex,4}, valuesOut{nameIndex,9}] = ...
-        filenamesFromComponents(valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7}, ...
-                                valuesOut{nameIndex,8});
+    if nargin == 3 && wiggles
+        %% Extract the filepaths for the wiggley way
+        [valuesOut{nameIndex,1}, valuesOut{nameIndex,2}, valuesOut{nameIndex,3}, valuesOut{nameIndex,4}, valuesOut{nameIndex,9}] = ...
+            filenamesFromComponentsWiggles(valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7}, ...
+                                    valuesOut{nameIndex,8});
+    else
+        %% Extract other filepaths the boring way
+        [valuesOut{nameIndex,1}, valuesOut{nameIndex,2}, valuesOut{nameIndex,3}, valuesOut{nameIndex,4}, valuesOut{nameIndex,9}] = ...
+            filenamesFromComponents(valuesOut{nameIndex,5},valuesOut{nameIndex,6},valuesOut{nameIndex,7}, ...
+                                    valuesOut{nameIndex,8});
+    end
 end
 %% Prep for saving and save
 outputTable = cell2table(valuesOut,'VariableNames',tableHeaders);
