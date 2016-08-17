@@ -18,9 +18,7 @@
     * stlRead.m (*Function*): Function from [STL File Reader] (https://www.mathworks.com/matlabcentral/fileexchange/22409-stl-file-reader) that accepts an stl file and outputs two Nx# matrices, one for vertex coorinates and one for face correlations.  See also: *stlGetFormat.m*, *stlReadBinary.m*, *stlReadAscii*
     * stlReadAscii.m (*Function*): A dependancy of stlRead, from the same toolbox.  Reads an ascii stl file into a vertex matrix and a face matrix.  See also: *stlRead.m*
     * stlReadBinary.m (*Function*): A dependancy of stlRead, from the same toolbox.  Reads a binary stl file into a vertex matrix and a face matrix. See also:  *stlRead.m*
-    * stlSlimVerts.m (*Function*): -- Is this even used anywhere? --
-  * **File Writers**
-    * write_ply.m (*Function*): -- Do we use this either? --
+    * stlSlimVerts.m (*Function*): A dependancy of stlRead, from the same toolbox.  Takes the vertices and faces of an object provided and reduces redundant points. See also:  *stlRead.m*
   * getBBcenter.m (*Function*): Accepts a set of points and returns the point at the center of the bounding box.
   * getCentroidMesh.m (*Function*): Accepts a set of points and returns the centroid point.
   * rotateMesh.m (*Function*): -- Might we consider rewriting the things that use this and removing these? --
@@ -30,7 +28,7 @@
 * **Output**
 * **Readers and Visualizations**
   * **PresentationImages**
-  * plotAxesArrows.m (*Function*): Visualizes the transformations in *saveTrajectories.m* as RGB axes markers tracking each step location and orientation. 
+  * plotAxesArrows.m (*Function*): Visualizes the transformations from *saveTrajectories.m* and *transformationStored.mat* as RGB axes markers tracking each step location and orientation. 
   * visualizeTransformations.m (*Function*): 
 * **sampleSTLs**
 * **Simulation Sections**
@@ -39,7 +37,7 @@
         * VOXELISE.m (*Function*): Function from [Mesh voxelisation](https://www.mathworks.com/matlabcentral/fileexchange/27390-mesh-voxelisation) toolkit that takes the vertices and faces from an STL and generates a binary 3D image of the points inside the mesh. Outputs a matrix, which is converted into coordinates through either *getVoxelValues.m* (for the hand STLs) or *getVoxelisedVerts.m* (for the object STLs), with each type being used in *getCollisionVoxelVoxel.m*. See also: *getVoxelValues.m*, *getVoxelisedVerts.m*, *getCollisionVoxelVoxel.m*
         * intriangulation.m (*Function*): Old function that calculated the intersection of points (hand voxels) with a mesh (object vertices and faces). Do not use, replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionValues.m*, *getPercentCollision.m*, *getPercentCollisionWithVerts.m*, *getCollisionVoxelVoxel.m*
      * getCollisionValues.m (*Function*): Old function that used *intriangulation.m* to calculate volume of intersection. Was replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionVoxelVoxel.m*, *intriangulation.m*
-     * getCollisionVoxelVoxel.m (*Function*): 
+     * getCollisionVoxelVoxel.m (*Function*): This function calculates the intersection of two voxel sets, the hand set generated from *getVoxelValues.m* and the object set from *getVoxelisedVerts.m*, while also factoring in the surface area and intersection of object surface points with the hand. See also: *getVoxelisedVerts.m*, *getVoxelValues.m*, *runSimFun.m*
      * getPercentCollision.m (*Function*): Old function that used *intriangulation.m* to to calculate volume of intersection and percentage of intersection. Was replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionVoxelVoxel.m*, *intriangulation.m*
      * getPercentCollisionWithVerts.m (*Function*): Old function that used *intriangulation.m* to calculate volume of intersection and percentage of intersection, factoring in surface vertices as well. Was replaced by *getCollisionVoxelVoxel.m*. See also: *getCollisionVoxelVoxel.m*, *intriangulation.m*
      * getVoxelisedVerts.m (*Function*): Returns an Nx3 matrix of voxel coordinate data based on a given mesh and resolution.  See also: *VOXELISE.m*

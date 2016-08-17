@@ -1,4 +1,4 @@
-function [ transformationStruct ] = saveTrajectories( transformationStruct, filename, divisionRange)
+function [ transformationStruct ] = saveTrajectories( transformationStruct, filename, divisionRange, structName)
 %% SAVETRAJECTORIES Uses the other functions to generate and save a 4D matrix with all of the transformations interpolated
 %==========================================================================
 %
@@ -17,6 +17,8 @@ function [ transformationStruct ] = saveTrajectories( transformationStruct, file
 %     filename                                          - Optional  - String            - Saves to a mat file with this name, if included. Enter the string relative to the current directory and without the .mat extension, that is added later. When not included just outputs the structure. 
 % 
 %     divisionRange                                     - Optional  - 1xN Vector        - Saves the trajectories for only those value sets, if you select 1:100 or [1 2 5:60] it will only return the transformations for that subselection of total values. When not included saves all value sets. 
+%
+%     structName                                        - Optional  - String            - If the output is stored (filename exists), rename the structure in the file to this name, or default to transformationStruct.
 % 
 % OUTPUT: 
 %
@@ -34,8 +36,12 @@ function [ transformationStruct ] = saveTrajectories( transformationStruct, file
 %% Generate the trajectories interpolated along
 values = generateTrajectories(transformationStruct.numTranslationDirections,transformationStruct.numRotationAxes,transformationStruct.angleDivisions);
 %% If want subselection, apply it here
-if nargin == 3
+if nargin == 4
     values = values(:,divisionRange);
+end
+%% If no name given, use default name
+if nargin <= 3
+    structName = 'transformationStruct';
 end
 %% Set default translateScalar
 if ~isfield(transformationStruct,'translateScalar');
@@ -58,6 +64,8 @@ transformationStruct.values = values;
 transformationStruct.stepValues = stepValues;
 %% Save to file if included
 if nargin >= 2
-	save([filename '.mat'],'transformationStruct','-mat');
+    %% Rename structure if name specified
+    eval([structName ' = transformationStruct;']);
+	save([filename '.mat'],structName,'-mat');
 end
 end
