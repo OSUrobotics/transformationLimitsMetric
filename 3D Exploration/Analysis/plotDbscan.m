@@ -1,69 +1,36 @@
-originalClusters = dir('data_for_matt_and_ryan');
-
-originalClusters = originalClusters(6:end);
-
-distances = [];
-for i = 1:size(originalClusters,1)
-    %For each original Cluster
-    grasps = dir(sprintf('data_for_matt_and_ryan/%s/*.stl',originalClusters(i).name));
-    if size(grasps,1) < 2
-        continue;
-    end
-%     for j = 1:size(grasps,1)-1
-    j = 1;
-        for k = j+1:size(grasps,1)
-            %For each combination of grasps in the original cluster
-            %[~,name1] = fileparts(sprintf('data_for_matt_and_ryan/%s/%s',originalClusters(i).name, grasps(j).name));
-            %[~,name2] = fileparts(sprintf('data_for_matt_and_ryan/%s/%s',originalClusters(i).name, grasps(k).name));
-            name1I = strfind(names(1:end-20),grasps(j).name(1:end-4));
-            name2I = strfind(names(1:end-20),grasps(k).name(1:end-4));
-            name1I = find(~cellfun(@isempty,name1I));
-            name2I = find(~cellfun(@isempty,name2I));
-            try
-                distances(i,k-1) = pdist2(clusterIn(name1I,:),clusterIn(name2I,:));
-            catch
-                warning('Empty matrix');
-            end
-        end
-%     end
-end
-
 clf;
 hold on;
-distances = sort(distances,2);
-distances(distances == 0) = NaN;
-plot(distances.','.b-');
 
-distances = [];
-for i = 1:size(originalClusters,1)
-    %For each original Cluster
-    grasps = dir(sprintf('data_for_matt_and_ryan/%s/*.stl',originalClusters(i).name));
-    grasps2 = dir(sprintf('data_for_matt_and_ryan/%s/*.stl',originalClusters(59).name));
-    if size(grasps,1) < 2
-        continue;
+valuesToTest = 1:0.25:50;
+sizesToTest = [2,3,4,5,6,7,8];
+
+for size = sizesToTest
+    FPROut = [];
+    TPROut = [];
+    
+    for i = valuesToTest
+        clusterOut = DBSCAN(clusterIn,i,size);
+
+        dataOut = clustersAgainstOriginal(clusterOut,names);
+        conditionPositive = dataOut(1) + dataOut(4);  %Sum of true positives and false negatives
+        conditionNegative = dataOut(2) + dataOut(3);  %Sum of true negatives and false positives
+        truePositive = dataOut(1);
+        falsePositive = dataOut(3);
+
+        truePositiveRate = truePositive / conditionPositive;
+        falsePositiveRate = falsePositive / conditionNegative;
+
+        FPROut = [FPROut falsePositiveRate];
+        TPROut = [TPROut truePositiveRate];
+
     end
-%     for j = 1:size(grasps,1)-1
-    j = 1;
-        for k = j+1:size(grasps,1)
-            %For each combination of grasps in the original cluster
-            %[~,name1] = fileparts(sprintf('data_for_matt_and_ryan/%s/%s',originalClusters(i).name, grasps(j).name));
-            %[~,name2] = fileparts(sprintf('data_for_matt_and_ryan/%s/%s',originalClusters(i).name, grasps(k).name));
-            name1I = strfind(names(1:end-20),grasps(j).name(1:end-4));
-            name2I = strfind(names(1:end-20),grasps2(1).name(1:end-4));
-            name1I = find(~cellfun(@isempty,name1I));
-            name2I = find(~cellfun(@isempty,name2I));
-            try
-                distances(i,k-1) = pdist2(clusterIn(name1I,:),clusterIn(name2I,:));
-            catch
-                warning('Empty matrix');
-            end
-        end
-%     end
+
+    scatter3(FPROut,TPROut,valuesToTest,'filled');
 end
 
-hold on;
-distances = sort(distances,2);
-distances(distances == 0) = NaN;
-plot(distances.','.r-');
+title('DBSCAN ROC Curve');
+xlabel('FPR (False Positive / Condition Negative)');
+ylabel('TPR (True Positive / Condition Positive)');
+axis square;
 
-
+legend('2','3','4','5','6','7','8');
