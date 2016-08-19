@@ -1,4 +1,23 @@
 function [dataOut, percentOut] = clustersAgainstOriginal(clusterOut, names)
+%% LOAD4CLUSTERING Takes in a directory name and returns a list of values for the data in that folder
+%==========================================================================
+%
+% USAGE
+%       [ dataOut, percentOut ] = clustersAgainstOriginal( clusterOut, names )
+%
+% INPUTS
+%
+%       clusterOut  - Mandatory - Matrix        - Results from clustering
+%
+%       names       - Mandatory - Cell Array    - Names from prepping for clustering
+%
+% OUTPUTS
+%
+%       dataOut     - Mandatory - 1x4 Vector    - Vector containing [Tp,Tn,Fp,Fn]
+%       
+%       percentOut  - Optional  - NxM Matrix    - Vector containing dataOut in percentage form
+%
+%==========================================================================
 
 originalClusters = dir('data_for_matt_and_ryan');
 
