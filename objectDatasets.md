@@ -7,3 +7,4 @@
 * [PaCMan Project](http://www.pacman-project.eu/datasets/) has grasping datasets in unknown format - they have 3d meshes, yet possibly not associated with the grasping set.
 * [unipi-grasp-datasets](https://github.com/CentroEPiaggio/unipi-grasp-datasets) software used with the PaCMan project to generate datasets somehow.
 * [A Side of Data with My Robot](http://www.willowgarage.com/sites/default/files/ram_2011_datasets.pdf) (Pg 9, Fig. 6) references a PR2 dataset with 3d models and multiple grasps
+  * [household_objects_database](http://wiki.ros.org/household_objects_database) contains the object and grasp data, in the form of a sql database, wrapped in a C++ and ROS interface.
