@@ -48,7 +48,7 @@ else
 end
 disp('Loaded the hand-object-transformation linking csv');
 %% Loop through the items in the handObjectLinking list
-for pairingIndex = [1 5 7 23 65]
+for pairingIndex = [5 7 23 65]
     [standardOV,standardOF] = stlRead(handObjectLinking{pairingIndex,2});
     [standardOSV,~] = read_ply(handObjectLinking{pairingIndex,3});
     %% Load and normalize with loadHandObject
@@ -60,7 +60,7 @@ for pairingIndex = [1 5 7 23 65]
     objectVW = applyWiggles(objectV,wiggles);
     objectSVW = applyWiggles(objectSV,wiggles);
     %% Loop through the wiggles and apply
-    parfor wIndex = 1:size(wiggles,2)
+    for wIndex = 1:size(wiggles,2)
         objectV = objectVW(:,:,wIndex);
         objectSV = objectSVW(:,:,wIndex);
         %% Generate voxels for passing into runSimFun
