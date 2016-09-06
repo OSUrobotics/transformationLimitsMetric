@@ -1,3 +1,8 @@
+## How to Use
+
+This is the main folder for stuff happening in the project. It's a bit messy. The simulation is run from [applySim2data](applySim2data.m), which calls various functions in [Simulation Sections](Simulation%20Sections) and other folders. The data generated from the simulation is stored to [Output](Output), which will need to be recreated before use, as it is in the .gitignore file, to keep sizes down. 
+
+
 * **Analysis**
   * getThresholds.m (*Function*): 
   * imageGenerator.m (*Script*): Loops through the object hand linking, drawing and saving an image for each combination.  See also: *linkFilenames.m*, *loadHandObject.m*
@@ -14,17 +19,17 @@
 * **Mesh Tools**
   * **File Readers**
     * read_ply.m (*Function*): Function from [Toolbox Graph] (https://www.mathworks.com/matlabcentral/fileexchange/5355-toolbox-graph/) that accepts a ply file and outputs two Nx3 matrices, one for vertex coordinates and one for face correlations.
-    * stlGetFormat.m (*Function*): A dependancy of stlRead, from the same toolbox.  Determines if an STL file is binary or ascii.  See also: *stlRead.m*
-    * stlRead.m (*Function*): Function from [STL File Reader] (https://www.mathworks.com/matlabcentral/fileexchange/22409-stl-file-reader) that accepts an stl file and outputs two Nx# matrices, one for vertex coorinates and one for face correlations.  See also: *stlGetFormat.m*, *stlReadBinary.m*, *stlReadAscii*
-    * stlReadAscii.m (*Function*): A dependancy of stlRead, from the same toolbox.  Reads an ascii stl file into a vertex matrix and a face matrix.  See also: *stlRead.m*
-    * stlReadBinary.m (*Function*): A dependancy of stlRead, from the same toolbox.  Reads a binary stl file into a vertex matrix and a face matrix. See also:  *stlRead.m*
-    * stlSlimVerts.m (*Function*): A dependancy of stlRead, from the same toolbox.  Takes the vertices and faces of an object provided and reduces redundant points. See also:  *stlRead.m*
+    * stlGetFormat.m (*Function*): A dependency of stlRead, from the same toolbox.  Determines if an STL file is binary or ascii.  See also: *stlRead.m*
+    * stlRead.m (*Function*): Function from [STL File Reader] (https://www.mathworks.com/matlabcentral/fileexchange/22409-stl-file-reader) that accepts an stl file and outputs two Nx# matrices, one for vertex coordinates and one for face correlations.  See also: *stlGetFormat.m*, *stlReadBinary.m*, *stlReadAscii*
+    * stlReadAscii.m (*Function*): A dependency of stlRead, from the same toolbox.  Reads an ascii stl file into a vertex matrix and a face matrix.  See also: *stlRead.m*
+    * stlReadBinary.m (*Function*): A dependency of stlRead, from the same toolbox.  Reads a binary stl file into a vertex matrix and a face matrix. See also:  *stlRead.m*
+    * stlSlimVerts.m (*Function*): A dependency of stlRead, from the same toolbox.  Takes the vertices and faces of an object provided and reduces redundant points. See also:  *stlRead.m*
   * getBBcenter.m (*Function*): Accepts a set of points and returns the point at the center of the bounding box.
   * getCentroidMesh.m (*Function*): Accepts a set of points and returns the centroid point.
   * rotateMesh.m (*Function*): -- Might we consider rewriting the things that use this and removing these? --
   * translateMesh.m (*Function*): -- Might we consider rewriting the things that use this and removing these? --
-  * trimeshSurfaceArea.m (*Function*): Function from [geom3d] (https://www.mathworks.com/matlabcentral/fileexchange/24484-geom3d/) that calculateds the surface area of a model.  This is used in collision calculations.  See also: *getCollisionVoxelVoxel.m*
-  * vectorCross3d.m (*Function*): A dependancy of trimeshSurfaceArea that calculates vector cross product faster than matlab internal cross product.  It is from the same toolbox as trimeshSurfaceArea.  See also: *trimeshSurfaceArea.m*
+  * trimeshSurfaceArea.m (*Function*): Function from [geom3d] (https://www.mathworks.com/matlabcentral/fileexchange/24484-geom3d/) that calculates the surface area of a model.  This is used in collision calculations.  See also: *getCollisionVoxelVoxel.m*
+  * vectorCross3d.m (*Function*): A dependency of trimeshSurfaceArea that calculates vector cross product faster than matlab internal cross product.  It is from the same toolbox as trimeshSurfaceArea.  See also: *trimeshSurfaceArea.m*
 * **Output**
 * **Readers and Visualizations**
   * **PresentationImages**
