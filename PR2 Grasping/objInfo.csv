@@ -1,0 +1,243 @@
+original_object_number;original_model_grasping_rescale;original_model_tags;model_maker;model_text;model_source;model_description;barcode_text;acquisition_method;concave_filled;rotationally_symetric;inner_concavity;recognition_id
+9272;1;reusable_bottle,als_object;Stanford;sports water bottle;Household;white plastic;;3dsom;FALSE;TRUE;FALSE;
+9274;1;glass;IKEA;000.919.29;IKEA;DIOD red glass 8oz;;3dsom;TRUE;TRUE;TRUE;
+9276;1;bowl;IKEA;001.324.25;IKEA;Bowl, 365+ DROM, 11cm;;3dsom;TRUE;TRUE;TRUE;
+9277;1;mug;IKEA;001.324.49;IKEA;Mug, 365+ beige, 10 oz.;;3dsom;TRUE;FALSE;TRUE;
+9279;1;bowl;IKEA;001.334.82;IKEA;Bowl, 365+, dark grey, 13cm dia.;;3dsom;TRUE;TRUE;TRUE;
+9280;1;glass;IKEA;100.151.24;IKEA;glass, SVALKA, 6 pack, 7oz;;3dsom;TRUE;TRUE;TRUE;
+9281;1;glass;IKEA;100.302.09;IKEA;glass, RATTVIK, snaps/liqueur, 2oz;;3dsom;TRUE;TRUE;TRUE;
+9283;1;saucer;IKEA;100.919.00-saucer;IKEA;saucer, black, 18cm dia.;;3dsom;TRUE;TRUE;TRUE;
+9284;1;cup;IKEA;100.919.00-cup;IKEA;cup, black, 17oz;;3dsom;TRUE;FALSE;TRUE;
+9285;1;mug;IKEA;100.922.16;IKEA;Beer mug, MJOD, 20oz;;3dsom;TRUE;FALSE;TRUE;
+9286;1;saucer;IKEA;101.236.56-saucer;IKEA;saucer, teacup, CHARMOR, 15cm sq.;;3dsom;TRUE;TRUE;TRUE;
+9287;1;cup;IKEA;101.236.56-cup;IKEA;teacup, CHARMOR, white, 9oz;;3dsom;TRUE;FALSE;TRUE;
+9288;1;mug;IKEA;101.328.92;IKEA;mug, blue, LJUVLIG, 7oz;;3dsom;TRUE;FALSE;TRUE;
+9289;1;bowl;IKEA;200.572.55;IKEA;Serving bowl, BLANDA BLANK, metal, 20cm dia.;;3dsom;TRUE;TRUE;TRUE;
+9291;1;mug;IKEA;200.847.15;IKEA;mug, 365+, white, 10oz;;3dsom;TRUE;FALSE;TRUE;
+9293;1;tumbler;IKEA;300.834.71;IKEA;Tumbler, white, POKAL, 17oz;;3dsom;TRUE;TRUE;TRUE;
+9294;1;glass;IKEA;200.921.07;IKEA;glass, GODIS, 6 pack, clear, 14oz;;3dsom;TRUE;TRUE;TRUE;
+9295;1;glass;IKEA;201.327.78;IKEA;glass, cocktail, PRALIN, blue;;3dsom;TRUE;TRUE;TRUE;
+9296;1;glass;IKEA;301.290.30;IKEA;glass, UTSOKT, clear with grid pattern, 17oz;;3dsom;TRUE;TRUE;TRUE;
+9297;1;mug;IKEA;201.323.68;IKEA;mug, 365+ DROM, white with texture, 10oz;;3dsom;TRUE;FALSE;TRUE;
+9298;1;mug;IKEA;201.324.48;IKEA;mug, 365+, dark grey, 10oz;;3dsom;TRUE;FALSE;TRUE;
+9299;1;saucer;IKEA;201.416.26saucer;IKEA;saucer, espresso cup, white, EPISTEL, 3.4oz;;3dsom;TRUE;FALSE;TRUE;
+9300;1;cup;IKEA;201.416.26cup;IKEA;cup, espresso, white, EPISTEL, 3.4oz;;3dsom;TRUE;FALSE;TRUE;
+9301;1;glass;IKEA;300.151.23;IKEA;wine glass, SVALKA, 6 pack, clear, 10oz;;3dsom;TRUE;TRUE;TRUE;
+9302;1;saucer;IKEA;300.631.28saucer;IKEA;saucer, espress cup, stainless steel;;3dsom;TRUE;TRUE;TRUE;
+9303;1;cup;IKEA;300.63.28cup;IKEA;cup, espresso, stainless steel;;3dsom;TRUE;FALSE;TRUE;
+9306;1;glass;IKEA;000.580.67;IKEA;glass, wine, RARA, clear, 8oz;;orthographic;FALSE;TRUE;TRUE;
+9307;1;glass;IKEA;000.921.13;IKEA;glass, clear, SKIR, 17oz;;orthographic;FALSE;TRUE;TRUE;
+9308;1;tumbler;IKEA;001.172.98;IKEA;tumbler, beige, ALMHULT, 7oz;;orthographic;FALSE;TRUE;TRUE;
+9309;1;glass;IKEA;001.327.79;IKEA;glass, green, PRALIN;;orthographic;FALSE;TRUE;TRUE;
+9310;1;bowl;IKEA;100.572.51;IKEA;bowl, glass, clear, BLANDA, 12cm dia.;;orthographic;FALSE;TRUE;TRUE;
+9311;1;glass;IKEA;200.580.66;IKEA;glass, clear, RARA, 5oz;;orthographic;FALSE;TRUE;TRUE;
+9312;1;glass;IKEA;200.919.28;IKEA;glass, white, DIOD, 8oz;;orthographic;FALSE;TRUE;TRUE;
+9313;1;glass;IKEA;210.327.78;IKEA;glass, cocktail, PRALIN, blue;;orthographic;FALSE;TRUE;TRUE;
+9314;1;bowl;IKEA;300.814.67;IKEA;bowl, metal, BLANDA BLANK, 12cm dia.;;orthographic;FALSE;TRUE;TRUE;
+9315;1;glass;IKEA;300.919.23;IKEA;glass, wine, OPTIMAL, 15oz;;orthographic;FALSE;TRUE;TRUE;
+9316;1;bowl;IKEA;301.334.90;IKEA;bowl;;orthographic;FALSE;TRUE;TRUE;
+9317;1;glass;IKEA;400.580.65;IKEA;glass, clear, RARA, 10oz;;orthographic;FALSE;TRUE;TRUE;
+9318;1;glass;IKEA;401.376.90;IKEA;glass, clear, HAJDEBY;;orthographic;FALSE;TRUE;TRUE;
+9319;1;glass;IKEA;401.431.44;IKEA;glass, clear, champagne;;orthographic;FALSE;TRUE;TRUE;
+9320;1;glass;IKEA;463.156.00;IKEA;glass, clear, brandy, OPTIMAL, 25oz;;orthographic;FALSE;TRUE;TRUE;
+9321;1;glass;IKEA;500.151.22;IKEA;glass, champagne, SVALKA, 6 pack, 5oz;;orthographic;FALSE;TRUE;TRUE;
+9322;1;glass;IKEA;500.302.12;IKEA;glass, wine, RATTVIK;;orthographic;FALSE;TRUE;TRUE;
+9323;1;glass;IKEA;500.312.83;IKEA;glass, clear, RATTVIK, 12oz;;orthographic;FALSE;TRUE;TRUE;
+9325;1;glass;IKEA;500.919.41;IKEA;glass, clear, dessert wine, RARA, 2oz;;orthographic;FALSE;TRUE;TRUE;
+9326;1;glass;IKEA;501.161.83;IKEA;glass, clear, wine, 365+ IVRIG, 15oz;;orthographic;FALSE;TRUE;TRUE;
+9327;1;cup;IKEA;501.245.12;IKEA;cup, plastic, multiple colors, GROSSBY;;orthographic;FALSE;TRUE;TRUE;
+9328;1;glass;IKEA;501.330.69;IKEA;glass, wine, 365+ IVRIG, 16oz;;orthographic;FALSE;TRUE;TRUE;
+9329;1;bowl;IKEA;601.349.35;IKEA;bowl, white, 365+, 16cm dia.;;orthographic;FALSE;TRUE;TRUE;
+9330;1;glass;IKEA;700.302.11;IKEA;glass, clear, wine, RATTVIK, 8oz;;orthographic;FALSE;TRUE;TRUE;
+9331;1;glass;IKEA;701.330.68;IKEA;glass, clear, wine, 365+, IVRIG, 9oz;;orthographic;FALSE;TRUE;TRUE;
+9332;1;glass;IKEA;763.305.00;IKEA;glass, clear, cocktail, OPTIMAL, 8oz;;orthographic;FALSE;TRUE;TRUE;
+9333;1;bowl;IKEA;800.572.57;IKEA;bowl, serving, wood, BLANDA MATT, 12cm dia.;;orthographic;FALSE;TRUE;TRUE;
+9334;1;glass;IKEA;800.919.49;IKEA;glass, clear, cocktail, SODA, 5oz;;orthographic;FALSE;TRUE;TRUE;
+9335;1;glass;IKEA;801.327.80;IKEA;glass, clear purple, wine, PRALIN;;orthographic;FALSE;TRUE;TRUE;
+9336;1;bowl,als_object;IKEA;801.334.78;IKEA;bowl, beige, 365+, 13cm dia.;;orthographic;FALSE;TRUE;TRUE;
+9337;1;glass;IKEA;801.348.21;IKEA;glass, plastic, clear, 4 pack, VAKEN, 17oz;;orthographic;FALSE;TRUE;TRUE;
+9338;1;bowl;IKEA;801.463.53;IKEA;bowl, plastic, multiple colors, IDBYN;;orthographic;FALSE;TRUE;TRUE;
+9339;1;glass;IKEA;901.256.99;IKEA;glass, clear, wine, 365+ IVRIG, 10oz;;orthographic;FALSE;TRUE;TRUE;
+9340;1;glass;IKEA;901.317.04;IKEA;glass, clear, 6 pack, VANLIG, 7oz;;orthographic;FALSE;TRUE;TRUE;
+9341;1;bowl;IKEA;901.334.73;IKEA;bowl, beige, 365+, 16cm dia.;;orthographic;FALSE;TRUE;TRUE;
+9342;1;glass;IKEA;963.111.00;IKEA;glass, clear, wine, OPTIMAL, 20oz;;orthographic;FALSE;TRUE;TRUE;
+9343;1;saucer;IKEA;301.333.91saucer;IKEA;saucer, espresso cup, yellow, TRIVSAM, 12cm dia.;;3dsom;TRUE;TRUE;TRUE;
+9344;1;cup;IKEA;301.333.91cup;IKEA;cup, espresso w/saucer, yellow, TRIVSAM, 4.1oz;;3dsom;TRUE;FALSE;TRUE;
+9345;1;bowl;IKEA;401.324.52;IKEA;bowl, white, EPISTEL, 7x5in;;3dsom;TRUE;FALSE;TRUE;
+9346;1;cup;IKEA;401.463.45;IKEA;cup, plastic, large, multiple colors;;3dsom;TRUE;TRUE;TRUE;
+9347;1;glass;IKEA;501.161.78;IKEA;glass, clear plastic, 4 pack, VAKEN, 8oz;;3dsom;TRUE;TRUE;TRUE;
+9348;1;bowl;IKEA;600.572.58;IKEA;bowl, serving, wood, 20cm dia. BLANDA MATT;;3dsom;TRUE;TRUE;TRUE;
+9349;1;plate;IKEA;600.632.97;IKEA;plate, clear glass, 24.5cm dia.;;3dsom;TRUE;TRUE;TRUE;
+9350;1;glass;IKEA;600.817.34;IKEA;glass, clear, 6 pack, POKAL, 5oz;;3dsom;TRUE;TRUE;TRUE;
+9351;1;funnel;IKEA;600.832.62sm;IKEA;funnel, red, small, set of 2, 3in dia.;;3dsom;TRUE;FALSE;TRUE;
+9352;1;funnel;IKEA;600.832.62lrg;IKEA;funnel, large, plastic, set of 2, 5in dia. red;;3dsom;TRUE;FALSE;TRUE;
+9353;1;glass;IKEA;601.317.05;IKEA;glass, clear, 6 pack VANLIG, 11oz;;3dsom;TRUE;TRUE;TRUE;
+9354;1;glass;IKEA;700.580.64;IKEA;glass, champagne flute, clear, RARA, 7oz;;3dsom;TRUE;TRUE;TRUE;
+9355;1;saucer;IKEA;701.323.99saucer;IKEA;saucer, for coffee cup, white, EPISTEL, 8x6in.;;3dsom;TRUE;FALSE;TRUE;
+9356;1;cup;IKEA;701.323.99cup;IKEA;cup, coffee w/saucer, white, EPISTEL, 10.5;;3dsom;TRUE;FALSE;TRUE;
+9357;1;cup;IKEA;701.333.94cup;IKEA;cup, coffee, yellow, TRIVSAM, 13.5oz;;3dsom;TRUE;FALSE;TRUE;
+9358;1;glass;IKEA;800.817.33;IKEA;glass, clear, POKAL, 12oz;;3dsom;TRUE;TRUE;TRUE;
+9359;1;glass;IKEA;800.921.09;IKEA;glass, clear, 6 pack, GODIS, 7oz;;3dsom;TRUE;TRUE;TRUE;
+9360;1;glass;IKEA;800.921.14;IKEA;glass, champagne flute, clear, SKIR, 7oz;;3dsom;TRUE;TRUE;TRUE;
+9361;1;saucer;IKEA;900.444.86saucer;IKEA;saucer, coffee cup, white, 365+, 15cm dia.;;3dsom;TRUE;TRUE;TRUE;
+9362;1;cup;IKEA;900.444.86cup;IKEA;cup, coffee, white, 365+, 7oz;;3dsom;TRUE;FALSE;TRUE;
+9363;1;plate;IKEA;901.163.79;IKEA;plate, beige, MOTTO, 24.5cm;;3dsom;TRUE;TRUE;TRUE;
+9364;1;container,als_object;IKEA;901.125.07;IKEA;container, plastic, sandwich, white/red, 24oz;;3dsom;FALSE;FALSE;FALSE;
+9365;1;glass;Target;200.03.1152;Target;glass, clear, polycarbonate, wine;9200031152;3dsom;TRUE;TRUE;TRUE;
+9366;1;glass;Target;200.03.1301;Target;glass, clear, polycarbonate, wine, 8oz;9200031301;3dsom;TRUE;TRUE;TRUE;
+9367;1;glass;Target;200.01.3598;Target;glass, wine, polycarbonate, translucent smoke,;9200013598;3dsom;TRUE;TRUE;TRUE;
+9368;1;tumbler;Target;200.01.3345;Target;Tumbler, polycarbonate, red, large;9200013345;3dsom;TRUE;FALSE;TRUE;
+9369;1;tumbler;Target;200.01.3346;Target;tumbler, polycarbonate, red, small;9200013346;3dsom;TRUE;FALSE;TRUE;
+9370;1;bowl;Target;200.01.3477;Target;bowl, melamine, square, red;9200013477;3dsom;TRUE;FALSE;TRUE;
+9371;1;bowl;Target;200.01.0773;Target;bowl, melamine, bird decal, square;9200010773;3dsom;TRUE;FALSE;TRUE;
+9372;1;bowl;Target;200.01.0169;Target;bowl, melamine, white, 6.25in dia;8931304330;3dsom;TRUE;TRUE;TRUE;
+9374;1;bowl;Target;200.01.0422;Target;bowl, melamine, orange, 6in dia;9200010422;3dsom;TRUE;TRUE;TRUE;
+9375;1;bowl;Target;200.01.4266;Target;bowl, dip, melamine, white, square;9200014266;3dsom;TRUE;FALSE;TRUE;
+9376;1;bowl;Target;200.01.0271;Target;bowl, melamine, orange, square, 5.75in;9200010271;3dsom;TRUE;FALSE;TRUE;
+9377;1;plate;Target;200.01.3463;Target;plate, salad, melamine, red, 8.5in dia;8931361801;3dsom;TRUE;TRUE;TRUE;
+9378;1;plate;Target;200.01.0168;Target;plate, dinner, melamine, white, 10.5in dia.;8931304310;3dsom;TRUE;TRUE;TRUE;
+9379;1;bowl;Target;200.01.0426-green-large;Target;bowl, melamine, mixing bowl set(4), large;9200010426;3dsom;TRUE;FALSE;TRUE;
+9380;1;bowl;Target;200.01.0426-orange-med;Target;bowl, melamine, mixing bowl set(4), orange, medium;9200010426;3dsom;TRUE;FALSE;TRUE;
+9381;1;bowl;Target;200.01.0426-blue-small;Target;bowl, melamine, blue, mixing bowl set(4), small;9200010426;3dsom;TRUE;FALSE;TRUE;
+9382;1;bowl;Target;200.01.0426-brown-smallest;Target;bowl, melamine, mixing bowl set(4), brown, smallest;9200010426;3dsom;TRUE;FALSE;TRUE;
+9383;1;drill;Black&Decker;9099KCAB;Target;7.2v Cordless drill;8591106188;3dsom;FALSE;FALSE;FALSE;
+9384;1;drill;Black&Decker;GC180AW;Target;18v cordless drill;8591118241;3dsom;FALSE;FALSE;FALSE;
+9385;1;drill;Durabuilt;085.06.0082;Target;14.4v cordless drill;8454000084;3dsom;FALSE;FALSE;FALSE;
+9386;1;pitcher;Brita;Atlantis;Target;Brita water pitcher w/filter, 6 cup, clear w/white top;6025842412;3dsom;FALSE;FALSE;FALSE;
+9387;1;can,als_object;Coca-Cola;Coke_classic;Household;can, coke, 12fl oz.;496340;3dsom;FALSE;TRUE;FALSE;
+9388;1;bottle;Garnier;fructis_shampoo_bottle;Household;bottle, shampoo, plastic, 13fl oz, green;308426012;3dsom;FALSE;FALSE;FALSE;
+9389;1;can;Gillette;mach3_gel;Household;can, shaving gel, 7oz, black/green;4740014678;3dsom;FALSE;TRUE;FALSE;
+9390;1;bowl;Solo;solo_plastic_bowl;Household;bowl, plastic, red, oval;4116502515;3dsom;TRUE;TRUE;TRUE;
+9391;1;cup;solo;solo_plastic_cup;Household;cup, plastic, red, 18oz, 34 pack;4116508799;3dsom;TRUE;TRUE;TRUE;
+9392;1;bowl;Dixie;dixie_paper_bowl;Household;bowl, paper, 10oz, 38 pack;4200014175;3dsom;TRUE;TRUE;TRUE;
+9393;1;bowl;Vanity Fair;VF_papaer_bowl;Household;bowl, paper, 20oz, pack of 26;4200015689;3dsom;TRUE;TRUE;TRUE;
+9394;1;bottle;Tilex;tilex_spray;Household;bottle, spray, plastic, white, 1qt;4460001195;3dsom;FALSE;FALSE;FALSE;
+9395;1;bottle;Proctor&Gamble;Pantene;Household;bottle, plastic, shampoo, white, 25.4fl oz;8087800827;3dsom;FALSE;FALSE;FALSE;
+9396;1;can;S.C. Johnson;Pledge;Household;can, aersol spray, furniture polish, brown, 12.5 oz;4650000318;3dsom;FALSE;TRUE;FALSE;
+9397;1;pitcher;PUR;CR-6000;Target;pitcher, water with filter, clear, plastic, 7 cup;2398700578;3dsom;FALSE;FALSE;FALSE;
+9398;1;bottle;RB Inc;Mop&Glo;Household;bottle, plastic, blue, 1qt;1920005432;3dsom;FALSE;FALSE;FALSE;
+9399;1;bottle;Church & Dwight Co.;Arm & Hammer;Household;bottle, plastic, orange, Laundry Detergent, 50fl oz.;3320009990;3dsom;FALSE;FALSE;FALSE;
+9400;1;bottle;Proctor & Gamble;Tide;Household;bottle, plastic, red, laundry detergent, 50fl oz;3700013899;3dsom;FALSE;FALSE;FALSE;
+9401;1;bottle;Proctor & Gamble;Downy ultra;Household;z;3700035756;3dsom;FALSE;FALSE;FALSE;
+9402;1;bottle;Clorox;clorox;Household;bottle, plastic, white, clorox bleach, 60fl oz;4460002510;3dsom;FALSE;FALSE;FALSE;
+9403;1;bottle;Unilever;all;Household;bottle, plastic, blue, laundry detergent, 50fl oz;1111129114;3dsom;FALSE;FALSE;FALSE;
+9404;1;pitcher;Brita;OB36/OB03;Target;pitcher, water filter, clear, plastic, 10cup;6025842556;3dsom;FALSE;FALSE;FALSE;
+9406;1;bottle;cow;milk-1gal;Household;bottle, plastic, milk, 1 gal.;62138;3dsom;FALSE;FALSE;FALSE;
+9407;1;bottle;Odwalla;orange_juice;Household;bottle, plastic, Odwalla orange juice, 2qt.;1405411002;3dsom;FALSE;FALSE;FALSE;
+9408;1;bottle;The Sun Products Corp;All-small;Household;bottle, plastic, blue, all laundry detergent, 20fl oz.;7261345070;3dsom;FALSE;FALSE;FALSE;
+9409;1;bottle;Nestle;coffee-mate;Household;bottle, plastic, coffee creamer, 16fl oz;5000084805;3dsom;FALSE;TRUE;FALSE;
+9410;1;bottle;Unilever;suave-kids-3in1;Household;bottle, plastic, green, shampoo body wash, 22.5fl oz;7940035188;3dsom;FALSE;TRUE;FALSE;
+9411;1;tub;Unilever;Country_Crock15;Household;tub, plastic with lid, tan, margarine, 15oz;2740010307;3dsom;FALSE;TRUE;TRUE;
+9412;1;carton;Organics;milk-carton;Household;carton, cardboard/paper, milk, .5 gal;7989340060;3dsom;FALSE;FALSE;FALSE;
+9414;1;toy;Megabrands;megabloks1x2_countour_yellow;Household;toy, set of 80, plastic, interlocking block, yellow, 1x2 posts;6554108468;3dsom;FALSE;FALSE;FALSE;
+9415;1;toy;Megabrands;megabloks1x2_short_yellow;Household;toy, set of 80, plastic, interlocking block, yellow, 1x2 posts, short;6554108468;3dsom;FALSE;FALSE;FALSE;
+9416;1;toy;Megabrands;megabloks1x2_tall_green;Household;toy, set of 80, plastic, green, tall, 1x2 posts, interlocking;6554108468;3dsom;FALSE;FALSE;FALSE;
+9417;1;toy;Megabrands;megabloks1x3_tall_yellow;Household;toy, set of 80, yellow, plastic, 1x3 posts, interlocking, tall;6554108468;3dsom;FALSE;FALSE;FALSE;
+9418;1;toy;Megabrands;megabloks1x4_short_blue;Household;toy, set of 80, blue, plastic, 1x4 posts, short, interlocking;6554108468;3dsom;FALSE;FALSE;FALSE;
+9419;1;toy;Megabrands;megabloks1x4_tall_red;Household;toy, set of 80, red, tall, 1x4 posts, interlocking;6554108468;3dsom;FALSE;FALSE;FALSE;
+9420;1;toy;Megabrands;megabloks2x2_tall_blue;Household;toy, set of 80, blue, tall, 2x2 posts, interlocking;6554108468;3dsom;FALSE;FALSE;FALSE;
+9421;1;toy;Megabrands;megabloks2x4_yellow;Household;toy, set of 80, yellow, 2x4 posts, interlocking;6554108468;3dsom;FALSE;FALSE;FALSE;
+9422;1;toy;Megabrands;megabloks_single_yellow;Household;toy, set of 80, yellow, single post, interlocking;6554108468;3dsom;FALSE;FALSE;FALSE;
+9423;1;toy;Megabrands;megabloks2x2_short_red;Household;toy, plastic, set of 80, 2x2 posts, short, red;6554108468;3dsom;FALSE;FALSE;FALSE;
+9424;1;bottle,als_object;Odwalla;odwalla_bottle;Household;bottle, plastic, odwalla, orange juice, 15.2fl oz;1405411005;3dsom;FALSE;FALSE;FALSE;
+9425;1;box;General Mills;Oatmeal_crisp;Household;box, cardboard, cereal, 17oz;1600027538;3dsom;FALSE;FALSE;FALSE;
+9426;1;box;Post;shredded_wheat;Household;box, cardboard, cereal, 15oz;4300018005;3dsom;FALSE;FALSE;FALSE;
+9427;1;box;Kleenex;kleenex_box;Household;box, cardboard, tissue, 11x11x13cm;3600026085;3dsom;FALSE;FALSE;FALSE;
+9428;1;can;Izze;izze_can;Household;can, metal, juice, 8.4fl oz, orange;3609301105;3dsom;FALSE;TRUE;FALSE;
+9429;1;pitcher;Target;242.07.6610;Target;pitcher, plastic, palm tree pattern, 2qt.;7677000082;3dsom;FALSE;FALSE;TRUE;
+9430;1;pitcher;Target;242.07.6602;Target;pitcher, tall, palm tree pattern, with lid;7677000079;3dsom;FALSE;FALSE;TRUE;
+9431;1;tumbler;Target;242.11.4180;Target;Tumbler, set of 8, assorted colors, 20oz;11160882;3dsom;TRUE;TRUE;TRUE;
+9432;1;mug;Target;242.07.2123;Target;Mug, beer, polycarbonate, set of 6, clear;10760334;3dsom;TRUE;FALSE;TRUE;
+9433;1;tumbler;Target;242.09.6219-glass;Target;tumbler, polycarbonate, clear, 20oz, Geo 7-pc drinkware set;8978637553;3dsom;TRUE;TRUE;TRUE;
+9434;1;pitcher;Target;242.09.6219-pitcher;Target;pitcher, polycarbonate, clear, Geo 7pc drinkware set;;3dsom;TRUE;FALSE;TRUE;
+9435;1;box;Rite Aid;sterile_pads;Household;box package, cardboard, box of 25 pads, 2"x2";1182231258;3dsom;FALSE;FALSE;FALSE;
+9436;1;bottle;V8;v8_bottle;Household;bottle, plastic, V8 juice, v-fusion veg+fruit, 46fl oz;5100018467;3dsom;FALSE;TRUE;FALSE;
+9437;1;mug;?;travel_mug;Household;mug, travel, insulated, aluminum, black plastic trim;;3dsom;TRUE;FALSE;TRUE;
+9438;1;glass;Target;242.02.5746;Target;glass, acrylic Margarita, set of 4, blue, 9.5oz;7677000074;3dsom;TRUE;TRUE;TRUE;
+9439;1;bottle;Sushine Makers Inc.;simple_green;Household;bottle, plastic, all purpose cleaner, 2 liters;4331813014;3dsom;FALSE;FALSE;FALSE;
+9443;1;tool;Black_and_Decker;power_scissors;Household;tool, cordless, power scissors, model sz360or, 3.6v recharger;8591104461;3dsom;FALSE;FALSE;FALSE;
+9444;1;can;East West Blend LLC;Chaibaby_tea;Household;can, tea, white, metal, 1.4oz, 16 sachets, Chai-Baby brand;8907676167;3dsom;FALSE;TRUE;FALSE;
+9445;1;can;Rishi Tea;rishi_tea_jas;Household;can, tea, white, metal, loose leaf tea, 3oz;4139106376;3dsom;;TRUE;FALSE;
+9446;1;can;Penn;tennis_ball_can;Household;canister, plastic, tennis balls;7248901001;3dsom;;TRUE;FALSE;
+9447;1;jar;Boots Healthcare USA Inc.;Clearasil_jar;Household;jar, plastic, 90 clearasil pads, 9cm high x 7cm dia, white;;3dsom;;TRUE;FALSE;
+9448;1;bottle;AMO Inc.;contact lens cleaner;Household;botle, plastic, white, 12fl oz, Complete Moisture Plus;;3dsom;;TRUE;FALSE;
+9449;1;box;Unilever;Dove_bar;Household;carboard box containing Dove beauty bar, white, 120 grams;;3dsom;;FALSE;FALSE;
+9450;1;bottle;CVA Pharmacy;hydrogen_peroxide_bottle;Household;bottle, brown, 8fl oz, hydrogen peroxide;5042815269;3dsom;;TRUE;FALSE;
+9451;1;can;Gillette;shaving_foam_can_small;Household;can, metal, shaving foam, 2oz;4740014500;3dsom;;TRUE;FALSE;
+9452;1;mug;Crate&Barrel;red_mug;Household;mug, large, red, w/bumps;;3dsom;;FALSE;TRUE;
+9453;1;jug;tropicana;orange juice jug;Household;jug, plastic, white, orange juice, 89fl oz;4850001831;3dsom;;FALSE;FALSE;
+9454;1;box;Tazo;organic chai;Household;box, cardboard, tazo tea, 1.9oz;9452221012;3dsom;;FALSE;FALSE;
+9455;1;can;Campbell Soup Co.;campbell_soup_can;Household;can, metal, with label, campbell soup, net wt: 305g;5100001251;3dsom;;TRUE;FALSE;
+9456;1;can;Campbell Soup Co.;campbell_soup_handheld;Household;can, plastic with insulated cover/label, campbell soup, handheld, net wt: 305g;5100014981;3dsom;;TRUE;FALSE;
+9457;1;cylinder;Custom;cylinder_radius_0.02785_height_0.315;Custom;custom cylinder, hieght 31.5 cm, radius 2.785 cm;;manual;FALSE;TRUE;FALSE;
+9461;1;book,als_object;na;book;3dwarehouse;book;;cad;;FALSE;FALSE;
+9463;1;cell_phone,als_object;na;cell_phone;3dwarehouse;cell_phone;;cad;;FALSE;FALSE;
+9464;1;cordless_phone,als_object;na;cordless_phone;3dwarehouse;cordless_phone;;cad;;FALSE;FALSE;
+9465;1;fork,als_object;na;fork;3dwarehouse;fork;;cad;;FALSE;FALSE;
+9466;1;eyeglasses,als_object;na;eyeglasses;3dwarehouse;eyeglasses;;cad;;FALSE;FALSE;
+9467;1;lighter,als_object;na;lighter;3dwarehouse;lighter;;cad;;FALSE;FALSE;
+9468;1;medicine_pill,als_object;na;medicine_pill;3dwarehouse;medicine_pill;;cad;;FALSE;FALSE;
+9469;1;mug,als_object;na;mug;3dwarehouse;mug;;cad;;FALSE;FALSE;
+9470;1;pen,als_object;na;pen;3dwarehouse;pen;;cad;;FALSE;FALSE;
+9471;1;prescription_bottle,als_object;na;prescription_bottle;3dwarehouse;prescription_bottle;;cad;;FALSE;FALSE;
+9472;1;soap,als_object;na;soap;3dwarehouse;soap;;cad;;FALSE;FALSE;
+9473;1;spoon,als_object;na;spoon;3dwarehouse;spoon;;cad;;FALSE;FALSE;
+9474;1;straw,als_object;na;straw;3dwarehouse;straw;;cad;;FALSE;FALSE;
+9475;1;toothbrush,als_object;na;toothbrush;3dwarehouse;toothbrush;;cad;;FALSE;FALSE;
+9476;1;toothpaste,als_object;na;toothpaste;3dwarehouse;toothpaste;;cad;;FALSE;FALSE;
+9477;1;tv_remote,als_object;na;tv_remote;3dwarehouse;tv_remote;;cad;;FALSE;FALSE;
+9478;1;walking_cane,als_object;na;walking_cane;3dwarehouse;walking_cane;;cad;;FALSE;FALSE;
+9479;1;wallet,als_object;na;wallet;3dwarehouse;wallet;;cad;;FALSE;FALSE;
+9480;1;wrist_watch,als_object;na;wrist_watch;3dwarehouse;wrist_watch;;cad;;FALSE;FALSE;
+9482;1;plate,als_object;na;plate;3dwarehouse;plate;;cad;;FALSE;FALSE;
+9581;1;tod,cheddar,food;Unknown;Amys bowls country cheddar;Household;Amys bowls country cheddar;;TOD;;FALSE;FALSE;0819c93d08805f1566500ec84398ab14
+9582;1;tod,cleaning,bottle;Unknown;Clorox;Household;Bleach;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b821c078
+9583;1;tod,food,box,eggs;Unknown;Egg Carton;Household;A dozen eggs in an egg crate.;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b80e72b8
+9584;1;tod,eggo,food,waffle;Unknown;Eggo;Household;Eggo waffle;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b80c3038
+9585;1;tod,mug;Unknown;face mug someother;Household;a mug;;TOD;;FALSE;FALSE;ffd915faafecfabce63d590572eed069
+9586;1;tod,"honey bunches",food;Unknown;Honey Bunches;Household;Honey Bunches;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b8106d87
+9587;1;tod,card;Unknown;hotel card;Household;Hotel card from Steve;;TOD;;FALSE;FALSE;ae9da478dc2812ee09dcea5b6bf65dd7
+9588;1;tod,disney,toy,plastic;Unknown;Mini Mouse Bank;Household;A plastic piggy bank, in the likeness of Mini Mouse.;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b809f265
+9589;1;tod,cleaning,bottle;Unknown;Mop and Glo;Household;cleaning;;TOD;;FALSE;FALSE;ddd91bfc02fc42c0607bb07a31352fad
+9590;1;tod,drink,bottle;Unknown;Nantucket Watermelon Strawberry;Household;A drink of fresh squeezed sugar.;;TOD;;FALSE;FALSE;9ea7df9b7a472c4d79398019f7d574ff
+9591;1;tod,food,cerial,breakfast,box;Unknown;Nature's Path Organic Peanut Butter Granola;Household;11.5 Oz box of organic granola cerial.;;TOD;;FALSE;FALSE;43a7c5ba4f8f1c4bdd1e17801aa8ea97
+9592;1;tod,"oi ocha",food;Unknown;Oi Ocha;Household;Oi Ocha;;TOD;;FALSE;FALSE;762492b41ad8ac5bb50adfde0829b46b
+9593;1;tod,plastic,electronics;Unknown;Remote Control;Household;Normal TV remote.;;TOD;;FALSE;FALSE;73ed03747038b5f25afc2c17cef31acf
+9594;1;tod,box,robot;Unknown;Robot Cards;Household;Some robot themed playing cards.;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b8300275
+9595;1;tod,poster,"robot power";Unknown;Robot Power;Household;A ROS poster. Robot Power!!;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b82afc24
+9596;1;tod,poster,comic;Unknown;ROS PHD Comic;Household;A PHD Comic about ROS.;;TOD;;FALSE;FALSE;578e868adaf1a29b377504be293d5141
+9597;1;tod,sphaghettio,soup,food;Unknown;soup spaghettio;Household;soup spaghettio;;TOD;;FALSE;FALSE;b1624b278c569f46c5c144c2b7b53668
+9598;1;tod,sphaghetti,food;Unknown;sphaghetti;Household;sphaghetti;;TOD;;FALSE;FALSE;be36beee0cefc0ad389e506594f1e367
+9599;1;tod,beer,can;Unknown;Tecate;Household;Tecate beer can.;;TOD;;FALSE;FALSE;aec48af2ea447e23527cbf1b2e58dd94
+9600;1;tod,cleaning,bottle;Unknown;Tide 2x;Household;Detergent;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b824d7c8
+9601;1;tod,food,box;Unknown;Trader Joe's Paneer Tikka Masala;Household;9 Oz box of Tikka Masala with spinach and basmati rice.;;TOD;;FALSE;FALSE;bc1be2f2f609df0f198e701dc94f65bc
+9602;1;tod,ziplock,food;Unknown;ziplock;Household;ziplock;;TOD;;FALSE;FALSE;ed149575c2a44c1c095c5bc1b81f434f
+9605;1;transparent,cup,plastic;Unknown;sour cream;Household;a plastic cup;;transparent_objects;;FALSE;FALSE;1acfa3a425f5637f958c0eaff31fe42d
+9607;1;transparent,cup,plastic;Unknown;small cup;Household;a plastic cup;;transparent_objects;;FALSE;FALSE;802b29d49fe0f73e3e85220f8b757b05
+9608;1;transparent,glass;Unknown;tall glass;Household;a glass;;transparent_objects;;FALSE;FALSE;938209ce3d076c79724b8887ca57d5d4
+9609;1;transparent,glass,bottle;Unknown;boss bottle;Household;a glass bottle;;transparent_objects;;FALSE;FALSE;004e4c64a4f70505774ec8098ad47342
+9610;1;transparent,glass,ball;Unknown;valentino ball;Household;a glass ball;;transparent_objects;;FALSE;FALSE;33291d0ffba22e7eb65663824a3b7f6f
+9611;1;transparent,plasstic,wineglass;Unknown;wine glass;Household;a plastic wine glass;;transparent_objects;;FALSE;FALSE;615f59d0498ac8f893ed10a707b47311
+9612;1;transparent,glass,box;Unknown;boss box;Household;a glass box;;transparent_objects;;FALSE;FALSE;d28d3155056e59dcd8dbadbc8b3c1375
+9613;1;translucent,cup,plastic;Unknown;yellow cup;Household;a yellow cup;;transparent_objects;;FALSE;FALSE;fdc5491af03dbafdbaa1703e62f565e3
+9614;1;transparent,glass;Unknown;small glass;Household;a small glass;;transparent_objects;;FALSE;FALSE;6906eae2bc5558d85f0f9fd588893b9d
+9615;1;translucent,bottle,glass;Unknown;curved bottle;Household;a curved bottle;;transparent_objects;;FALSE;FALSE;db9c0c0aa659467ad26ec830d90dc643
+9616;1;translucent,mug,glass;Unknown;small mug;Household;a small mug;;transparent_objects;;FALSE;FALSE;cee6ed13ec62d1d15b29264c34f44088
+9617;1;transparent,bowl,glass;Unknown;glass bowl;Household;a glass bowl;;transparent_objects;;FALSE;FALSE;0025369cba57299e3ff70c7323842f95
+9618;1;tod,graspable,box,small;Unknown;arm and hammer;Household;arm and hammer;;TOD;;FALSE;FALSE;08c7fbe297035e4227fd4aad7d0920b7
+9619;1;tod,graspable,box,small;Unknown;black pepper;Household;black pepper;;TOD;;FALSE;FALSE;08c7fbe297035e4227fd4aad7d0c6361
+9620;1;tod,graspable,mustard,food,bottle,squeeze;Unknown;french's mustard;Household;french's mustard;;TOD;;FALSE;FALSE;08c7fbe297035e4227fd4aad7d05d834
+9621;1;tod,graspable,spray;Unknown;pledge;Household;pledge;;TOD;;FALSE;FALSE;08c7fbe297035e4227fd4aad7d031ff9
+9622;1;tod,graspable,detergent;Unknown;woolite;Household;woolite;;TOD;;FALSE;FALSE;08c7fbe297035e4227fd4aad7d0007af
+9623;1;powder,cleanser,canister,cylinder;Unknown;Bon Ami;Household;Bon Ami;;TOD;;FALSE;FALSE;40c6009161e40eaadb752c9a8000130b
+9624;1;Pam,olive,oil,can,cylinder;Unknown;Pam;Household;Pam;;TOD;;FALSE;FALSE;40c6009161e40eaadb752c9a80077fb3
+9625;1;Kona,Coffee,soda,can,cylinder;Unknown;Kona Coffee Can;Household;Kona Coffee Can;;TOD;;FALSE;FALSE;40c6009161e40eaadb752c9a8009563b
+9627;1;;target;big_bowl;Household;;;TOD;;FALSE;FALSE;
+9628;1;;target;big_plate;Household;;;TOD;;FALSE;FALSE;
+9629;1;;target;little_bowl;Household;;;TOD;;FALSE;FALSE;
+9631;1;bowl,sushi;target;little_sushi_bowl;Household;;;TOD;;FALSE;FALSE;
+9632;1;bowl,sushi;target;big_sushi_bowl;Household;;;TOD;;FALSE;FALSE;
+9633;1;cup,sushi;target;little_sushi_cup;Household;;;TOD;;FALSE;FALSE;
+9634;1;cup,sushi;target;big_sushi_cup;Household;;;TOD;;FALSE;FALSE;
+9635;1;plate,sushi;target;little_sushi_plate;Household;;;TOD;;FALSE;FALSE;
+9636;1;plate,sushi;target;big_sushi_plate;Household;;;TOD;;FALSE;FALSE;
