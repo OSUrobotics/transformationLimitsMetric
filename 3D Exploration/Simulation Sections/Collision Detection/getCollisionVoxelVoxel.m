@@ -38,6 +38,14 @@ function [ amountCollide ] = getCollisionVoxelVoxel( handVox, objectVox, objectS
 %
 %==========================================================================
 
+if size( objectVox, 2 ) ~= 3
+    objectVox = objectVox';
+end
+
+if size( objectSurfPoints, 2 ) ~= 3
+    objectSurfPoints = objectSurfPoints';
+end
+
 valuesAtVoxels = interp3(handVox(:,:,:,1),handVox(:,:,:,2),handVox(:,:,:,3),handVox(:,:,:,4),objectVox(:,1),objectVox(:,2),objectVox(:,3),method);
 %% Filter by only inside
 valuesAtVoxels = valuesAtVoxels(valuesAtVoxels>0.5);

@@ -5,7 +5,7 @@ function stlPlotWColor(vertices, faces, scatter, name, amount)
 %SCATTER is if there should be a scatterplot or not, default none
 %NAME is the name of the object, that will be displayed as a title
 %% Plot the vertices if selected to do so
-if nargin == 2 && scatter
+if nargin == 2 || (nargin > 2 && scatter)
     plot3(vertices(:,1),vertices(:,2),vertices(:,3),'.k');
     hold on
 end
@@ -29,6 +29,6 @@ ylabel('Y Axis');
 zlabel('Z Axis');
 grid on;
 %% Add title if wanted
-if nargin == 4
-    title(name);
+if nargin > 3
+    title(name, 'FontSize', 48);
 end

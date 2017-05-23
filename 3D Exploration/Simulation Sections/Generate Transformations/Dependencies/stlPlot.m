@@ -5,7 +5,7 @@ function stlPlot(vertices, faces, scatter, name)
 %SCATTER is if there should be a scatterplot or not, default none
 %NAME is the name of the object, that will be displayed as a title
 %% Plot the vertices if selected to do so
-if nargin == 2 && scatter
+if nargin == 2 || exist('scatter', 'var')
     plot3(vertices(:,1),vertices(:,2),vertices(:,3),'.k');
     hold on
 end
