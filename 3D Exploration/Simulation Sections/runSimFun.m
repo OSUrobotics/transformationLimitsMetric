@@ -65,7 +65,7 @@ outputData(:,1:7) = squeeze( transformationStruct.stepValues(:,:,end)' );
 outputData(:,8:end) = volumeIntersecting(:,2:end);
 
 outputTable = array2table(outputData, 'VariableNames', strNames);
-writetable(outputTable, sprintf(outputFilePath,0));
+writetable(outputTable, outputFilePath);
 % for i = 2:size(outputMatrix,3)
 %     outputTable = array2table(outputMatrix(:,:,i), 'VariableNames', {'X_Translation','Y_Translation','Z_Translation','Quat_1','Quat_2','Quat_3','Quat_4','Intersection'});
 %     writetable(outputTable, sprintf(outputFilePath,i-1));

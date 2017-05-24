@@ -1,11 +1,11 @@
 %% This script calls runSimulation over a large number of hands and transformations
 disp('Started script');
 %% Dealing with parpool
-p = gcp('nocreate');
-if isempty(p)
-    parpool(7);
-    p = gcp();
-end
+% p = gcp('nocreate');
+% if isempty(p)
+%     parpool(7);
+%     p = gcp();
+% end
 disp('Parpool started');
 %% Declaring transformation settings variables
 transformationsFilename = 'transformationStored';

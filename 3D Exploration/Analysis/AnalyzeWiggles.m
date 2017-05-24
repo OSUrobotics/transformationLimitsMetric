@@ -65,7 +65,7 @@ for amnt = 1:2
         %% Loop through the wiggles and apply
         for wIndex = 1:nWiggles
             %% Load in data
-            fname = strcat('OutputWiggle', dirs{amnt}, '/', sprintf( sprintf(handObjectLinking{pairingIndex,10},wIndex,'%i'), 0) );
+            fname = strcat('OutputWiggle', dirs{amnt}, '/', sprintf(handObjectLinking{pairingIndex,10},wIndex) );
             dataWiggle = table2array(readtable(fname));
             data(amnt, obj, wIndex,:,:) = dataWiggle(:, 8:end);
             for k = 1:nDirs

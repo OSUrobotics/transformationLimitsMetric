@@ -154,7 +154,7 @@ for amnt = 1:length(locs)
             plot3( objectV(:,1), objectV(:,2), objectV(:,3), '+g')
             
             %% Run script on it all
-            fname = strcat('OutputWiggle', dirs{amnt}, '/', sprintf(handObjectLinking{pairingIndex,10},wIndex,'%i') );
+            fname = strcat('OutputWiggle', dirs{amnt}, '/', sprintf(handObjectLinking{pairingIndex,10},wIndex) );
             runSimFun(transformationStruct,objectVox,objectSV,handVox,objectVoxelResolution,surfArea,fname);
             fprintf('Done with loop index %i/%i\n\n',pairingIndex,size(handObjectLinking,1))
         end
