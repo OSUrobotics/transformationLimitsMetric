@@ -8,14 +8,15 @@ disp('Started script');
 % end
 disp('Parpool started');
 %% Declaring transformation settings variables
-transformationsFilename = 'transformationStored';
+transformationsFilename = 'transformationV2Stored';
 transformationSettings = struct;
 transformationSettings.handAndObjectScalar = 1;
 transformationSettings.translateScalar = 1;
-transformationSettings.numTranslationDirections = 12;
-transformationSettings.numRotationAxes = 7;
+transformationSettings.numTranslationDirections = 32;
+transformationSettings.numRotationAxes = 8;
 transformationSettings.angleDivisions = [-1 -.5 -.25 0 .25 .5 1];
-transformationSettings.numInterpolationSteps = 10;
+transformationSettings.numInterpolationSteps = 4;
+transformationSettings.stepDiv = 0.05;
 %% Other variables
 originToCenter = -[0 0 0.085/2+0.08]; % Half of the height of a fingers touching position to the palm, plus the palm-origin offset
 handSpreadDistance = 0.385; % Hand setting for scaling
@@ -29,7 +30,7 @@ if ~exist('transformationStruct','var')
     %% If not already created, create the file
     if ~exist(transformationsFilename,'file')
         disp('Started generating transformations');
-        transformationStruct = saveTrajectories(transformationSettings,transformationsFilename);
+        transformationStruct = saveTrajectoriesV2(transformationSettings,transformationsFilename);
         disp('Done generating transformations');
     else
         load(transformationsFilename);
