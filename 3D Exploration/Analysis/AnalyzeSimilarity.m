@@ -32,6 +32,14 @@ else
 end
 disp('Loaded the hand-object-transformation linking csv');
 
+% Load in the comparisons
+strSaveComparisons = 'Output/comparison.mat';
+if exist( strSaveComparisons, 'file' )
+    load( strSaveComparisons );
+else
+    GraspGroupings;
+end
+
 % Get mapping
 %similarity = table2cell(readtable('../../GraspStudies/Compare.csv'));
 similarity = table2cell(readtable('../../GraspStudies/SimilaritySaurabh.csv'));
@@ -43,17 +51,15 @@ nDirs = transformationStruct.numTranslationDirections * ...
     length(transformationStruct.angleDivisions);
 nComparisons = size( similarity, 1 );
 nVals = nDirs * (transformationStruct.numInterpolationSteps - 1);
-data = zeros( nDirs, transformationStruct.numInterpolationSteps - 1 );
-dataDiffs = zeros( nDirs, transformationStruct.numInterpolationSteps - 1 );
 
-clf
-nRows = 1;
-nCols = 2;
+
+dataToPlotL2 = zeros( 2, nComparisons );
+dataToPlotL2Diff = zeros( 2, nComparisons );
 for r = 1:nComparisons
-    fname = strcat('Output/Wiggle1Step0', similarity{r,1} );
+    fname = strcat('Output/Step0', similarity{r,1} );
     dataC1 = table2array(readtable(fname));
     dataC1 = dataC1(:,8:end);
-    fname = strcat('Output/Wiggle1Step0', similarity{r,2} );
+    fname = strcat('Output/Step0', similarity{r,2} );
     dataC2 = table2array(readtable(fname));
     dataC2 = dataC2(:,8:end);
     
@@ -68,36 +74,69 @@ for r = 1:nComparisons
     end
     diffsL2 = sqrt( sum( sum( ( dataC1(:,:) - dataC2(:,:) ).^2 ) ) ) / nVals;
     diffsL2Diff = sqrt( sum( sum( ( dataDiffsC1(:,:) - dataDiffsC2(:,:) ).^2 ) ) ) / nVals;
-
-    subplot(nRows, nCols, 1);
-    if similarity{r,3} < 0.3
-        plot( similarity{r,3}, diffsL2, 'Xr');
-    elseif similarity{r,3} < 0.7
-        plot( similarity{r,3}, diffsL2, 'Ob');
-    else
-        plot( similarity{r,3}, diffsL2, '*g');
+    
+    dataToPlotL2( 1, r ) = similarity{r,3};
+    dataToPlotL2( 2, r ) = diffsL2;
+    
+    dataToPlotL2Diff( 1, r ) = similarity{r,3};
+    dataToPlotL2Diff( 2, r ) = diffsL2Diff;
+    
+    if mod(r,10) == 0
+        fprintf('.');
     end
-    hold on;
-
-    subplot(nRows, nCols, 2);
-    if similarity{r,3} < 0.3
-        plot( similarity{r,3}, diffsL2Diff, 'Xr');
-    elseif similarity{r,3} < 0.7
-        plot( similarity{r,3}, diffsL2Diff, 'Ob');
-    else
-        plot( similarity{r,3}, diffsL2Diff, '*g');
-    end
-    hold on;
 end
+figure(2)
+clf
+nRows = 2;
+nCols = 2;
+
+fprintf('\n');
 subplot(nRows, nCols, 1);
+indx = dataToPlotL2(1,:) < 0.3;
+plot( dataToPlotL2(1, indx), dataToPlotL2(2, indx), 'Xr' );
+hold on;
+indx = dataToPlotL2(1,:) >= 0.3 & dataToPlotL2(1,:) < 0.7;
+plot( dataToPlotL2(1, indx), dataToPlotL2(2, indx), 'Ob' );
+indx = dataToPlotL2(1,:) >= 0.7;
+plot( dataToPlotL2(1, indx), dataToPlotL2(2, indx), '*g' );
 xlabel('Similarity survey score');
 ylabel('L^2 difference');
 title('Score on similarity');
 
-subplot(nRows, nCols, 2);
+subplot(nRows, nCols, 3);
+indx = dataToPlotL2(1,:) < 0.3;
+dataToPlotL2(1,indx) = 0;
+indx = dataToPlotL2(1,:) >= 0.3 & dataToPlotL2(1,:) < 0.7;
+dataToPlotL2(1,indx) = 0.5;
+indx = dataToPlotL2(1,:) >= 0.7;
+dataToPlotL2(1,indx) = 1;
+boxplot( squeeze(dataToPlotL2(2,:)), squeeze(dataToPlotL2(1,:)) );
 xlabel('Similarity survey score');
-ylabel('L^2 difference of difference');
+ylabel('L^2 difference');
+set(gca,'XTickLabel',{'Similar', 'Shape same'})
+rotateXLabels( gca(), 45 );
 title('Score on similarity');
+
+%%%%% Diffs
+
+subplot(nRows, nCols, 2);
+indx = dataToPlotL2(1,:) < 0.3;
+plot( dataToPlotL2(1, indx), dataToPlotL2Diff(2, indx), 'Xr' );
+hold on;
+indx = dataToPlotL2(1,:) >= 0.3 & dataToPlotL2(1,:) < 0.7;
+plot( dataToPlotL2(1, indx), dataToPlotL2Diff(2, indx), 'Ob' );
+indx = dataToPlotL2(1,:) >= 0.7;
+plot( dataToPlotL2(1, indx), dataToPlotL2Diff(2, indx), '*g' );
+
+subplot(nRows, nCols, 4);
+boxplot( squeeze(dataToPlotL2Diff(2,:)), squeeze(dataToPlotL2(1,:)) );
+
+xlabel('Similarity survey score');
+ylabel('L^2 difference of diff');
+set(gca,'XTickLabel',{'Similar', 'Shape same'})
+rotateXLabels( gca(), 45 );
+title('Score on similarity');
+
 
 
 fname = 'Images/SimilarityGraph.pdf';

@@ -14,9 +14,10 @@ transformationSettings.handAndObjectScalar = 1;
 transformationSettings.translateScalar = 1;
 transformationSettings.numTranslationDirections = 32;
 transformationSettings.numRotationAxes = 8;
-transformationSettings.angleDivisions = [-1 -.5 -.25 0 .25 .5 1];
-transformationSettings.numInterpolationSteps = 4;
-transformationSettings.stepDiv = 0.05;
+%transformationSettings.angleDivisions = [-1 -.5 -.25 0 .25 .5 1];
+transformationSettings.angleDivisions = [-1 0 1];
+transformationSettings.numInterpolationSteps = 2;
+transformationSettings.stepDiv = 0.025;
 %% Other variables
 originToCenter = -[0 0 0.085/2+0.08]; % Half of the height of a fingers touching position to the palm, plus the palm-origin offset
 handSpreadDistance = 0.385; % Hand setting for scaling
@@ -28,12 +29,12 @@ handObjectLinkingFilePath = 'pathMapping.csv';
 %% If not already loaded, load the transformation values
 if ~exist('transformationStruct','var')
     %% If not already created, create the file
-    if ~exist(transformationsFilename,'file')
+    if ~exist( strcat(transformationsFilename, '.mat'),'file')
         disp('Started generating transformations');
         transformationStruct = saveTrajectoriesV2(transformationSettings,transformationsFilename);
         disp('Done generating transformations');
     else
-        load(transformationsFilename);
+        load(strcat(transformationsFilename, '.mat'));
         disp('Loaded transformations');
     end
 else
