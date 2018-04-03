@@ -1,21 +1,42 @@
 %% This script calls runSimulation over a large number of hands and transformations
 disp('Started script');
+addpath '/Users/grimmc/Code/GraspingMetric';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Analysis';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Readers and Visualizations';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Mesh Tools';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Mesh Tools/File Readers';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Simulation Sections';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Simulation Sections/Collision Detection';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Simulation Sections/Collision Detection/Dependencies';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Simulation Sections/Generate Transformations';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Simulation Sections/Generate Transformations/Wiggles';
+addpath '/Users/grimmc/Code/GraspingMetric/3D exploration/Simulation Sections/Generate Transformations/Dependencies';
 %% Dealing with parpool
 % p = gcp('nocreate');
 % if isempty(p)
 %     parpool(4);
 %     p = gcp();
 % end
-disp('Parpool started');
 %% Declaring transformation settings variables
-transformationsFilename = 'transformationStored';
 transformationSettings = struct;
 transformationSettings.handAndObjectScalar = 1;
 transformationSettings.translateScalar = 1;
-transformationSettings.numTranslationDirections = 12;
+% transformationSettings.numTranslationDirections = 10;
+% transformationSettings.numRotationAxes = 7;
+% transformationSettings.angleDivisions = [-.5 -.25 0 .25 .5];
+% transformationSettings.numTranslationDirections = 18;
+% transformationSettings.numRotationAxes = 7;
+% transformationSettings.angleDivisions = [-.5 0 .5];
+transformationSettings.numTranslationDirections = 28;
 transformationSettings.numRotationAxes = 7;
-transformationSettings.angleDivisions = [-1 -.5 -.25 0 .25 .5 1];
-transformationSettings.numInterpolationSteps = 10;
+transformationSettings.angleDivisions = [-.5 0 .5];
+transformationSettings.numInterpolationSteps = 8;
+
+strTag = TagForTransformation( transformationSettings );
+transformationsFilename = strcat( 'transformationStored', strTag );
+
+fprintf('ApplySimTdataWiggles started, %s\n', strTag);
 
 %% Other variables
 originToCenter = -[0 0 0.085/2+0.08]; % Half of the height of a fingers touching position to the palm, plus the palm-origin offset
@@ -154,19 +175,20 @@ for amnt = 1:length(locs)
             plot3( objectV(:,1), objectV(:,2), objectV(:,3), '+g')
             
             %% Run script on it all
-            fname = strcat('OutputWiggle', dirs{amnt}, '/', sprintf(handObjectLinking{pairingIndex,10},wIndex) );
+            fname = strcat('OutputWiggle', dirs{amnt}, '/T', strTag, sprintf(handObjectLinking{pairingIndex,10},wIndex) );
+            %fname = strcat('OutputWiggle', dirs{amnt}, '/', sprintf(handObjectLinking{pairingIndex,10},wIndex) );
             runSimFun(transformationStruct,objectVox,objectSV,handVox,objectVoxelResolution,surfArea,fname);
             fprintf('Done with loop index %i/%i\n\n',pairingIndex,size(handObjectLinking,1))
         end
         
         % Next object
-        fname = sprintf( sprintf(handObjectLinking{pairingIndex,10},wIndex,'%i'), 0 );
+        fname = sprintf(handObjectLinking{pairingIndex,10},wIndex);
         fnameShort = fname(13:end-20);
-        fname = sprintf('Images/Wiggle_%s%s.jpg',fnameShort, dirs{amnt});
-        saveGraphics(fname,[1080,1080]);
+        fname = sprintf('Images/Wiggle_%s%s%s.jpeg',fnameShort, dirs{amnt}, strTag);
+        saveGraphics(fname,[3,3]);
         obj = obj + 1;
     end
     
-    fname = sprintf('OutputWiggle%s/wiggleTest.mat', dirs{amnt});
+    fname = sprintf('OutputWiggle%s/wiggleTest%s.mat', dirs{amnt}, strTag);
     save( fname, 'percMoved')
 end

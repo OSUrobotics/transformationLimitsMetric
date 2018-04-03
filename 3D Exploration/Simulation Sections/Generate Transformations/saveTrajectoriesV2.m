@@ -49,7 +49,7 @@ end
 
 %% Generate the trajectories interpolated along
 values = generateTrajectories(transformationStruct.numTranslationDirections,transformationStruct.numRotationAxes,transformationStruct.angleDivisions);
-valuesDownsample = cell(1,0);
+valuesDownSample = cell(1,1);
 valuesDownSample{1,1} = values;
 nTotal = size( values, 2 ) + 1;
 nSize = size( values, 2 );
@@ -57,37 +57,47 @@ nLevel = 2;
 dSteps = zeros(1,1);
 dSteps(1) = transformationStruct.stepDiv;
 while nSize > 4
-    values = values(1:2:end);
+    values = values(:,1:4:end);
     nSize = size(values, 2);
     nTotal = nTotal + nSize;
     valuesDownSample{nLevel,1} = values;
-    dSteps(nLevel) = dSteps(nLevel+1) * 1.3;
+    dSteps(nLevel) = dSteps(nLevel-1) * 1.3;
     nLevel = nLevel + 1;
 end
 
 %% Pass variables out of the transformationStruct
 translateScalar = transformationStruct.translateScalar;
 %% Prepare for and loop through creating the steps
-trajectorySteps = zeros(4,4,nTotal,1);
+trajectorySteps = zeros(4,4,transformationStruct.numInterpolationSteps,nTotal);
 % Starting position/value
-stepsEXPM = trajectoryStepsEXPM(values(1,1),2,translateScalar);
-trajectorySteps(:,:,1,1) = stepsEXPM(:,:,1);
+stepsEXPM = trajectoryStepsEXPM(values(:,1),2,translateScalar);
+trajectorySteps(:,:,:,1) = stepsEXPM;
 nStart = 2;
+valuesAll = zeros( size(values, 1), nTotal );
+stepsAll = zeros( 1, nTotal );
+valuesAll(:,1) = values(:,1);
+stepValues = zeros(7,nTotal,2);
+stepValues(:,1,:) = matrix2values(trajectorySteps(:,:,:,1));
+stepsAll(1) = 0;
 for l = 1:nLevel-1
-    valuesLevel = valuesDownsample{l,1};
+    valuesLevel = valuesDownSample{l,1};
     numValues = size(valuesLevel,2);
     for transformIndex = 1:numValues
         % Just save one step, but take enough iterations to get dStep
         numIters = ceil( 1 / dSteps(l) );
         stepsEXPM = trajectoryStepsEXPM(valuesLevel(:,transformIndex),numIters,translateScalar);
-        trajectorySteps(:,:,nStart,1) = stepsEXPM(:,:,1);
+        trajectorySteps(:,:,1:2,nStart) = stepsEXPM(:,:,1:2);
+        valuesAll(:,nStart) = valuesLevel( transformIndex );
+        stepValues(:,nStart,:) = matrix2values(trajectorySteps(:,:,1:2,nStart));
+        stepsAll(nStart) = 1 / numIters;
         nStart = nStart + 1;
     end
 end
 %% Save to structure
 transformationStruct.trajectorySteps = trajectorySteps;
-transformationStruct.values = valuesDownsample;
-transformationStruct.stepValues = dSteps;
+transformationStruct.values = valuesAll;
+transformationStruct.stepValues = stepValues;
+transformationStruct.stepSize = stepsAll;
 %% Save to file if included
 if nargin >= 2
     %% Rename structure if name specified

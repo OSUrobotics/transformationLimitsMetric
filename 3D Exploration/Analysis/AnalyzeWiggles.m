@@ -8,28 +8,20 @@ disp('Started script');
 % end
 %disp('Parpool started');
 %% Declaring transformation settings variables
-transformationsFilename = 'transformationStored';
-transformationSettings = struct;
-transformationSettings.handAndObjectScalar = 1;
-transformationSettings.translateScalar = 1;
-transformationSettings.numTranslationDirections = 12;
-transformationSettings.numRotationAxes = 7;
-transformationSettings.angleDivisions = [-1 -.5 -.25 0 .25 .5 1];
-transformationSettings.numInterpolationSteps = 10;
 handObjectLinkingFilePath = 'pathMappingWiggle.csv';
 %% If not already loaded, load the transformation values
 if ~exist('transformationStruct','var')
+    strTag = input('Which transformation (eg _10_5_3_8):');
+    transformationsFilename = strcat( 'transformationStored', strTag );
     %% If not already created, create the file
     if ~exist(transformationsFilename,'file')
-        disp('Started generating transformations');
-        transformationStruct = saveTrajectories(transformationSettings,transformationsFilename);
-        disp('Done generating transformations');
+        fprintf('That transfromation does not exist %s\n', transformationsFilename);
     else
         load(transformationsFilename);
         disp('Loaded transformations');
     end
 else
-    disp('Using preloaded transformations');
+    fprintf('Using preloaded transformations %s\n', transformationsFilename);
 end
 %% Load in file relations between hand settings, object, and transformations, create if not created
 if exist(handObjectLinkingFilePath,'file')
@@ -39,13 +31,12 @@ else
 end
 disp('Loaded the hand-object-transformation linking csv');
 
-% Get percMoved
-load( 'wiggleTest.mat' );
-
 
 %% Loop through the items in the handObjectLinking list
 dirs = {'Small', 'Large'};
-fname = sprintf('OutputWiggle%s/wiggleTest.mat', dirs{1});
+
+% Load saved wiggle data
+fname = sprintf('OutputWiggle%s/wiggleTest%s.mat', dirs{1}, strTag);
 load( fname );
 nObjs = length( percMoved.PairingIndex );
 nWiggles = size(percMoved.Wiggles,1);
@@ -56,7 +47,7 @@ data = zeros( 2, nObjs, nWiggles, nDirs, transformationStruct.numInterpolationSt
 dataDiffs = zeros( 2, nObjs, nWiggles, nDirs, transformationStruct.numInterpolationSteps - 1 );
 nVals = nDirs * (transformationStruct.numInterpolationSteps - 1);
 for amnt = 1:2
-    fname = sprintf('OutputWiggle%s/wiggleTest.mat', dirs{amnt});
+    fname = sprintf('OutputWiggle%s/wiggleTest%s.mat', dirs{amnt}, strTag);
     load( fname );
     
     obj = 1;
@@ -66,12 +57,16 @@ for amnt = 1:2
         for wIndex = 1:nWiggles
             %% Load in data
             fname = strcat('OutputWiggle', dirs{amnt}, '/', sprintf(handObjectLinking{pairingIndex,10},wIndex) );
+            %fname = strcat('OutputWiggle', dirs{amnt}, '/T', strTag, sprintf(handObjectLinking{pairingIndex,10},wIndex) );
             dataWiggle = table2array(readtable(fname));
             data(amnt, obj, wIndex,:,:) = dataWiggle(:, 8:end);
             for k = 1:nDirs
                 seq = [0, squeeze( data( amnt, obj, wIndex, k, 1:end-1 ) )' ];
                 dataDiffs(amnt, obj, wIndex, k, :) = squeeze( data( amnt, obj, wIndex, k, : ) ) - seq';
             end
+            t = readtable(fname);
+            outputFilePath = strcat('OutputWiggle', dirs{amnt}, '/T', strTag, sprintf(handObjectLinking{pairingIndex,10},wIndex) );
+            writetable(t, outputFilePath);
         end
         
         % Next object
@@ -113,8 +108,8 @@ end
 
 figure(1)
 clf;
-nRows = 1;
-nCols = 4;
+nRows = 2;
+nCols = 2;
 for amnt = 1:2
     compareDiffL2List = reshape( compareDiffL2(amnt,:), [1, numel( compareDiffL2(amnt,:) )] );
     compareDiffL2DffList = reshape( compareDiffL2Dff(amnt,:), [1, numel( compareDiffL2Dff(amnt,:) )] );
@@ -135,28 +130,28 @@ subplot(nRows,nCols,1);
 xlabel('L^2 difference');
 ylabel('Number');
 legend( 'Different', 'Wiggled' );
-title(sprintf( 'L^2 metric, %0.0f shapes, small noise', nObjs ) );
+title({sprintf('L^2 metric, %0.0f shapes', nObjs); 'small noise'} );
 
 subplot(nRows,nCols,3);
 xlabel('L^2 difference');
 ylabel('Number');
 legend( 'Different', 'Wiggled' );
-title(sprintf( 'L^2 metric, %0.0f shapes, bigger noise', nObjs ) );
+title({sprintf('L^2 metric, %0.0f shapes', nObjs); 'bigger noise'} );
 
 subplot(nRows,nCols,2);
-xlabel('L^2 difference of differences');
+xlabel('L^2 diff of differences');
 ylabel('Number');
 legend( 'Different', 'Wiggled' );
-title(sprintf( 'L^2 difference metric, %0.0f shapes, small noise', nObjs ) );
+title({sprintf('L^2 difference metric, %0.0f shapes', nObjs); 'small noise'} );
 
 subplot(nRows,nCols,4);
-xlabel('L^2 difference of differences');
+xlabel('L^2 diff of differences');
 ylabel('Number');
 legend( 'Different', 'Wiggled' );
-title(sprintf( 'L^2 difference metric, %0.0f shapes, bigger noise', nObjs ) );
+title({sprintf('L^2 difference metric, %0.0f shapes', nObjs); 'bigger noise'} );
 
-fname = 'Images/WiggleGraphsI.pdf';
-saveGraphics(fname,[580,2080]);
+fname = sprintf('Images/WiggleGraphsI%s.pdf', strTag);
+saveGraphics(fname,[7,7]);
 
 figure(2)
 clf;
@@ -183,7 +178,7 @@ plot( [0, nObjs * (nObjs-1)], [minDiffL2, minDiffL2], '--k' );
 plot( [0, nObjs * (nObjs-1)], [maxDiffL2, maxDiffL2], ':k' );
 set(gca,'XTickLabel',labels)
 rotateXLabels( gca(), 45 );
-ylabel('L^2 difference');
+ylabel('L^2 norm diff');
 title('L^2 norm obj vs obj');
 
 subplot(nRows,nCols,5);
@@ -194,8 +189,8 @@ plot( [0, nObjs], [minDiffL2, minDiffL2], '--k' );
 plot( [0, nObjs], [maxDiffL2, maxDiffL2], ':k' );
 set(gca,'XTickLabel',names)
 rotateXLabels( gca(), 45 );
-ylabel('L^2 difference');
-title('Small');
+ylabel('L^2 Norm diff');
+title({'Small';'noise'});
 
 subplot(nRows,nCols,6);
 hold off;
@@ -203,10 +198,10 @@ boxplot( squeeze( compareWiggleL2(2,:,:) )' );
 hold on;
 plot( [0, nObjs], [minDiffL2, minDiffL2], '--k' );
 plot( [0, nObjs], [maxDiffL2, maxDiffL2], ':k' );
-ylabel('L^2 difference');
+ylabel('L^2 Norm diff');
 set(gca,'XTickLabel',names)
 rotateXLabels( gca(), 45 );
-title('Bigger');
+title({'Bigger';'noise'});
 
 
 %minDiffL2 = min( min( min( compareDiffL2Dff(1,:,:,:) ) ) );
@@ -218,11 +213,10 @@ boxplot( squeeze( compareDiffL2(2,:,:) )' );
 hold on;
 plot( [0, nObjs * (nObjs-1)], [minDiffL2, minDiffL2], '--k' );
 plot( [0, nObjs * (nObjs-1)], [maxDiffL2, maxDiffL2], ':k' );
-ylabel('L^2 difference');
-%ylabel(sprintf('L^2 difference\n of difference'));
+ylabel({'L^2 difference';'of difference'});
 set(gca,'XTickLabel',labels)
 rotateXLabels( gca(), 45 );
-title('Bigger, L^2 norm (objects)');
+title('L^2 difference obj vs obj');
 
 
 subplot(nRows,nCols,7);
@@ -231,9 +225,9 @@ hold on;
 plot( [0, nObjs], [minDiffL2, minDiffL2], '--k' );
 plot( [0, nObjs], [maxDiffL2, maxDiffL2], ':k' );
 set(gca,'XTickLabel',names)
-ylabel(sprintf('L^2 difference\n of difference'));
+ylabel({'L^2 difference'; 'of difference'});
 rotateXLabels( gca(), 45 );
-title('Small noise, L^2 diff norm');
+title({'Small noise'; 'L^2 diff norm'});
 
 subplot(nRows,nCols,8);
 boxplot( squeeze( compareWiggleL2Dff(2,:,:) )' );
@@ -241,10 +235,10 @@ hold on;
 plot( [0, nObjs], [minDiffL2, minDiffL2], '--k' );
 plot( [0, nObjs], [maxDiffL2, maxDiffL2], ':k' );
 set(gca,'XTickLabel',names)
-ylabel(sprintf('L^2 difference\n of difference'));
+ylabel({'L^2 difference'; 'of difference'});
 rotateXLabels( gca(), 45 );
-title('Biger noise, L^2 diff norm');
+title({'Bigger noise'; 'L^2 diff norm'});
 
-fname = 'Images/WiggleGraphsII.pdf';
-saveGraphics(fname,[1080,2080]);
+fname = sprintf('Images/WiggleGraphsII%s.pdf', strTag);
+saveGraphics(fname,[8,8]);
 

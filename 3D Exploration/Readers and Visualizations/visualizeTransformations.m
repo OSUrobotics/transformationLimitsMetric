@@ -29,8 +29,8 @@ function visualizeTransformations( object, subject, grasp, extreme, values2plot,
 %
 %==========================================================================
 %% Load the transformations
-load('transformationStored.mat');
-transformationMatrices = transformationStruct.trajectorySteps;
+load('transformationStoredV2.mat');
+transformationMatrices = transformationStructV2.trajectorySteps;
 %% Get the filenames out
 [objectTransformationFilepath,objectFilepath,surfaceFilepath,handFilepath,outputFPs] = filenamesFromComponents(object,subject,grasp,extreme,1:transformationStruct.numInterpolationSteps);
 %% By default, display all transformation values (Probably will crash if try to save it)
